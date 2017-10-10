@@ -1,0 +1,23 @@
+{
+  "name": "Lifelogger",
+  "version": "0.0.0",
+  "description": "Lifelogger blog transpilation for export",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel scripts -d lib"
+  },
+  "keywords": [
+    "html",
+    "css",
+    "javascript",
+    "bootstrap",
+    "blog"
+  ],
+  "author": "Paul Jhe",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.0"
+  }
+}

@@ -1,0 +1,24 @@
+/* Stylesheet for registration.html */
+
+/* Registration form */
+.registration {
+	margin: 0% 5% 5% 5%;
+	padding: 0 10%;
+}
+
+form {
+    color: rgb(96, 32, 32);
+	background-color: rgba(214, 214, 194, 0.1);
+
+	margin: 10% 10% 5% 10%;
+	border: 2px solid rgba(217, 140, 140, 0.1);
+	border-radius: 15px;
+}
+
+input:focus {
+	outline: solid red;
+}
+
+h1 {
+	text-align: center;
+}

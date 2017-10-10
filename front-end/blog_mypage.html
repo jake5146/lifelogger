@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> [Blog my page] | A Lifelogger </title>
+		<meta charset="UTF-8">
+		<meta name="description" content="Modern style blog">
+    <meta name="keywords" content="blog,lifelog">
+  	<meta name="author" content="Paul Jhe">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Open+Sans" rel="stylesheet">
+    
+    <!-- Boostrap and jQuery: Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- navbar css and js -->
+    <link rel="stylesheet" type="text/css" href="assets/css/nav_settings.css">
+    <script type="text/javascript" src="assets/scripts/nav_settings.js"></script>
+
+    <!-- blog_mypage css and js -->
+    <link rel="stylesheet" type="text/css" href="assets/css/blog_mypage.css">
+    <script type="text/javascript" src="assets/scripts/blog_mypage.js"></script>
+	</head>
+	<body>
+    <!-- navigation bar START -->
+	  <div id="external-navbar">
+		  <nav class="navbar navbar-inverse navbar-fixed-top menu-controller">
+		    <div class="container-fluid">
+		    	<div class="navbar-header">
+		    	  <button type="button" id="menu-up" class="navbar-toggle menu-toggle">
+		    	  	<span class="glyphicon glyphicon-menu-up"></span>
+		    	  </button>
+		    	  <button type="button" id="navbar-toggle" class="navbar-toggle" data-toggle="collapse" data-target="#lifelog-navbar">
+		    	    <span class="icon-bar"></span>
+	        		<span class="icon-bar"></span>
+	        		<span class="icon-bar"></span>
+		    	  </button> <!-- button navbar END -->
+		    		<a class="navbar-brand" href="main.html">
+		    		  <img src="assets/images/feather-icon.png" width="30" height="15" alt="Logo">
+		    		  <span class="header">A Lifelogger</span>
+		    		</a> <!-- navbar-brand END -->
+		    	</div> <!-- navbar header END -->
+		    	<div class="collapse navbar-collapse" id="lifelog-navbar">
+		    	  <ul class="nav navbar-nav">
+		    	  	<li><a id="blog-trip" href="#"><span class="glyphicon glyphicon-apple"></span><span>BlogTrip</span></a></li>
+		    	  </ul>
+			    	<ul class="nav navbar-nav navbar-right">
+			    	  <li class="dropdown">
+			    	    <a id="user-caret" class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span><span class="caret"></span></a>
+			    	    <ul class="dropdown-menu">
+			    	    	<li><a href="#">Profile</a></li>
+			    	    	<li><a href="#">My Friends</a></li>
+			    	    	<li><a href="#">Management</a></li>
+			    	    	<li class="divider"></li>
+			    	    	<li><a href="#">Logout</a></li>
+			    	    </ul>
+			    	  </li>
+			    		<li><a href="#"><span class="glyphicon glyphicon-comment"></span></a></li>
+			    		<li><a href="#"><span class="glyphicon glyphicon-bell"></span></a></li>
+	            <li class="menu-toggle hide-when-collapse"><a href="#"><span class="glyphicon glyphicon-menu-up"></span></a></li>
+			    	</ul>
+			    </div> <!-- collapse navbar END -->
+		    </div> <!-- container-fluid END -->
+		  </nav> 
+		    <!-- menu-down button for showing previously-hidden-navbar -->
+		  <nav class="menu-popper menu-controller">
+		    <ul>
+		      <li class="menu-toggle"><a href="#"><span class="glyphicon glyphicon-menu-down"></span></a></li>
+		    </ul>
+		  </nav>
+		</div>
+		<!-- navigation bar END -->
+
+    <div class="jumbotron">
+      <div class="container-fluid">
+			  <h1 class="blog-title"> My Little Blog </h1>
+        <a class="title-picture" href="#"><span class="glyphicon glyphicon-picture"></span></a>
+			</div> <!-- container-fluid -->
+		</div> <!-- jumbotron -->
+
+    <div class="blog-body">
+	    <div class="info-container container">
+	      <div class="blogger-info row">
+	      	<div class="blogger-picture">
+	      	  <img src="assets/images/blog-default-picture.png" alt="Default Picture">
+	    	  </div> <!-- blogger-picture -->
+	    	  <div class="blogger-description">
+	    	    <button type="button" class="profile btn btn-link">Profile</button>
+	    	    <button type="button" class="edit btn btn-link">Edit</button>
+	    	  </div> <!-- blogger-description -->
+	      </div> <!-- blogger-info -->
+	    </div> <!-- info-container -->
+
+	    <div class="search-container container">
+	    	<div class="sort-and-search row">
+	    	  <div class="sort-block col-sm-3">
+	    	  	<button type="button" class="btn btn-link sort-icon"><span class="glyphicon glyphicon-th-list"></span></button>
+	    	  	<button type="button" class="btn btn-link sort-icon"><span class="glyphicon glyphicon-th"></span></button>
+	    	  </div> 
+
+	        <div class="like-block col-sm-2 pull-right">
+	    	  	<button type="button" class="btn btn-link like-icon"><i class="glyphicon glyphicon-heart"></i></button>
+	    	  	<span class="like-number">0</span>
+	    	  </div>
+	    	  <div class="search-block col-sm-3 pull-right">
+	    	  	<input type="text" class="form-control" name="search" placeholder="search">
+	    	  </div>
+	    	</div> <!-- sort-and-search -->
+	    </div> <!-- search-container --> 
+
+	    <div class="post-container container">
+	      <div class="addpost-button">
+	      	<button type="button" class="open-addpost btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>Add Post</button>
+	      </div>
+	      <div class="default-content">
+	        <p>No lifelog was added in this section yet.</p>
+	        <p>Share your stories here!</p>
+	        <button type="button" class="open-addpost btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>Share my story</button>
+	      </div>
+	    </div>
+	  </div> <!-- blog-body -->
+
+	  <div class="category-nav container">
+	    <div class="category-header">
+	    	<span>Categories</span>
+	    	<span class="pull-right glyphicon glyphicon-triangle-bottom"></span>
+	    </div>
+	    <ul class="nav nav-pills nav-stacked">
+	    	<li class="active"><a href="#">All</a></li>
+	    	<li class="category-edit"><a href="#">Edit</a></li>
+	    </ul>
+	  </div>
+
+	  <div class="impressive-container container">
+	    	<input type="text" placeholder="Impressive sentence" id="impressive-sent" value="A gentle answer turns away wrath, but a harsh word stirs up anger (Proverbs 15:4)">
+	  </div> <!-- impressive-sent -->
+		
+	</body>
+</html>

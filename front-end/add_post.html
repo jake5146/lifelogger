@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Share your stories | A Lifelogger </title>
+		<meta charset="UTF-8">
+		<meta name="description" content="Modern style blog">
+    <meta name="keywords" content="blog,lifelog">
+  	<meta name="author" content="Paul Jhe">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Open+Sans" rel="stylesheet">
+    
+    <!-- Boostrap and jQuery: Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- navbar css and js -->
+    <link rel="stylesheet" type="text/css" href="assets/css/nav_settings.css">
+    <script type="text/javascript" src="assets/scripts/nav_settings.js"></script>
+
+    <!-- blog_mypage css and js -->
+    <link rel="stylesheet" type="text/css" href="assets/css/add_post.css">
+    <script type="text/javascript" src="assets/scripts/add_post.js"></script>
+	</head>
+	<body>
+    <!-- navigation bar START -->
+	  <div id="external-navbar">
+		  <nav class="navbar navbar-inverse navbar-fixed-top menu-controller">
+		    <div class="container-fluid">
+		    	<div class="navbar-header">
+		    	  <button type="button" id="menu-up" class="navbar-toggle menu-toggle">
+		    	  	<span class="glyphicon glyphicon-menu-up"></span>
+		    	  </button>
+		    	  <button type="button" id="navbar-toggle" class="navbar-toggle" data-toggle="collapse" data-target="#lifelog-navbar">
+		    	    <span class="icon-bar"></span>
+	        		<span class="icon-bar"></span>
+	        		<span class="icon-bar"></span>
+		    	  </button> <!-- button navbar END -->
+		    		<a class="navbar-brand" href="main.html">
+		    		  <img src="assets/images/feather-icon.png" width="30" height="15" alt="Logo">
+		    		  <span class="header">A Lifelogger</span>
+		    		</a> <!-- navbar-brand END -->
+		    	</div> <!-- navbar header END -->
+		    	<div class="collapse navbar-collapse" id="lifelog-navbar">
+		    	  <ul class="nav navbar-nav">
+		    	  	<li><a id="blog-trip" href="#"><span class="glyphicon glyphicon-apple"></span><span>BlogTrip</span></a></li>
+		    	  </ul>
+			    	<ul class="nav navbar-nav navbar-right">
+			    	  <li class="dropdown">
+			    	    <a id="user-caret" class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span><span class="caret"></span></a>
+			    	    <ul class="dropdown-menu">
+			    	    	<li><a href="#">Profile</a></li>
+			    	    	<li><a href="#">My Friends</a></li>
+			    	    	<li><a href="#">Management</a></li>
+			    	    	<li class="divider"></li>
+			    	    	<li><a href="#">Logout</a></li>
+			    	    </ul>
+			    	  </li>
+			    		<li><a href="#"><span class="glyphicon glyphicon-comment"></span></a></li>
+			    		<li><a href="#"><span class="glyphicon glyphicon-bell"></span></a></li>
+	            <li class="menu-toggle hide-when-collapse"><a href="#"><span class="glyphicon glyphicon-menu-up"></span></a></li>
+			    	</ul>
+			    </div> <!-- collapse navbar END -->
+		    </div> <!-- container-fluid END -->
+		  </nav> 
+		    <!-- menu-down button for showing previously-hidden-navbar -->
+		  <nav class="menu-popper menu-controller">
+		    <ul>
+		      <li class="menu-toggle"><a href="#"><span class="glyphicon glyphicon-menu-down"></span></a></li>
+		    </ul>
+		  </nav>
+		</div>
+		<!-- navigation bar END -->
+
+	  <div class="form-add-post container">
+	    <div class="close-addbox">
+  		  <span class="close-addpost glyphicon glyphicon-remove"></span>
+      </div> <!-- close-addbox -->
+	  	<div class="form-header">
+	  		<h3>Sharing Box</h3>
+	  	</div> <!-- form-header --> 
+	  	<div class="form-post-title">
+	  		<select class="select-categories form-control">
+	  		  <option value="all">All</option>
+	  		</select> <!-- select-categories -->
+	  		<input type="text" name="post-title" placeholder="title" class="form-control">
+	  	</div> <!-- form-post-title -->
+  	  <div class="text-style-block">
+  	    <div class="font-block">
+	  	  	<select class="form-control change-font">
+	  	  	</select> <!-- change-font -->
+	  	  	<select class="form-control change-fontsize">
+	  	  	</select> <!-- change-fontsize -->
+	  	  </div>
+  	  	<div class="btn-group text-general-style">
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-bold"></button>
+  	  		<button type="button" class="btn btn-default underline-icon"><img src="assets/images/underline.png" alt="underline" width="16" height="16"></button>
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-italic"></button>
+  	  		<button type="button" class="btn btn-default strikethrough-icon"><img src="assets/images/strikethrough.png" alt="strikethrough" width="16" height="16"></button>
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-text-color"></button>
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-text-background"></button>
+  	  	</div> <!-- text-general-style -->
+  	  	<div class="btn-group paragraph-style">
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-align-left"></button>
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-align-center"></button>
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-align-right"></button>
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-align-justify"></button>
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-list"></button>
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-indent-left"></button>
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-indent-right"></button>
+  	  	</div> <!-- paragraph-style -->
+  	  </div> <!-- text-style-block -->
+  	  <div class="content-block">
+  	    <div class="display-block">
+  	      <div class="display-top-margin">
+  	      	<svg width="20" height="20" class="left">
+  	      		<rect/>
+  	      	</svg> <!-- left rectangle for margin indication -->
+  	      	<svg width="20" height="20" class="right">
+  	      		<rect/>
+  	      	</svg> <!-- right rectangle for margin indication -->
+  	      </div> <!-- display-top-margin -->
+	  	    <div class="display-area" contentEditable="true">
+	  	      <!-- post content will be here -->
+	  	    </div> <!-- display-area -->
+	  	  </div>
+  	  	<div class="add-contents-area">
+  	      <span class="add-picture glyphicon glyphicon-picture"></span>
+  	  	</div> <!-- add-contents-area -->
+  	  </div> <!-- content-block -->
+  	  <form id="add-post">
+  	  	  <div id="contents-to-submit"></div>
+  	  	  <input type="submit" value="Submit" class="btn btn-warning">
+  	  	  <button type="button" class="close-addpost btn btn-default">Back</button>
+  	  </form> <!-- add-post form -->
+	  </div> <!-- form-add-post container-->
+		
+	</body>
+</html>
