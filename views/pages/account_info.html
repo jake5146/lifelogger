@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<% include ../partials/header.ejs %>
+	  <% include ../partials/header_nav.ejs %>
+  	
+  </head>
+  <body>
+  	<% include ../partials/nav.ejs %>
+
+  	<div class="container">
+  		<h3>Account Info</h3>
+  		<div class="row">
+  			<div class="col-sm-3 menu">
+  				<ul class="nav nav-pills nav-stacked">
+  					<li><a href="#">Profile</a></li>
+  					<li><a href="#">Friends</a></li>
+  					<li><a href="#">Categories</a></li>
+  					<li><a href="#">Management</a></li>
+  					<li><a href="#">Modify Passwords</a></li>
+  					<li><a href="#">Delete Account</a></li>
+  				</ul> <!-- nav-stacked -->
+  			</div> <!-- menu -->
+        <div class="col-sm-9 info">
+          <div class="profile">
+            <form>
+              <label><b>Name</b></label>
+              <input type="text" name="name" class="form-control" disabled>
+              <label><b>Nickname</b></label>
+              <input type="text" name="nickname" class="form-control" placeholder="Nickname" required disabled>
+              <label><b>Email</b></label>
+              <input type="text" name="email" class="form-control" disabled>
+              <label><b>Gender</b></label>
+              <select name="gender" class="form-control" id="sel1" required disabled>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+              <label><b>Birthday</b></label>
+              <input type="date" name="birthday" class="form-control" placeholder="yyyy-mm-dd" pattern="^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])" required disabled>
+              <label><b>Phone number</b></label>
+              <input type="text" name="phone" class="form-control"  placeholder="Phone number" disabled>
+              <div class="profile-edit">
+                <button class="btn btn-warning" id="profile-edit-btn">Edit</button>
+                <button class="btn btn-default" id="profile-cancel-btn" disabled>Cancel</button> 
+              </div>
+            </form>
+          </div> <!-- profile -->
+          <div class="friends">
+            <input type="text" class="form-control" name="search" placeholder="search friends">
+            <div class="display-friends"></div> <!-- display-friends -->
+          </div> <!-- friends -->
+          <div class="categories">
+            <div class="display-categories">
+              <div class="categories-edit">
+                <button class="btn btn-default" id="add-category-btn"><span class="glyphicon glyphicon-plus"></span>Add Category</button>
+                <button class="btn btn-default" id="add-separator"><span class="glyphicon glyphicon-plus"></span>Add Separator</button>
+                <button class="btn btn-danger" id="delete-category-btn"><span class="glyphicon glyphicon-minus"></span>Delete</button>
+              </div> <!-- categories-edit -->
+            </div> <!-- display-catagories -->
+            <div class="add-category"></div>
+          </div> <!-- categories placeholder -->
+          <div class="management"></div> <!-- management placeholder -->
+          <div class="modify-pass"></div> <!-- modify-pass placeholder -->
+          <div class="delete-account"></div> <!-- delete-account placeholder -->
+        </div> <!-- info -->
+  		</div> <!-- row -->
+  	</div> <!-- container -->
+
+  </body>
+</html>

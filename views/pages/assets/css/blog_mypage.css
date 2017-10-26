@@ -1,0 +1,237 @@
+/* stylesheet for blog_mypage.html */
+
+.blog-body {
+	background-color: rgba(255, 255, 255, 0.8);
+	position: relative;
+	top: 12%;
+	border-top: 2px dotted #8a8a5c;
+	width: 90%;
+	padding-top: 20px;
+	height: 200%;
+	margin: auto;
+	margin-bottom: 150px;
+}
+
+
+
+/* jumbotron (title) style */
+.jumbotron {
+	width: 90%;
+	height: 300px;
+	bottom: 10%;
+	top: 7%;
+	margin: auto;
+	background-color: rgba(255, 255, 255, 0.5);
+	border-radius: 10px;
+	text-align: center;
+
+	border: 1px solid black;
+	position: relative;
+}
+
+.jumbotron .title-picture {
+	position: absolute;
+	font-size: 2rem;
+	color: black;
+	bottom: 10px;
+	right: 20px;
+}
+
+
+
+/* blogger's information block styling */
+.blogger-info > div {
+	display: inline-block;
+	position: relative;
+	margin: auto;
+	vertical-align: top;
+}
+
+.blogger-info .blogger-description, .blogger-info img {
+	background-color: white;
+}
+
+.blogger-picture img {
+	width: 130px;
+	height: 130px;
+	border: 2px solid #8a8a5c;
+	border-radius: 12px;
+	margin-right: 10px;
+}
+
+.blogger-description {
+	border: 2px solid #8a8a5c;
+	border-radius: 3px;
+	width: 40%;
+	height: 130px;
+}
+
+.blogger-description button {
+	position: absolute;
+	font-size: 1.2rem;
+
+}
+
+.blogger-description button.profile {
+	bottom: 5px;
+	right: 50px;
+}
+
+.blogger-description button.edit {
+	bottom: 5px;
+	right: 10px;
+}
+
+button.profile:active, button.profile:focus, button.edit:active, button.edit:focus {
+	outline: 0;
+}
+
+
+
+/* sort and search row styling */
+.search-container {
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+/* sort-icon styling */
+.sort-icon {
+	font-size: 25px;
+	color: black;
+}
+
+.sort-icon:hover {
+    color: #595959;
+    transition: all ease-in-out 0.3s;
+}
+  
+  /* get rid of outline when active, focus (mousedown: will be handled in JS) */
+.sort-icon:active, .sort-icon:focus, .like-icon:active, .like-icon:focus {
+	outline: 0;
+}
+
+.sort-icon:focus {
+	color: #d98c8c;
+}
+
+/* search bar styling */
+input[name="search"]:focus {
+	border-color: crimson;
+}
+
+/* like-icon and number styling */
+.glyphicon-heart {
+	color: crimson;
+	font-size: 40px;
+}
+
+.glyphicon-heart:hover {
+	color: #ff4d4d;
+	transition: all ease-in-out 0.3;
+}
+
+.like-number {
+	font-size: 13px;
+	font-weight: bold;
+	color: #b35900;
+}
+
+/* sort-block styling */
+.sort-block {
+	margin: 4px auto;
+} 
+
+/* search-block styling */
+.search-block {
+    margin: 11px auto;
+}
+
+.addpost-block {
+	margin: 11px 10px;
+}
+
+.like-block {
+	text-align: center;
+}
+
+.search-block, .like-block, .addpost-block {
+	padding: 0;
+}
+
+
+
+/* post-container styling */
+.post-container {
+	border-top: 2px solid #8a8a5c;
+}
+
+/* addpost button styling */
+.addpost-button {
+	margin: 15px 0px;
+	/* display: none; */
+}
+
+
+
+/* default-content styling 
+ * (only pop up when no post is added in certain section; this will be implemented in JS 
+ */
+.default-content {
+	margin: 100px auto;
+	text-align: center;
+	font-weight: bold;
+	font-size: 20px;
+	color: rgb(51, 51, 51);
+}
+
+.default-content button {
+	margin-top: 10px;
+	font-size: 16px;
+}
+
+
+
+/* category-nav styling */
+.category-nav {
+	position: absolute;
+	right: 50px;
+	top: 650px;
+	width: 120px;
+	background-color: white;
+	border: 1px dotted rgba(0, 0, 0, 0.3);
+	padding: 8px 8px;
+}
+
+.category-header {
+	font-weight: bold;
+	padding-bottom: 5px;
+}
+
+/* hide nav-pills initially */
+.nav-pills {
+	display: none;
+}
+
+.category-edit {
+	text-align: right;
+}
+
+
+
+/* impressive-container styling */
+.impressive-container {
+	text-align: center;
+    font-style: italic;
+}
+
+#impressive-sent {
+	background: transparent;
+	width: 50%;
+	border: 0;
+	color: rgba(138, 138, 92, 0.8);
+}
+
+#impressive-sent:focus {
+	border: 0;
+	outline: 0;
+}

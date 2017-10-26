@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Verification Code has been sent | A Lifelogger </title>
+    
+    <% include ../partials/header.ejs %>
+	  <% include ../partials/header_nav.ejs %>
+
+    <!-- verificationSent css  -->
+    <link rel="stylesheet" type="text/css" href="assets/css/verification_sent.css">
+    <script type="text/javascript" src="assets/scripts/verification_sent.js"></script>
+  </head>
+  <body>
+    <% include ../partials/nav.ejs %>
+
+	  <div class="container verify-msg">
+	  	<div class="row">
+	  	  <div class="col-sm-12">
+	  		  <h1> Verification Code has been sent to your email address. </h1>
+	  		</div> <!-- row 1 col 1 -->
+	  	</div> <!-- row 1 -->
+	  	<div class="row">
+	  	  <div class="col-sm-12">
+	  		  <h5> Type the code in the received email to finish a registration process: </h5>
+	  		</div> <!-- row 2 col 1 -->
+	  	</div> <!-- row 2 -->
+	  	<div class="row">
+	  	  <div class="col-sm-12">
+	  	    <span>[#]</span>s remained... 
+	  	  </div> <!-- row 3 col 1 -->
+	  	</div> <!-- row 3 -->
+	  	<!-- form start -->
+	  	<form>
+		  	<div class="row">
+		  		<div class="form-input col-sm-2 col-sm-push-4">
+		  			<input type="text" name="verify-code" class="form-control" placeholder="Type code" required>
+		  		</div> <!-- row 4 col 1 -->
+		  		<div class="form-input col-sm-2 col-sm-push-4">
+		  			<input type="submit" name="verify-submit" class="form-control" value="Verify">
+		  		</div> <!-- row 4 col 2 -->
+		  	</div> <!-- row 4 -->
+		  </form> 
+		  <!-- form end -->
+	  </div> <!-- container -->
+  </body>
+</html>

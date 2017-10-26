@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> [Blog my page] | A Lifelogger </title>
+		
+		<% include ../partials/header.ejs %>
+    <% include ../partials/header_nav.ejs %>
+
+    <!-- blog_mypage css and js -->
+    <link rel="stylesheet" type="text/css" href="assets/css/blog_mypage.css">
+    <script type="text/javascript" src="assets/scripts/blog_mypage.js"></script>
+	</head>
+	<body>
+    <% include ../partials/nav.ejs %>
+
+    <div class="jumbotron">
+      <div class="container-fluid">
+			  <h1 class="blog-title"> My Little Blog </h1>
+        <a class="title-picture" href="#"><span class="glyphicon glyphicon-picture"></span></a>
+			</div> <!-- container-fluid -->
+		</div> <!-- jumbotron -->
+
+    <div class="blog-body">
+	    <div class="info-container container">
+	      <div class="blogger-info row">
+	      	<div class="blogger-picture">
+	      	  <img src="assets/images/blog-default-picture.png" alt="Default Picture">
+	    	  </div> <!-- blogger-picture -->
+	    	  <div class="blogger-description">
+	    	    <button type="button" class="profile btn btn-link">Profile</button>
+	    	    <button type="button" class="edit btn btn-link">Edit</button>
+	    	  </div> <!-- blogger-description -->
+	      </div> <!-- blogger-info -->
+	    </div> <!-- info-container -->
+
+	    <div class="search-container container">
+	    	<div class="sort-and-search row">
+	    	  <div class="sort-block col-sm-3">
+	    	  	<button type="button" class="btn btn-link sort-icon"><span class="glyphicon glyphicon-th-list"></span></button>
+	    	  	<button type="button" class="btn btn-link sort-icon"><span class="glyphicon glyphicon-th"></span></button>
+	    	  </div> 
+
+	        <div class="like-block col-sm-2 pull-right">
+	    	  	<button type="button" class="btn btn-link like-icon"><i class="glyphicon glyphicon-heart"></i></button>
+	    	  	<span class="like-number">0</span>
+	    	  </div>
+	    	  <div class="search-block col-sm-3 pull-right">
+	    	  	<input type="text" class="form-control" name="search" placeholder="search">
+	    	  </div>
+	    	</div> <!-- sort-and-search -->
+	    </div> <!-- search-container --> 
+
+	    <div class="post-container container">
+	      <div class="addpost-button">
+	      	<button type="button" class="open-addpost btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>Add Post</button>
+	      </div>
+	      <div class="default-content">
+	        <p>No lifelog was added in this section yet.</p>
+	        <p>Share your stories here!</p>
+	        <button type="button" class="open-addpost btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>Share my story</button>
+	      </div>
+	    </div>
+	  </div> <!-- blog-body -->
+
+	  <div class="category-nav container">
+	    <div class="category-header">
+	    	<span>Categories</span>
+	    	<span class="pull-right glyphicon glyphicon-triangle-bottom"></span>
+	    </div>
+	    <ul class="nav nav-pills nav-stacked">
+	    	<li class="active"><a href="#">All</a></li>
+	    	<li class="category-edit"><a href="#">Edit</a></li>
+	    </ul>
+	  </div>
+
+	  <div class="impressive-container container">
+	    	<input type="text" placeholder="Impressive sentence" id="impressive-sent" value="A gentle answer turns away wrath, but a harsh word stirs up anger (Proverbs 15:4)">
+	  </div> <!-- impressive-sent -->
+		
+	</body>
+</html>

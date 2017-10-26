@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Share your stories | A Lifelogger </title>
+		
+		<% include ../partials/header.ejs %>
+	  <% include ../partials/header_nav.ejs %>
+
+    <!-- blog_mypage css and js -->
+    <link rel="stylesheet" type="text/css" href="assets/css/add_post.css">
+    <script type="text/javascript" src="assets/scripts/add_post.js"></script>
+	</head>
+	<body>
+    <% include ../partials/nav.ejs %>
+
+	  <div class="form-add-post container">
+	    <div class="close-addbox">
+  		  <span class="close-addpost glyphicon glyphicon-remove"></span>
+      </div> <!-- close-addbox -->
+	  	<div class="form-header">
+	  		<h3>Sharing Box</h3>
+	  	</div> <!-- form-header --> 
+	  	<div class="form-post-title">
+	  		<select class="select-categories form-control">
+	  		  <option value="all">All</option>
+	  		</select> <!-- select-categories -->
+	  		<input type="text" name="post-title" placeholder="title" class="form-control">
+	  	</div> <!-- form-post-title -->
+  	  <div class="text-style-block">
+  	    <div class="font-block">
+	  	  	<select class="form-control change-font">
+	  	  	</select> <!-- change-font -->
+	  	  	<select class="form-control change-fontsize">
+	  	  	</select> <!-- change-fontsize -->
+	  	  </div>
+  	  	<div class="btn-group text-general-style">
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-bold"></button>
+  	  		<button type="button" class="btn btn-default underline-icon"><img src="assets/images/underline.png" alt="underline" width="16" height="16"></button>
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-italic"></button>
+  	  		<button type="button" class="btn btn-default strikethrough-icon"><img src="assets/images/strikethrough.png" alt="strikethrough" width="16" height="16"></button>
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-text-color"></button>
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-text-background"></button>
+  	  	</div> <!-- text-general-style -->
+  	  	<div class="btn-group paragraph-style">
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-align-left"></button>
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-align-center"></button>
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-align-right"></button>
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-align-justify"></button>
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-list"></button>
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-indent-left"></button>
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-indent-right"></button>
+  	  	</div> <!-- paragraph-style -->
+  	  </div> <!-- text-style-block -->
+  	  <div class="content-block">
+  	    <div class="display-block">
+  	      <div class="display-top-margin">
+  	      	<svg width="20" height="20" class="left">
+  	      		<rect/>
+  	      	</svg> <!-- left rectangle for margin indication -->
+  	      	<svg width="20" height="20" class="right">
+  	      		<rect/>
+  	      	</svg> <!-- right rectangle for margin indication -->
+  	      </div> <!-- display-top-margin -->
+	  	    <div class="display-area" contentEditable="true">
+	  	      <!-- post content will be here -->
+	  	    </div> <!-- display-area -->
+	  	  </div>
+  	  	<div class="add-contents-area">
+  	      <span class="add-picture glyphicon glyphicon-picture"></span>
+  	  	</div> <!-- add-contents-area -->
+  	  </div> <!-- content-block -->
+  	  <form id="add-post">
+  	  	  <div id="contents-to-submit"></div>
+  	  	  <input type="submit" value="Submit" class="btn btn-warning">
+  	  	  <button type="button" class="close-addpost btn btn-default">Back</button>
+  	  </form> <!-- add-post form -->
+	  </div> <!-- form-add-post container-->
+		
+	</body>
+</html>

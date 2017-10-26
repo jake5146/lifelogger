@@ -1,0 +1,25 @@
+/* Stylesheet for verification_sent.html */
+.verify-msg {
+	margin: 10% auto;
+	text-align: center;
+}
+
+.form-input {
+	padding: 2px;
+	padding-top: 5px;
+}
+
+input[name="verify-code"]:focus {
+	border-color: #40262f;
+}
+
+input[name="verify-submit"] {
+	color: white;
+	background-color: #c69fac;
+}
+
+input[name="verify-submit"]:hover {
+	background-color: #40262f;
+	-webkit-transition: all ease-in-out 0.2s;
+	transition: all ease-in-out 0.2s;
+}

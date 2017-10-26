@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<title> A Lifelogger: Share your story, share your life </title>
+
+    <% include ../partials/header.ejs %>
+	  <% include ../partials/header_nav.ejs %>
+    
+    <!-- main.css and main.js & main_ajax.js -->
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+    <script type="text/javascript" src="assets/scripts/main.js"></script>
+    <script type="text/javascript" src="assets/scripts/main_ajax.js"></script>
+  </head>
+  <body>
+	  <div class="container">
+	    <div class="row main">
+	      <div class="col-sm-8 col-sm-push-2 header">
+	        <img src="assets/images/feather-icon.png" width="50" height="25" alt="Logo">
+		  		<h1>Welcome to A Lifelogger</h1>
+		  		<br />
+		  		<h3>Share your story, share your life</h3>
+		  	</div> <!-- class col-xs-12 end -->
+    	</div> <!-- 1st row end -->
+    </div> <!-- container 1 end -->
+    <div class="container">
+    	<div class="login-block">
+    	  <img src="assets/images/ic_clear_black_24px.svg" width="25" height="25" alt="clear">
+	    	<div class="row">
+	    		<div class="col-sm-6 col-sm-push-3 logo-block">
+	    			<img src="assets/images/feather-icon.png" width="50" height="25" alt="Logo">
+	    			Lifelogger
+	    		</div>
+	    	</div> <!-- 2nd row end -->
+	    	<form id="email-login-form" action="/email-login" method="post">
+		      <div class="row">
+		      	<div class="col-xs-10 col-xs-push-1 col-sm-6 col-sm-push-3">
+		      	  <label for="email">Email</label>
+		    			<input type="email" class="form-control" name="email" placeholder="Type your email" required>
+		    		</div>
+		      </div> <!-- 3rd row end -->
+		      <div class="row">
+		      	<div class="col-xs-10 col-xs-push-1 col-sm-6 col-sm-push-3">
+		      	  <label for="password">Password</label>
+		    			<input type="password" class="form-control" name="password" placeholder="Type your password" required>
+						  <br />
+		    		</div>
+		      </div> <!-- 4th row end -->
+		      <div class="row">
+		      	<div class="col-xs-10 col-xs-push-1 col-sm-6 col-sm-push-3">
+		    			<input type="submit" class="form-control" value="Login">
+		    		</div>
+		      </div> <!-- 5th row end -->
+		    </form> <!-- form end -->
+	      <div class="row">
+	      	<div class="register col-sm-6 col-sm-push-3">
+	    			<a class="btn btn-link" role="button" href="registration.html"> Not a logger yet? Register here </a>
+	    		</div>
+	      </div> <!-- 6th row end -->
+	      <br />
+	      <div class="social-login row">
+		      <div class="col-xs-8 col-xs-push-2 col-sm-4 col-sm-push-4 btn-group-vertical">
+		    		<button class="btn btn-primary">
+			        <img src="assets/images/facebook.png" width="22" height="22">
+				      Facebook Login
+				    </button>
+		    		<button class="btn btn-danger"> 
+		    			<img src="assets/images/logo_gmail_128px.png" width="24" height="22">
+		    			Gmail Login 
+		    		</button>
+		    		<button class="btn btn-info"> 
+		    			<img src="assets/images/twitter-logo-silhouette.png" width="22" height="22">
+		    			Twitter Login 
+		    		</button>
+			    </div> <!-- btn group vertical end -->
+			  </div> <!-- 7th row end -->
+			  <p class="or">&nbsp or &nbsp</p>
+	      <div class="row">
+	      	<div class="col-xs-8 col-xs-push-2 col-sm-4 col-sm-push-4">
+	    			<button class="btn btn-block"> Enter as a guest </button>
+	    		</div>
+	      </div> <!-- 8th row end -->
+	      <div class="row" id="error-msg"> <!-- placeholder for error message -->
+	      </div> <!-- 9th row end -->
+	    </div> <!-- class login-block -->
+	  </div> <!-- container 2 end -->
+	  <div class="container">
+      <div class="row">
+      	<div class="col-xs-6 col-xs-push-3 click-here">
+    			<button class="btn-link click-btn"> Click here </button>
+    		</div>
+      </div> <!-- 9th row end -->
+	  </div> <!-- container 3 end -->
+  </body>
+</html>
