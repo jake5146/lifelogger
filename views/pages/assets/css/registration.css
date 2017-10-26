@@ -22,3 +22,17 @@ input:focus {
 h1 {
 	text-align: center;
 }
+
+/* error-msg styling */
+#error-msg {
+    display: none;
+	margin-bottom: 2%;
+	border: 1px solid white;
+	border-radius: 5px;
+	background-color: rgba(204, 0, 0, 0.6);
+	margin-left: 25%;
+	margin-right: 25%;
+	padding: 10px 0px;
+	color: white;
+	text-align: center;
+}

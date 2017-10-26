@@ -7,8 +7,6 @@ var database 	=	require("./database_handler");
 var sess_info 	=	require("./sess_info")
 var app 		= 	express();
 
-var webDir = __dirname + "/../front-end";
-
 app.use(express.static(__dirname + "/views/pages", {extensions: ['html']}));
 
 // views is directory for all template files

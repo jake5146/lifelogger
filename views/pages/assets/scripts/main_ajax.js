@@ -37,8 +37,7 @@ function submitLoginForm(e) {
     		//hide error message initially.
     		var $errorMsg = $("#error-msg");
 		    $errorMsg.hide();
-
-    		alert(res[0].loginCode);
+            
     		//assign to object of res.
     		var loginRes = res[0];
 

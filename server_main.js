@@ -9,7 +9,7 @@ var sess;
 function slashGet(req, res) {
 	sess = req.session;
 	if (sess.email) {
-		res.render("pages/blog_mypage.html");
+		res.redirect("/mypage")
 	} else {
 		res.render("pages/main.html");
 	}
