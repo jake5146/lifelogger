@@ -1,6 +1,9 @@
 // javascript for registration.html
 $(document).ready(function() {
+    hideLoader();
+
 	$("form#register-form").submit(function(e) {
+        showLoader();
 		submitRegisterForm(e);
 	});
 });
@@ -34,28 +37,31 @@ function submitRegisterForm(e) {
 
     		var registerRes = res[0];
 
-    		// four cases:
-    		// 1. Query Error,             2. email already exists, 
-    		// 3. nickname already exists  4. Registration succeeds.
-    		var errTxt = "";
-    		//Database query fails. Asks user to try again.
-    		if (registerRes.msg) {
-    			errTxt = "Invalid email or password. Please try again.";
-    			$errorMsg.show();
-    		// email already exists in the server. Ask user to try again.
-    		} else if (registerRes.emailExist) {
-    			errTxt = "Email aleady exists in the server. Please try again."
-    			$errorMsg.show();
-    		// nickname already exists in the server. Ask user to try again.
-    		} else if (registerRes.nickExist) {
-    			errTxt = "Nickname aleady exists in the server. Please try again."
-    			$errorMsg.show();
-    	    // registration succeeds
-    	    // (registerRes.registerCode === 1)
-    		} else {
-    			window.location.href = "/mypage";
-    		}
-    		$errorMsg.text(errTxt);
+            // four cases:
+            // 1. Query Error/nodemailer error    2. email already exists, 
+            // 3. nickname already exists         4. Verification code sent
+            var errTxt = "";
+            //Database query fails. Asks user to try again.
+            if (registerRes.msg) {
+                errTxt = "Sorry, error occurs during the process. Please try again.";
+                $errorMsg.show();
+                hideLoader();
+            // email already exists in the server. Ask user to try again.
+            } else if (registerRes.emailExist) {
+                errTxt = "Email aleady exists in the server. Please try again."
+                $errorMsg.show();
+                hideLoader();
+            // nickname already exists in the server. Ask user to try again.
+            } else if (registerRes.nickExist) {
+                errTxt = "Nickname aleady exists in the server. Please try again."
+                $errorMsg.show();
+                hideLoader();
+            } else { //registerRes.verifSent == 1
+                // go to verification page
+                console.log("--registerRes.verifSent==1--");
+                window.location.href = "/verification";
+            }
+            $errorMsg.text(errTxt);
     	},
     	error(jqXHR, status, errorThrown) {
     		console.log(jqXHR);
@@ -118,4 +124,14 @@ function registerFormOrganizer() {
     registerFormJson.push(infos);
     
     return registerFormJson;
+}
+
+function showLoader() {
+    $(".registration").css("opacity", 0.5);
+    $(".loader").show();
+}
+
+function hideLoader() {
+    $(".registration").css("opacity", 1);
+    $(".loader").hide();
 }

@@ -8,7 +8,7 @@
 
     <!-- verificationSent css  -->
     <link rel="stylesheet" type="text/css" href="assets/css/verification_sent.css">
-    <script type="text/javascript" src="assets/scripts/verification_sent.js"></script>
+    <script type="text/javascript" src="assets/scripts/verification_sent_ajax.js"></script>
   </head>
   <body>
     <% include ../partials/nav.ejs %>
@@ -26,14 +26,15 @@
 	  	</div> <!-- row 2 -->
 	  	<div class="row">
 	  	  <div class="col-sm-12">
-	  	    <span>[#]</span>s remained... 
+	  	    <span id="time"></span>
+	  	    <span id="time-txt"> remained...</span> 
 	  	  </div> <!-- row 3 col 1 -->
 	  	</div> <!-- row 3 -->
 	  	<!-- form start -->
-	  	<form>
+	  	<form id="verif-code-form" action="/verif-code-submit" method="post">
 		  	<div class="row">
 		  		<div class="form-input col-sm-2 col-sm-push-4">
-		  			<input type="text" name="verify-code" class="form-control" placeholder="Type code" required>
+		  			<input type="text" name="verify-code" class="form-control" placeholder="Type code" pattern="\d{6}" required>
 		  		</div> <!-- row 4 col 1 -->
 		  		<div class="form-input col-sm-2 col-sm-push-4">
 		  			<input type="submit" name="verify-submit" class="form-control" value="Verify">
@@ -41,6 +42,8 @@
 		  	</div> <!-- row 4 -->
 		  </form> 
 		  <!-- form end -->
+		  <div class="row" id="error-msg">
+		  </div> <!-- row 5 end -->
 	  </div> <!-- container -->
   </body>
 </html>

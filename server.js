@@ -60,13 +60,7 @@ app.get("/logout", function(req, res) {
 
   //show user's menus (msg, alarm, profile..etc) iff user is logged in
 app.get("/check-user-login", function(req, res) {
-    var jsonToSend = [];
-    var tempSess = req.session;
-    //define content-type to avoid XHL parsing error in FireFox
-    res.setHeader("Content-Type", "application/json");
-    jsonToSend.push(tempSess);
-    //send session in JSON form
-	res.end(JSON.stringify(jsonToSend));
+    sendSession(req, res);
 });
 
 // ~~~~ REQUEST HANDLER FOR NAVBAR ~~~~ (ABOVE) //
@@ -87,12 +81,49 @@ app.post("/submit-register-form", function(req, res) {
 	res.setHeader("Content-Type", "application/json");
 
     //call verify email first (next step's fcn is nested inside of this fcn.)
+	server_register.verify(req, res);
+});
+
+app.get("/verification", function(req, res) {
+	//res.render("pages/verification_sent.html");
+	//sendSession(req, res);
+    res.render("pages/verification_sent.html");
+});
+
+app.get("/verify-code", function(req, res) {
+	console.log("--inside of render(verification_sent)--");
+	var jsonToSend = [];
+    var tempSess = req.session;
+    //define content-type to avoid XHL parsing error in FireFox
+    res.setHeader("Content-Type", "application/json");
+    jsonToSend.push(tempSess);
+    //send session in JSON form
+    res.end(JSON.stringify(jsonToSend));
+});
+
+app.post("/verif-code-submit", function(req, res) {
 	server_register.register(req, res);
+});
+
+app.get("/verif-code-destroy", function(req, res) {
+	req.session.destroy(function(err) {
+		var json = [];
+		var jsonObj = {};
+		if (err) {
+			console.log(err);
+			jsonObj.msg = err;
+		} else {
+			jsonObj.destroyed = 1;
+		}
+		res.setHeader("Content-Type", "application/json");
+		json.push(jsonObj);
+		res.end(JSON.stringify(json));
+	});
 });
 
 // ~~~~ REQUEST HANDLER FOR REGISTRATION ~~~~ (ABOVE) //
 
-
+ 
 // ~~~~ REQUEST HANDLER FOR MY PAGE ~~~~ (BELOW) //
 
 app.get("/mypage", function(req, res) {
@@ -133,6 +164,22 @@ app.get("/acc-delete-account", function(req, res) {
 
 
 // ~~~~ REQUEST HANDLER FOR ACCOUNT INFO ~~~~ (ABOVE) //
+
+
+
+// ~~~~ COMMON FUNCTION ~~~~ (BELOW) //
+
+function sendSession(req, res) {
+	var jsonToSend = [];
+    var tempSess = req.session;
+    //define content-type to avoid XHL parsing error in FireFox
+    res.setHeader("Content-Type", "application/json");
+    jsonToSend.push(tempSess);
+    //send session in JSON form
+	res.end(JSON.stringify(jsonToSend));
+}
+
+// ~~~~ COMMON FUNCTION ~~~~ (ABOVE) //
 
 
 // open localhost server at port 3100.

@@ -1,0 +1,58 @@
+/* email_veirfication_code.ejs styling */
+
+body {
+	font-family: 'Open Sans', sans-serif;
+}
+
+#verif-body, .verif-top, .verif-footer {
+	border: 1px solid #94b8b8;
+	width: 80%;
+	height: 80%;
+	margin: 0 10%;
+	text-align: center;
+}
+
+.verif-top {
+	background-color: #94b8b8;
+	height: 50px;
+	margin-top: 5%;
+}
+
+#verif-body {
+	padding: 5% 0;
+}
+
+.logo-block {
+	color: #d98c8c;
+	font-weight: bold
+}
+
+#verif-body > h3 {
+	font-size: 3rem;
+	margin: 0;
+	margin-top: 3%;
+}
+
+.verif-code {
+	font-size: 2rem;
+	border: 1px solid #94b8b8;
+	border-radius: 10px;
+	width: 50%;
+	margin: 0 25%;
+	margin-bottom: 5%;
+	padding: 5% 0;
+}
+
+.verif-code > h4 {
+	margin: 0;
+	margin-bottom: 5%;
+	color: lightblue;
+}
+
+.verif-footer {
+	background-color: #94b8b8;
+	height: 50px;
+	margin-bottom: 5%;
+	padding-top: 1.5%;
+	color: #3d5c5c;
+}

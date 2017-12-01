@@ -51,10 +51,10 @@ CREATE TABLE Users_test
 );
 
 INSERT INTO Users_test (email, password, first_name, last_name, gender, birthday, nick_name) 
-				values("test1@test.com", "12345", "paul", "jhe", "male", "930101", "paaaaulu");
+				values("test1@test.com", "123456", "paul", "jhe", "male", "930101", "paaaaulu");
 INSERT INTO Users_test (email, password, first_name, last_name, gender, birthday, nick_name) 
-				values("test2@test.com", "12345", "jamie", "lee", "female", "940404", "jam");
+				values("test2@test.com", "123456", "jamie", "lee", "female", "940404", "jam");
 INSERT INTO Users_test (email, password, first_name, last_name, gender, birthday, nick_name) 
-				values("test3@test.com", "12345", "daniel", "kim", "male", "000707", "dan");
+				values("test3@test.com", "123456", "daniel", "kim", "male", "000707", "dan");
 INSERT INTO Users_test (email, password, first_name, last_name, gender, birthday, nick_name, middle_name) 
-				values("test4@test.com", "12345", "rora", "lim", "female", "980613", "ro", "AG");
+				values("test4@test.com", "123456", "rora", "lim", "female", "980613", "ro", "AG");

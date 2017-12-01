@@ -1,6 +1,13 @@
 //AJAX request handler (server code for registration)
-var database 	=	require("./database_handler");
-var bcrypt		=	require("bcrypt");
+var database 		=	require("./database_handler");
+var nodemailInfo	=	require("./nodemailer_info");
+var helper 			=	require("./helper_functions");
+var bcrypt			=	require("bcrypt-nodejs");
+var nodemailer 		=	require("nodemailer");
+var EmailTemplate	=	require("email-templates");
+var juice 			= 	require("juice");
+var ejs				=	require("ejs");
+var path 			= 	require("path");
 
 // verifierJson will indicate uniqueness of requested email and nickname
 var verifierJson = {};
@@ -28,7 +35,7 @@ function verifyNick(req, res) {
 		var infos = req.body[0];
 
 		var queryVerifyNick = "SELECT nick_name FROM Users_test WHERE nick_name = ?";
-		database.query(req, res, queryVerifyNick, [infos.nick_name], verifyUnique, verifyAndRegister);
+		database.query(req, res, queryVerifyNick, [infos.nick_name], verifyUnique, processCodeVerification);
 	} else {
 		var resultJson = [];
 		resultJson.push(verifierJson);
@@ -39,28 +46,29 @@ function verifyNick(req, res) {
 
 
 // Helper function to complete registration.
-function verifyAndRegister(req, res) {
+function processCodeVerification(req, res) {
 	// Check if nickExist is true, and if true, then send it to client.
 	// Otherwise, finish registration by INSERT INTO.
 	if (!verifierJson.nickExist) {
-		var infos = req.body[0];
+		sendVerifyCode(req, res);
+		// var infos = req.body[0];
 
-		console.log("unique");
-		var query = "INSERT INTO Users_test (email, password, first_name, middle_name," + 
-	            " last_name, birthday, gender, nick_name, phone_number) " +
-	            "VALUES ?";
+		// console.log("unique");
+		// var query = "INSERT INTO Users_test (email, password, first_name, middle_name," + 
+	 //            " last_name, birthday, gender, nick_name, phone_number) " +
+	 //            "VALUES ?";
 
-		bcrypt.hash(infos.password, 10, function(err, hash) {
-			if (err) {
-				console.log(err);
-			} else {
-				var vals = [
-						[infos.email, hash, infos.first_name, infos.middle_name, infos.last_name,
-						infos.birthday, infos.gender, infos.nick_name, infos.phone_number]
-					];
-				database.query(req, res, query, [vals], registerPostHandler, function(){});
-			}
-		});
+		// bcrypt.hash(infos.password, 10, function(err, hash) {
+		// 	if (err) {
+		// 		console.log(err);
+		// 	} else {
+		// 		var vals = [
+		// 				[infos.email, hash, infos.first_name, infos.middle_name, infos.last_name,
+		// 				infos.birthday, infos.gender, infos.nick_name, infos.phone_number]
+		// 			];
+		// 		database.query(req, res, query, [vals], registerPostHandler, function(){});
+		// 	}
+		// });
 	} else {
 		var resultJson = [];
 		resultJson.push(verifierJson);
@@ -91,9 +99,129 @@ function verifyUnique(err, rows, req, res, callback) {
 			verifierJson.emailExist = false;
 			verifierJson.nickExist = false;
 		}
-		// call callback function to execute verifyNick/verifyAndRegister.
+		// call callback function to execute verifyEmail/verifyNick
 		callback(req, res);
 	}
+}
+
+function sendVerifyCode(req, res) {
+	console.log("--sendVerifyCode--");
+    var resultJson = [];
+	var jsonObj = {};
+
+	var transporter = nodemailer.createTransport({
+		pool: nodemailInfo.pool,
+		host: nodemailInfo.host,
+		port: nodemailInfo.port,
+		secure: nodemailInfo.secure,
+		auth: nodemailInfo.auth
+	});
+
+	var emailPath = path.join(__dirname, "templates", "email_verification_code.ejs");
+    
+    var infos = req.body[0];
+	var rand_code = Math.floor(Math.random() * 1000000) + "" //random code of 6 digits
+
+    while (rand_code.length < 6) {
+    	rand_code = "0" + rand_code;
+    }
+
+    var data = {
+		name: 		infos.nick_name,
+		code: 		rand_code
+    };
+
+    ejs.renderFile(emailPath, data, {}, function(ejsErr, html) {
+    	if (ejsErr) {
+    		console.log(ejsErr);
+    		jsonObj.msg = ejsErr;
+    		resultJson.push(jsonObj);
+		    res.end(JSON.stringify(resultJson));
+    	} else {
+    		var juiceOpt = {
+    			webResources: {
+    				relativeTo: path.join(__dirname, "templates")
+    		    }
+    		};
+    		juice.juiceResources(html, juiceOpt, function(juiceErr, inlineHtml) {
+    			if (juiceErr) {
+    				console.log(juiceErr);
+    				jsonObj.msg = juiceErr;
+    				resultJson.push(jsonObj);
+		            res.end(JSON.stringify(resultJson));
+    			} else {
+    				var subj = "Hi, " + infos.nick_name + ". Here is your " +
+    				           "verification code. | A Lifelogger";
+    				var mailOptions = {
+    					from: nodemailInfo.auth.user,
+    					to: infos.email,
+    					subject: subj,
+    					html: inlineHtml
+    				};
+
+    				transporter.sendMail(mailOptions, function(mailErr, info) {
+    					if (mailErr) {
+    						console.log(mailErr);
+    						jsonObj.msg = mailErr;
+    						resultJson.push(jsonObj);
+		                	res.end(JSON.stringify(resultJson));
+    					} else {
+    						console.log(info);
+    						console.log("--------------");
+							bcrypt.hash(infos.password, null, null, function(hashErr, hash) {
+								console.log("inside of bcrypt.hash~~~");
+								if (hashErr) {
+									console.log(hashErr);
+									jsonObj.msg = hashErr;
+								} else {
+									var registerInfo = helper.clone(infos);
+									registerInfo.password = hash;
+
+									jsonObj.verifSent = 1;
+									sess = req.session;
+									sess.code = rand_code;
+									sess.infos = registerInfo;
+								}
+								console.log("before res.end");
+								resultJson.push(jsonObj);
+		                	    res.end(JSON.stringify(resultJson));
+							});
+    					}
+    				});
+
+    			}
+    		});
+    	}
+    });
+}
+
+
+function finishRegistration(req, res) {
+	var infos = req.body[0];
+
+	var query = "INSERT INTO Users_test (email, password, first_name, middle_name," + 
+            " last_name, birthday, gender, nick_name, phone_number) " +
+            "VALUES ?";
+
+	// bcrypt.hash(infos.password, 10, function(err, hash) {
+	// 	if (err) {
+	// 		console.log(err);
+	// 	} else {
+	// 		var vals = [
+	// 				[infos.email, hash, infos.first_name, infos.middle_name, infos.last_name,
+	// 				infos.birthday, infos.gender, infos.nick_name, infos.phone_number]
+	// 			];
+	// 		database.query(req, res, query, [vals], registerPostHandler, function(){});
+	// 	}
+	// });
+
+	var vals = [
+			[infos.email, infos.password, infos.first_name, infos.middle_name, infos.last_name,
+			infos.birthday, infos.gender, infos.nick_name, infos.phone_number]
+		];
+	database.query(req, res, query, [vals], registerPostHandler, function(){});
+
+
 }
 
 // Registration POST ajax request handler.
@@ -104,18 +232,19 @@ function registerPostHandler(err, rows, req, res) {
 	var jsonObj = {};
 
 	if (err) {
-		var errorMsg = "Error: " + err;
-		jsonObj.msg = errorMsg;
+		jsonObj.msg = err;
 	} else {
 		sess = req.session;
 		sess.email = req.body[0].email;
 		jsonObj.registerCode = 1; //registration succeeds
 	}
+	res.setHeader("Content-Type", "application/json");
 	resultJson.push(jsonObj);
 	res.end(JSON.stringify(resultJson));
 }
 
 
 module.exports = {
-	register: verifyEmail  
+	verify 	: verifyEmail,
+	register: finishRegistration
 }

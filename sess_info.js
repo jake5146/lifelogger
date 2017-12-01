@@ -4,7 +4,7 @@
 var week = 7 * 24 * 60 * 60 * 1000;
 
 //@@test purpose@@
-var testAge = 120 * 1000;
+var testAge = 10 * 60 * 1000;
 //@@            @@
 
 module.exports = {

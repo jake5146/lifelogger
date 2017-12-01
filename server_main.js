@@ -1,6 +1,6 @@
 //AJAX request handler function for main.html page
 var path 		= 	require("path");
-var bcrypt		=	require("bcrypt");
+var bcrypt		=	require("bcrypt-nodejs");
 var database 	=	require("./database_handler");
 
 var sess;

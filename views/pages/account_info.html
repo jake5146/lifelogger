@@ -3,6 +3,8 @@
   <head>
   	<% include ../partials/header.ejs %>
 	  <% include ../partials/header_nav.ejs %>
+
+    <script type="text/javascript" src="assets/scripts/account_info.js"></script>
   	
   </head>
   <body>
@@ -13,17 +15,18 @@
   		<div class="row">
   			<div class="col-sm-3 menu">
   				<ul class="nav nav-pills nav-stacked">
-  					<li><a href="#">Profile</a></li>
-  					<li><a href="#">Friends</a></li>
-  					<li><a href="#">Categories</a></li>
-  					<li><a href="#">Management</a></li>
-  					<li><a href="#">Modify Passwords</a></li>
-  					<li><a href="#">Delete Account</a></li>
+  					<li id="profile-menu"><a href="#">Profile</a></li>
+  					<li id="friends-menu"><a href="#">Friends</a></li>
+  					<li id="category-menu"><a href="#">Categories</a></li>
+  					<li id="manage-menu"><a href="#">Management</a></li>
+  					<li id="mod-pass-menu"><a href="#">Modify Passwords</a></li>
+  					<li id="del-acc-menu"><a href="#">Delete Account</a></li>
   				</ul> <!-- nav-stacked -->
   			</div> <!-- menu -->
         <div class="col-sm-9 info">
           <div class="profile">
-            <form>
+            <form id="profile-form">
+              <h4> Personal Info </h4>
               <label><b>Name</b></label>
               <input type="text" name="name" class="form-control" disabled>
               <label><b>Nickname</b></label>
@@ -39,16 +42,30 @@
               <input type="date" name="birthday" class="form-control" placeholder="yyyy-mm-dd" pattern="^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])" required disabled>
               <label><b>Phone number</b></label>
               <input type="text" name="phone" class="form-control"  placeholder="Phone number" disabled>
+              
+              <br /> <!--@@@@ put  horizontal line here -->
+
+              <label> Profile Picture </label>
+              <input type="file" name="profile-pic" accept="images/*" disabled>
+              <!-- upload pp (profile picture) button below -->
+              <br />
+              <label> About </label>
+              <textarea id="about" class="form-control" disabled></textarea>
+
               <div class="profile-edit">
                 <button class="btn btn-warning" id="profile-edit-btn">Edit</button>
-                <button class="btn btn-default" id="profile-cancel-btn" disabled>Cancel</button> 
+                <button class="btn btn-default" id="profile-cancel-btn" disabled>Cancel</button>
               </div>
-            </form>
+            </form> <!-- profile-form -->
+            <div class="msg-profile">
+            </div> <!-- msg-profile (for error / notification message) -->
           </div> <!-- profile -->
+
           <div class="friends">
             <input type="text" class="form-control" name="search" placeholder="search friends">
             <div class="display-friends"></div> <!-- display-friends -->
           </div> <!-- friends -->
+
           <div class="categories">
             <div class="display-categories">
               <div class="categories-edit">
@@ -56,12 +73,76 @@
                 <button class="btn btn-default" id="add-separator"><span class="glyphicon glyphicon-plus"></span>Add Separator</button>
                 <button class="btn btn-danger" id="delete-category-btn"><span class="glyphicon glyphicon-minus"></span>Delete</button>
               </div> <!-- categories-edit -->
+              <div class="display-block">
+              </div> <!-- display block -->
             </div> <!-- display-catagories -->
-            <div class="add-category"></div>
-          </div> <!-- categories placeholder -->
-          <div class="management"></div> <!-- management placeholder -->
-          <div class="modify-pass"></div> <!-- modify-pass placeholder -->
-          <div class="delete-account"></div> <!-- delete-account placeholder -->
+          </div> <!-- categories -->
+
+          <div class="management">
+            <form id="manage-form">
+              <h4>Design Customization</h4>
+              <label><b>Header Color</b></label>
+              <div class="header-color"></div> <!-- header-color -->
+              <label><b>Header Background</b></label>
+              <input type="file" name="header-bg" accept="images/*">
+              <button class="btn" id="upload-bg-btn">Upload</button>
+              <h4>Notification</h4>
+              <p> Notify when someone comments on your post. </p>
+              <!-- notify1 : notification on comments -->
+              <label class="radio-inline"><input type="radio" name="notify1" value="notify1-able" selected disabled>Able</label>
+              <label class="radio-inline"><input type="radio" name="notify1" value="notify1-disable" disabled>Disable</label>
+              <p> Notify when someone likes your blog. </p>
+              <!-- notify2 : notification on likes -->
+              <label class="radio-inline"><input type="radio" name="notify2" value="notify2-able" selected disabled>Able</label>
+              <label class="radio-inline"><input type="radio" name="notify2" value="notify2-disable" disabled>Disable</label>
+              <h4>Footer Sentence</h4>
+              <input type="text" class="form-control" placeholder="Impressive sentence" disabled>
+              <div class="manage-edit">
+                <button class="btn btn-warning" id="manage-edit-btn">Edit</button>
+                <button class="btn btn-default" id="manage-cancel-btn" disabled>Cancel</button>
+              </div>
+            </form> <!-- manage-form -->
+            <div class="msg-manage">
+            </div> <!-- msg-manage (for error / notification message) -->
+          </div> <!-- management -->
+
+          <div class="modify-pass">
+            <h3> Modify Password </h3>
+            <form id="modify-pass-form">
+              <label> Current Password </label>
+              <input type="password" name="current-pass" class="form-control" placeholder="Type current password" pattern=".{6,}" title="Minimum 6 characters required" required>
+              <label> New Password </label>
+              <input type="password" name="new-pass" class="form-control" placeholder="Type new password" pattern=".{6,}" title="Minimum 6 characters required" required>
+              <label> Confirm New Password </label>
+              <input type="password" name="re-new-pass" class="form-control" placeholder="Re-type new password" pattern=".{6,}" title="Minimum 6 characters required" required>
+              <input type="submit" class="form-control" name="mod-pass-req" value="Request">
+            </form> <!-- modify-pass-form -->
+            <form id="verify-mp-code">
+              <!-- mp stands for modify password -->
+              <input type="text" class="form-control" name="mp-code" required>
+              <input type="submit" class="form-control" name="mp-code-submit" value="Verify">
+            </form> <!-- verify-mp-code -->
+            <div class="msg-pass">
+            </div> <!-- msg-pass (for error / notification message) -->
+          </div> <!-- modify-pass -->
+
+          <div class="delete-account">
+            <h3> Delete Account </h3>
+            <form id="delete-account-form">
+              <label> Email </label>
+              <input type="email" name="confirm-email" class="form-control" placeholder="Confirm your email" required>
+              <label> Password </label>
+              <input type="password" name="confirm-pass" class="form-control" placeholder="Confirm your password" required>
+              <input type="submit" class="form-control" name="delete-req" value="Request">
+            </form> <!-- delete-account-form -->
+            <form id="verify-da-code">
+              <!-- da stands for delete account -->
+              <input type="text" class="form-control" name="da-code" required>
+              <input type="submit" class="form-control" name="da-code-submit" value="Delete">
+            </form> <!-- verify-da-code -->
+            <div class="msg-delete">
+            </div> <!-- msg-delete (for error / notification message) -->
+          </div> <!-- delete-account placeholder -->
         </div> <!-- info -->
   		</div> <!-- row -->
   	</div> <!-- container -->

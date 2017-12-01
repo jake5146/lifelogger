@@ -1,0 +1,7 @@
+/* Stylesheet for account_info.html */
+
+.profile-pic {
+	height: 50px;
+	width: 50px;
+	border: 1px solid black;
+}
