@@ -4,8 +4,11 @@
   	<% include ../partials/header.ejs %>
 	  <% include ../partials/header_nav.ejs %>
 
-    <script type="text/javascript" src="assets/scripts/account_info.js"></script>
-  	
+    <link rel="stylesheet" type="text/css" href="assets/css/account_info.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/loader.css">
+    <script type="text/javascript" src="assets/scripts/account_info_ajax.js"></script>
+    <script type="text/javascript" src="assets/scripts/account_info.js"></script>	
+    <script type="text/javascript" src="assets/scripts/helper_functions.js"></script>
   </head>
   <body>
   	<% include ../partials/nav.ejs %>
@@ -25,16 +28,16 @@
   			</div> <!-- menu -->
         <div class="col-sm-9 info">
           <div class="profile">
-            <form id="profile-form">
+            <form id="profile-form" action="/submit-profile-edit" method="post" enctype="multipart/form-data">
               <h4> Personal Info </h4>
               <label><b>Name</b></label>
-              <input type="text" name="name" class="form-control" disabled>
+              <input type="text" name="name" class="form-control unchangable" disabled>
               <label><b>Nickname</b></label>
-              <input type="text" name="nickname" class="form-control" placeholder="Nickname" required disabled>
+              <input type="text" name="nickname" class="form-control unchangable" required disabled>
               <label><b>Email</b></label>
-              <input type="text" name="email" class="form-control" disabled>
+              <input type="text" name="email" class="form-control unchangable" disabled>
               <label><b>Gender</b></label>
-              <select name="gender" class="form-control" id="sel1" required disabled>
+              <select name="gender" class="form-control unchangable" id="sel1" required disabled>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
               </select>
@@ -42,20 +45,21 @@
               <input type="date" name="birthday" class="form-control" placeholder="yyyy-mm-dd" pattern="^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])" required disabled>
               <label><b>Phone number</b></label>
               <input type="text" name="phone" class="form-control"  placeholder="Phone number" disabled>
-              
-              <br /> <!--@@@@ put  horizontal line here -->
 
               <label> Profile Picture </label>
-              <input type="file" name="profile-pic" accept="images/*" disabled>
-              <!-- upload pp (profile picture) button below -->
               <br />
+              <img id="profile-preview" src="assets/images/default-profile.gif" alt="Profile Image" />
+              <br />
+              <label id="modify-profile-pic" for="profile-pic">Modify</label>
+              <label id="reset-profile-pic">Delete</label>
+              <input type="file" id="profile-pic" name="profile-pic" accept="images/*" disabled>
               <label> About </label>
-              <textarea id="about" class="form-control" disabled></textarea>
-
-              <div class="profile-edit">
-                <button class="btn btn-warning" id="profile-edit-btn">Edit</button>
-                <button class="btn btn-default" id="profile-cancel-btn" disabled>Cancel</button>
-              </div>
+              <textarea id="about" class="form-control" maxlength="255" cols="30" placeholder="Introduce your blog (up to 255 characters allowed)" disabled></textarea>
+              <div class="profile-submit">
+                <input type="submit" class="form-control" name="profile-submit" value="Submit">
+                <button type="button" class="btn btn-warning" id="profile-edit-btn">Edit</button>
+                <button type="button" class="btn btn-default" id="profile-cancel-btn" disabled>Cancel</button>
+              </div> <!-- profile-submit -->
             </form> <!-- profile-form -->
             <div class="msg-profile">
             </div> <!-- msg-profile (for error / notification message) -->
@@ -70,14 +74,22 @@
             <div class="display-categories">
               <div class="categories-edit">
                 <button class="btn btn-default" id="add-category-btn"><span class="glyphicon glyphicon-plus"></span>Add Category</button>
-                <button class="btn btn-default" id="add-separator"><span class="glyphicon glyphicon-plus"></span>Add Separator</button>
                 <button class="btn btn-danger" id="delete-category-btn"><span class="glyphicon glyphicon-minus"></span>Delete</button>
               </div> <!-- categories-edit -->
-              <div class="display-block">
+              <div id="display-block">
               </div> <!-- display block -->
+              <button type="submit" id="apply-cat-edit" class="form-control" form="category-form" value="Apply">Apply</button>
+              <form id="category-form" action="/submit-category-edit" method="post">
+                <input type="hidden" name="add-category" value>
+                <input type="hidden" name="delete-category" value>
+                <input type="hidden" name="modify-category" value>
+              </form> <!-- category-form -->
             </div> <!-- display-catagories -->
+            <div class="msg-category">
+            </div> <!-- msg-category (for error / notification message) -->
           </div> <!-- categories -->
 
+  
           <div class="management">
             <form id="manage-form">
               <h4>Design Customization</h4>
@@ -141,11 +153,12 @@
               <input type="submit" class="form-control" name="da-code-submit" value="Delete">
             </form> <!-- verify-da-code -->
             <div class="msg-delete">
-            </div> <!-- msg-delete (for error / notification message) -->
+            </div> <!-- msg-delete (for error) -->
           </div> <!-- delete-account placeholder -->
         </div> <!-- info -->
   		</div> <!-- row -->
   	</div> <!-- container -->
-
+    <div class="error-msg"></div>
+    <div class="loader"></div>
   </body>
 </html>

@@ -1,7 +1,135 @@
 /* Stylesheet for account_info.html */
 
-.profile-pic {
-	height: 50px;
-	width: 50px;
-	border: 1px solid black;
+.container {
+	margin-top: 5%;
 }
+
+/* profile form styling (START) */
+img#profile-preview {
+	width: 130px;
+	height: 130px;
+	border: 2px solid black;
+	border-radius: 12px;
+}
+
+#modify-profile-pic, #reset-profile-pic {
+	margin-top: 1%;
+	padding: 10px;
+	border: 1px solid #e6e6e6;
+	border-radius: 12px;
+	font-weight: normal;
+	color: #737373;
+	background-color: #d9d9d9;
+}
+
+#modify-profile-pic:hover, #reset-profile-pic:hover {
+	cursor: no-drop;
+}
+
+#profile-pic {
+	opacity: 0;
+	width: 0.1px;
+	height: 0.1px;
+}
+
+#profile-edit-btn, #profile-cancel-btn, input[name="profile-submit"] {
+	width: 10%;
+}
+
+input[name="profile-submit"] {
+	display: inline;
+	vertical-align: top;
+}
+
+input[name="profile-submit"]:hover {
+	background-color: #cccccc;
+}
+
+.profile-submit {
+	margin-top: 1%;
+	margin-bottom: 3%;
+}
+
+#about {
+	resize: none;
+}
+
+/* profile form styling (END) */
+
+/* Category styling (START) */
+
+#add-category-btn, #delete-category-btn {
+	width: 20%;
+}
+
+#display-block {
+	margin-top: 1%;
+	background-color: white;
+	border-size: 1px;
+	border-style: double;
+	border-color: black;
+	width: 350px;
+	min-height: 300px;
+	resize: vertical;
+	overflow: auto;
+}
+
+#tree {
+	margin: 2%;
+}
+
+#tree, #tree ul {
+	list-style-position: inside;
+	list-style-type: none;
+	padding: 0;
+}
+
+#tree li {
+	padding-top: 5px;
+}
+
+#tree div.list {
+	display: inline-block;
+	background: url("../images/file.png") no-repeat left top;
+	padding-left: 18px;
+	margin: 0;
+}
+
+#tree li.child-tree div.list {
+	margin-left: 15px;
+}
+
+.tree-root {
+	list-style-image: none;
+	list-style-type: none;
+}
+
+.tree-selected {
+	background-color: rgb(255, 221, 153);
+}
+
+.tree-selected ul {
+	background-color: white;
+}
+
+/* Category styling (END) */
+
+/* Miscellaneous (START) */
+
+.msg-profile, .msg-manage, .msg-pass, .msg-delete, .error-msg {
+	display: none;
+	border: 1px solid white;
+	border-radius: 5px;
+	background-color: rgba(204, 0, 0, 0.6);
+	margin: 5% 10%;
+	padding: 10px 0px;
+	color: white;
+	text-align: center;
+}
+
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+
+/* Miscellaneous (END) */

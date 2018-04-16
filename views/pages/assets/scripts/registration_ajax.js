@@ -1,9 +1,9 @@
 // javascript for registration.html
 $(document).ready(function() {
-    hideLoader();
+    hideLoader(".registration");
 
 	$("form#register-form").submit(function(e) {
-        showLoader();
+        showLoader(".registration");
 		submitRegisterForm(e);
 	});
 });
@@ -35,7 +35,7 @@ function submitRegisterForm(e) {
     		$errorMsg.empty();
     		$errorMsg.hide();
 
-    		var registerRes = res[0];
+    		var registerRes = res;
 
             // four cases:
             // 1. Query Error/nodemailer error    2. email already exists, 
@@ -45,17 +45,17 @@ function submitRegisterForm(e) {
             if (registerRes.msg) {
                 errTxt = "Sorry, error occurs during the process. Please try again.";
                 $errorMsg.show();
-                hideLoader();
+                hideLoader(".registration");
             // email already exists in the server. Ask user to try again.
             } else if (registerRes.emailExist) {
                 errTxt = "Email aleady exists in the server. Please try again."
                 $errorMsg.show();
-                hideLoader();
+                hideLoader(".registration");
             // nickname already exists in the server. Ask user to try again.
             } else if (registerRes.nickExist) {
                 errTxt = "Nickname aleady exists in the server. Please try again."
                 $errorMsg.show();
-                hideLoader();
+                hideLoader(".registration");
             } else { //registerRes.verifSent == 1
                 // go to verification page
                 console.log("--registerRes.verifSent==1--");
@@ -124,14 +124,4 @@ function registerFormOrganizer() {
     registerFormJson.push(infos);
     
     return registerFormJson;
-}
-
-function showLoader() {
-    $(".registration").css("opacity", 0.5);
-    $(".loader").show();
-}
-
-function hideLoader() {
-    $(".registration").css("opacity", 1);
-    $(".loader").hide();
 }

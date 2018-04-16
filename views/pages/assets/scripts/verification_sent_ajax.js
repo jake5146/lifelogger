@@ -14,7 +14,7 @@ function sentVerification() {
             $("#error-msg").hide();
 
             
-    		var sess = res[0];
+    		var sess = res;
 
     		console.log(sess);
 
@@ -68,7 +68,7 @@ function submitVerifCode(e, infos, verified) {
 	    	success: function(res) {
 	    		clearInterval(countdown);
 
-	    		var response = res[0];
+	    		var response = res;
 
 	    		if (response.msg) {
     				$errorMsg.show();
@@ -97,7 +97,7 @@ function requestSessionDestroy() {
     	dataType: "JSON",
     	success: function(res) {
 			$("#error-msg").show();
-    		if (res[0].msg) {
+    		if (res.msg) {
     			$("#error-msg").text("Sorry, error occurs during process. Please try again.");
     		} else {
     			$("#time").text("");

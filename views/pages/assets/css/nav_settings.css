@@ -1,11 +1,12 @@
 /* Style for navbar */
 /* Style for navbar START */
 html, body {
-    background: #ffffff url("../images/bg-flowers.jpg") no-repeat fixed center;
+/*    background: #ffffff url("../images/bg-flowers.jpg") no-repeat fixed center;
 	background-size: cover;
 	-webkit-background-size: cover;
     -moz-background-size: cover;
-    -o-background-size: cover;
+    -o-background-size: cover;*/
+    background-color: rgba(64, 64, 64, 0.8);
 
 	height: 100%;
 	font-family: 'Open Sans', sans-serif;
@@ -29,13 +30,14 @@ img[alt="Logo"] {
 	color: #ffe6cc;
 }
 
-li:not(.dropdown) .glyphicon:not(.glyphicon-apple), #user-caret, button#menu-up {
+.navbar li:not(.dropdown) .glyphicon:not(.glyphicon-apple), #user-caret, 
+button#menu-up {
     font-size: 1.6rem;
     color: #8a8a5c;
     border: none;
 }
 
-li:not(.dropdown) .glyphicon:not(.glyphicon-apple):hover, #user-caret:hover, 
+.navbar li:not(.dropdown) .glyphicon:not(.glyphicon-apple):hover, #user-caret:hover, 
 button#menu-up:hover {
 	color: #d6d6c2;
 }
@@ -52,7 +54,7 @@ button#menu-up:hover {
 	background-color: #222;
 }
 
-li span, .header, .navbar-toggle {
+.navbar li span, .header, .navbar-toggle {
 	-webkit-transition: all ease-in-out 0.1s;
 	transition: all ease-in-out 0.1s;
 }

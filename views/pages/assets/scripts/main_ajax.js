@@ -39,7 +39,7 @@ function submitLoginForm(e) {
 		    $errorMsg.hide();
             
     		//assign to object of res.
-    		var loginRes = res[0];
+    		var loginRes = res;
 
             var errTxt = "";
             //Database query fails. Asks user to try again.

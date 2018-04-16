@@ -1,7 +1,7 @@
 // javaScript for blog_mypage.html
 $(document).ready(function() {
 	// Get rid of outline when mousedown on sort-icon and like-icon 
-	$noOutlineButtons = $(".sort-icon, .like-icon, button.profile, button.edit");
+	$noOutlineButtons = $(".sort-icon, .like-icon, button.profile");
 	$noOutlineButtons.mousedown(function() {
 		$(this).css({"outline": "0"});
 	});
@@ -27,10 +27,10 @@ $(document).ready(function() {
 	});
 
 	$(".open-addpost").click(function() {
-		window.location.href = "add_post.html";
+		window.location.href = "/write-post";
 	});
 
-	$(".glyphicon-heart").click(handleLikesIncrement);
+	$(".like-icon").click(handleLikesIncrement);
 });
 
 // handle click handler for .like-number class. It increments number of likes.

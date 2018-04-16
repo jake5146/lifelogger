@@ -3,6 +3,8 @@ $(document).ready(function() {
 	showClickedMenu();
 
 	profileEditAndCancelHandler();
+	profileImgDisplayer();
+	resetProfileImgHandler();
 
 });
 
@@ -48,33 +50,43 @@ function hideMenus(contents, iExcept) {
 
 // Add event handler for edit and cancel.
 function profileEditAndCancelHandler() {
+    $("input[name='profile-submit']").hide();
+
 	//disable profile editting initially.
     $("#profile-form > *").prop("disabled", true);
 
 	var profilePrevData;
+	var $profileBtn = $("#modify-profile-pic, #reset-profile-pic");
 
 	$("button#profile-edit-btn").click(function() {
 		$("button#profile-cancel-btn").prop("disabled", false);
-		$("#profile-form > *").prop("disabled", false);
+		$("#profile-form > *:not(.unchangable)").prop("disabled", false);
+
+        $profileBtn.css({"background-color": "white"});
+        $profileBtn.hover(function() {
+        	$(this).css({"cursor": "pointer", "background-color": "#d9d9d9"});
+        }, function() {
+        	$(this).css({"background-color": "white"});
+        });
 
 		profilePrevData = savePrevProfileData();
 
 		$(this).hide();
-		var $submitBtn = $("<input>", {
-			type	: "submit",
-			class	: "form-control",
-			name	: "profile-submit",
-			value	: "Submit"
-		});
-		$("div.profile-edit").prepend($submitBtn);
-
+		$("input[name='profile-submit']").show();
 	});
 
 	$("button#profile-cancel-btn").click(function() {
 		$(this).prop("disabled", true);
-		$("#profile-form > *").prop("disabled", true);
+		$("#profile-form > *:not(.unchangable)").prop("disabled", true);
 
-        setProfileData(profilePrevData);
+		$profileBtn.css({"background-color": "#d9d9d9"});
+		$profileBtn.hover(function() {
+			$(this).css({"cursor": "no-drop"});
+		}, function() {
+			$(this).css({"background-color": "#d9d9d9"});
+		});
+
+        resetProfileData(profilePrevData);
 
 		$("input[name='profile-submit']").hide();
 		$("button#profile-edit-btn").show();
@@ -85,31 +97,82 @@ function profileEditAndCancelHandler() {
 function savePrevProfileData() {
 	var profilePrevData = {};
 
-	$("#profile-form > input").each(function() {
-    	profilePrevData[$(this).attr("name")] = $(this).val();
-    });
-
+    var $birthday = $("#profile-form input[name='birthday']");
+    var $phone = $("#profile-form input[name='phone']");
     var $gender = $("#profile-form > select");
-    profilePrevData[$gender.attr("name")] = $gender.val();
+
+    profilePrevData[$birthday.attr("name")] = $birthday.val();
+    profilePrevData[$phone.attr("name")] = $phone.val();
 
     profilePrevData.about = $("#about").val();
 
-    //@TODO:  ADD PROFILE PICTURE DATA HERE
+    profilePrevData.profile = $("#profile-preview").attr("src");
 
     return profilePrevData;
 }
 
-// Set new/old profile data to display profile info appropriately.
+// Set old profile data to display profile info appropriately.
 // @param1 data: profile data
-function setProfileData(data) {
-	$("#profile-form > input").each(function() {
-    	$(this).val(data[$(this).attr("name")]);
-    });
-
+function resetProfileData(data) {
+    var $birthday = $("#profile-form input[name='birthday']");
+    var $phone = $("#profile-form input[name='phone']");
     var $gender = $("#profile-form > select");
-    $gender.val(data[$gender.attr("name")]);
+
+    $birthday.val(data[$birthday.attr("name")]);
+    $phone.val(data[$phone.attr("name")]);
+
+    $("#profile-preview").attr("src", data.profile);
+    resetProfileImgData();
 
     $("#about").val(data.about);
 }
 
+// Reset image to default image (for view)
+function resetProfileImgHandler() {
+	$("#reset-profile-pic").click(function() {
+		$("#profile-preview").attr("src", "assets/images/default-profile.gif");
+		resetProfileImgData();
+	});
+}
+
+// reset input file (for profile image)
+function resetProfileImgData() {
+	var $profile = $("#profile-pic");
+	$profile.wrap("<form>").closest("form").get(0).reset();
+	$profile.unwrap();
+}
+
+// Display image on change.
+function profileImgDisplayer() {
+	var $profilePic = $("input[name='profile-pic']");
+	var $profilePre = $("#profile-preview");
+
+    previewImg($profilePic, $profilePre);
+
+	$profilePic.change(function() {
+		previewImg(this, $profilePre);
+	});
+}
+
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Display Profile ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ (ABOVE) //
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Helper Functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~ (BELOW) //
+
+// preview image on change in the specified block
+// @param1 img: input file info
+// @param2 block: block to display image
+function previewImg(img, block) {
+	if (img.files && img.files[0]) {
+		console.log(img.files[0]);
+		var reader = new FileReader();
+
+		reader.onload = function(e) {
+			block.attr("src", e.target.result);
+		}
+
+		reader.readAsDataURL(img.files[0]);
+	}
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Helper Functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~ (ABOVE) //

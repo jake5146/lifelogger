@@ -33,18 +33,72 @@ function databaseHandler(req, res, sqlQuery, queryVals, queryFcn, fcnCallback) {
 		console.log("connected as id " + connection.threadId);
 
 		connection.query(sqlQuery, queryVals, function(queryErr, rows) {
-			console.log(queryErr);
 			connection.release();
-			queryFcn(queryErr, rows, req, res, fcnCallback);
+			if (queryErr) {
+				console.log(queryErr);
+				var jObj = {msg: queryErr};
+				res.end(JSON.stringify(jObj));
+			} else {
+				queryFcn(rows, req, res, fcnCallback);
+			}
 		});
 
 		connection.on("error", function(err) {
 			res.json({"code": 100, "status": "Error in connection database"});
 			return;
-		})
+		});
+	});
+}
+
+function multipleQueryHandler(req, res, queries, queryVals, resultFcn) {
+	pool.getConnection(function(poolErr, connection) {
+		console.log("connectionHandler poolErr: " + typeof poolErr);
+		console.log("connectionHandler connection: " + typeof connection);
+		if (poolErr) {
+			res.json({"code": 100, "status": "Error in connection database", 
+				"message": poolErr});
+			return;
+		}
+
+		console.log("connected as id " + connection.threadId);
+
+		// connection.query(sqlQuery, queryVals, function(queryErr, rows) {
+		// 	connection.release();
+		// 	queryFcn(queryErr, rows, req, res, fcnCallback);
+		// });
+		var i = 0;
+		queryProcessor(req, res, connection, i, queries, queryVals, resultFcn);
+
+		connection.on("error", function(err) {
+			res.json({"code": 100, "status": "Error in connection database"});
+			return;
+		});
+	});
+}
+
+function queryProcessor(req, res, connection, i, queries, queryVals, resultFcn) {
+	connection.query(queries[i], queryVals[i], function(queryErr, rows) {
+		console.log("------------");
+		console.log(queries[i]);
+		console.log(queryVals[i]);
+		var jobj = {};
+
+		if (queryErr) {
+			console.log(queryErr);
+			jobj.msg = queryErr;
+			res.end(JSON.stringify(jobj));
+		} else {
+			if (i < queries.length - 1) {
+				queryProcessor(req, res, connection, i+1, queries, queryVals, resultFcn);
+			} else {
+				connection.release();
+				resultFcn(rows, req, res);
+			}
+		}
 	});
 }
 
 module.exports = {
-	query: databaseHandler
+	query: 		databaseHandler,
+	multiquery: multipleQueryHandler
 }

@@ -1,12 +1,15 @@
 /* Stylesheet for add_post.html */
+body {
+	padding-bottom: 90rem;
+}
+
 /* form-add-post styling */
 .form-add-post {
 	position: absolute;
 	width: 60%;
-	height: 100%;
+	height: 700px;
     top: 15%;
     left: 20%;
-    margin-bottom: 5%;
     padding: 0.5% 2%;
 	background-color: white;
 	border-radius: 3px;
@@ -81,16 +84,19 @@ input[name="post-title"] {
 
     /* text-general-style styling */
 .text-general-style {
-	border-radius: 4px;
-	padding: 0;
-	margin-right: 3px;
+	margin: 0 3px;
 }
     /* and paragraph-style styling */
-.text-general-style > *:hover, .paragraph-style > *:hover {
+.text-general-style button:hover, .paragraph-style > *:hover {
 	box-shadow: 0 0 5px 1px #888888;
 }
 
-.text-general-style button.glyphicon, .paragraph-style button {
+.text-general-style input[type="checkbox"] {
+	display: none;
+}
+
+.text-general-style button.glyphicon, .paragraph-style button,
+.color-style button {
     margin-bottom: 1px;
     margin-top: -1px;
 }
@@ -111,8 +117,9 @@ input[name="post-title"] {
 
 .content-block > .display-block {
 	width: 90%;
+	max-width: 90%;
+	overflow-x: hidden;
     border-right: 1px solid rgb(204, 204, 204);
-    overflow-y: auto;
 	padding: 1% 3%;
 	padding-bottom: 0;
 }
@@ -139,13 +146,22 @@ input[name="post-title"] {
 	border-bottom: 1px solid rgb(204, 204, 204);
 }
 
+  /* Styling for display-area */
 .content-block .display-area {
+	word-break: break-all;
+	min-height: 20px;
+	max-width: 100%;
 	margin-left: 20px;
 	margin-right: 20px;
+	font-size: 13px;
+	font-family: Arial, sans-serif;
 }
 
-.content-block .display-area:focus {
-	outline: none;
+.display-area blockquote{
+	margin: 0 0 0 40px;
+	border: none;
+	padding: 0px;
+	font-size: inherit;
 }
 
 .content-block > .add-contents-area {
@@ -153,6 +169,25 @@ input[name="post-title"] {
 	padding: 10px 0;
     font-size: 2rem;
 	text-align: center;
+}
+
+.active {
+	color: rgb(51, 51, 51);
+}
+
+  /* Color picker styling */
+.color-style > div {
+	display: inline-block;
+}
+
+#txt-spectrum, #bg-spectrum {
+	display: none;
+	position: absolute;
+}
+
+  /* Input file for picture upload */
+input#add-picture {
+	display: none;
 }
 
   /* form# add-post styling */
@@ -165,10 +200,6 @@ form#add-post input[value="Submit"] {
 	display: inline-block;
 	width: 20%;
 	float: left;
-}
-
-form#add-post input[value="Submit"]:hover {
-
 }
 
 form#add-post button.close-addpost {

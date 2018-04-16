@@ -1,18 +1,16 @@
 /* stylesheet for blog_mypage.html */
 
 .blog-body {
-	background-color: rgba(255, 255, 255, 0.8);
+	background-color: rgba(255, 255, 255);
 	position: relative;
 	top: 12%;
-	border-top: 2px dotted #8a8a5c;
-	width: 90%;
+	width: 80%;
 	padding-top: 20px;
-	height: 200%;
+	min-height: 200%;
+	height: auto;
 	margin: auto;
 	margin-bottom: 150px;
 }
-
-
 
 /* jumbotron (title) style */
 .jumbotron {
@@ -21,25 +19,31 @@
 	bottom: 10%;
 	top: 7%;
 	margin: auto;
-	background-color: rgba(255, 255, 255, 0.5);
-	border-radius: 10px;
+	background-color: white;
 	text-align: center;
-
-	border: 1px solid black;
+	/*border: 1px solid black;*/
 	position: relative;
 }
 
-.jumbotron .title-picture {
+.jumbotron .glyphicon-picture {
+	/* TODO: FIX position of header picture upload icon*/
 	position: absolute;
 	font-size: 2rem;
 	color: black;
-	bottom: 10px;
+	top: 90%;
 	right: 20px;
+	cursor: pointer;
 }
 
-
+#header-bg {
+	display: none;
+}
 
 /* blogger's information block styling */
+.info-container { 
+	text-align: center;
+ }
+
 .blogger-info > div {
 	display: inline-block;
 	position: relative;
@@ -60,10 +64,17 @@
 }
 
 .blogger-description {
+	padding: 5px 10px;
+	padding-bottom: 15px;
+	overflow: hidden;
 	border: 2px solid #8a8a5c;
 	border-radius: 3px;
 	width: 40%;
 	height: 130px;
+}
+
+.blogger-description > p {
+	word-break: break-all;
 }
 
 .blogger-description button {
@@ -74,16 +85,15 @@
 
 .blogger-description button.profile {
 	bottom: 5px;
-	right: 50px;
-}
-
-.blogger-description button.edit {
-	bottom: 5px;
 	right: 10px;
 }
 
-button.profile:active, button.profile:focus, button.edit:active, button.edit:focus {
+button.profile:active, button.profile:focus {
 	outline: 0;
+}
+
+.table .about {
+	word-break: break-all;
 }
 
 
@@ -110,7 +120,7 @@ button.profile:active, button.profile:focus, button.edit:active, button.edit:foc
 	outline: 0;
 }
 
-.sort-icon:focus {
+.sort-icon.sort-selected {
 	color: #d98c8c;
 }
 
@@ -167,8 +177,9 @@ input[name="search"]:focus {
 
 /* addpost button styling */
 .addpost-button {
+	display: none; 
+	text-align: right;
 	margin: 15px 0px;
-	/* display: none; */
 }
 
 
@@ -189,6 +200,51 @@ input[name="search"]:focus {
 	font-size: 16px;
 }
 
+/* Posts styling */
+div.table-responsive {
+	background-color: white;
+	border: 1px solid rgb(221, 221, 221);
+	border-top: 0;
+	border-radius: 5px;
+}
+
+div.table-responsive td {
+	padding-bottom: 15px !important;
+	padding-top: 15px !important;
+}
+
+table.table-hover {
+	margin: 0 !important;
+}
+
+table.table-hover:hover {
+	cursor: pointer;
+}
+
+/*.list-group-item td {
+	border: 0px !important;
+}
+
+.list-group-item .table {
+	margin: 0;
+}*/
+
+/*.list-group-item .post-order {
+	text-align: left;
+}
+
+.list-group-item .post-title {
+	text-align: left;
+}
+
+.list-group-item .post-date {
+	text-align: right;
+}*/
+
+/* #postings styling */
+#postings {
+	text-align: center;
+}
 
 
 /* category-nav styling */
@@ -198,7 +254,7 @@ input[name="search"]:focus {
 	top: 650px;
 	width: 120px;
 	background-color: white;
-	border: 1px dotted rgba(0, 0, 0, 0.3);
+	border: 1px solid rgba(0, 0, 0, 0.3);
 	padding: 8px 8px;
 }
 
@@ -219,19 +275,9 @@ input[name="search"]:focus {
 
 
 /* impressive-container styling */
-.impressive-container {
-	text-align: center;
-    font-style: italic;
-}
-
-#impressive-sent {
-	background: transparent;
-	width: 50%;
-	border: 0;
-	color: rgba(138, 138, 92, 0.8);
-}
-
-#impressive-sent:focus {
-	border: 0;
-	outline: 0;
+footer {
+	background-color: #555;
+    color: white;
+    text-align: center;
+    padding: 15px;
 }

@@ -8,6 +8,10 @@
 
     <!-- blog_mypage css and js -->
     <link rel="stylesheet" type="text/css" href="assets/css/add_post.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/spectrum.css">
+    <script type="text/javascript" src="assets/scripts/spectrum.js"></script>
+    <script type="text/javascript" src="assets/scripts/helper_functions.js"></script>
+    <script type="text/javascript" src="assets/scripts/add_post_ajax.js"></script>
     <script type="text/javascript" src="assets/scripts/add_post.js"></script>
 	</head>
 	<body>
@@ -22,33 +26,45 @@
 	  	</div> <!-- form-header --> 
 	  	<div class="form-post-title">
 	  		<select class="select-categories form-control">
-	  		  <option value="all">All</option>
 	  		</select> <!-- select-categories -->
 	  		<input type="text" name="post-title" placeholder="title" class="form-control">
 	  	</div> <!-- form-post-title -->
   	  <div class="text-style-block">
   	    <div class="font-block">
 	  	  	<select class="form-control change-font">
-	  	  	</select> <!-- change-font -->
-	  	  	<select class="form-control change-fontsize">
+          </select> <!-- change-font -->
+	  	  	<select class="form-control change-fontsize"> 
 	  	  	</select> <!-- change-fontsize -->
 	  	  </div>
-  	  	<div class="btn-group text-general-style">
-  	  		<button type="button" class="btn btn-default glyphicon glyphicon-bold"></button>
-  	  		<button type="button" class="btn btn-default underline-icon"><img src="assets/images/underline.png" alt="underline" width="16" height="16"></button>
-  	  		<button type="button" class="btn btn-default glyphicon glyphicon-italic"></button>
-  	  		<button type="button" class="btn btn-default strikethrough-icon"><img src="assets/images/strikethrough.png" alt="strikethrough" width="16" height="16"></button>
-  	  		<button type="button" class="btn btn-default glyphicon glyphicon-text-color"></button>
-  	  		<button type="button" class="btn btn-default glyphicon glyphicon-text-background"></button>
-  	  	</div> <!-- text-general-style -->
+        <div class="btn-group text-general-style">
+          <button type="button" class="btn btn-default glyphicon glyphicon-bold bold"></button>
+          <button type="button" class="btn btn-default underline"><img src="assets/images/underline.png" alt="underline" width="16" height="16"></button>
+          <button type="button" class="btn btn-default glyphicon glyphicon-italic italic"></button>
+          <button type="button" class="btn btn-default strikethrough-icon strikethrough"><img src="assets/images/strikethrough.png" alt="strikethrough" width="16" height="16"></button>
+        </div>
+        <div class="btn-group color-style">
+          <div class="txt-color">
+            <button type="button" class="btn btn-default glyphicon glyphicon-text-color"></button>
+            <div id="txt-spectrum">
+              <input type="text" id="txt-color-picker">
+            </div> <!-- txt-spectrum -->
+          </div> <!-- txt-color-picker -->
+          <div class="bg-color">
+            <button type="button" class="btn btn-default glyphicon glyphicon-text-background"></button>
+            <div id="bg-spectrum">
+              <input type="text" id="bg-color-picker">
+            </div> <!-- txt-spectrum -->
+          </div> <!-- txt-color-picker -->
+        </div> <!-- color-style -->
+
   	  	<div class="btn-group paragraph-style">
-  	  		<button type="button" class="btn btn-default glyphicon glyphicon-align-left"></button>
-  	  		<button type="button" class="btn btn-default glyphicon glyphicon-align-center"></button>
-  	  		<button type="button" class="btn btn-default glyphicon glyphicon-align-right"></button>
-  	  		<button type="button" class="btn btn-default glyphicon glyphicon-align-justify"></button>
-  	  		<button type="button" class="btn btn-default glyphicon glyphicon-list"></button>
-  	  		<button type="button" class="btn btn-default glyphicon glyphicon-indent-left"></button>
-  	  		<button type="button" class="btn btn-default glyphicon glyphicon-indent-right"></button>
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-align-left justifyLeft"></button>
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-align-center justifyCenter"></button>
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-align-right justifyRight"></button>
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-align-justify justifyFull"></button>
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-list insertUnorderedList"></button>
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-indent-left indent"></button>
+  	  		<button type="button" class="btn btn-default glyphicon glyphicon-indent-right outdent"></button>
   	  	</div> <!-- paragraph-style -->
   	  </div> <!-- text-style-block -->
   	  <div class="content-block">
@@ -61,16 +77,17 @@
   	      		<rect/>
   	      	</svg> <!-- right rectangle for margin indication -->
   	      </div> <!-- display-top-margin -->
-	  	    <div class="display-area" contentEditable="true">
+	  	    <div class="display-area" contenteditable="true" tabindex="-1">
 	  	      <!-- post content will be here -->
+            What is your story today? Feel free to share!
 	  	    </div> <!-- display-area -->
 	  	  </div>
   	  	<div class="add-contents-area">
-  	      <span class="add-picture glyphicon glyphicon-picture"></span>
+  	      <label class="glyphicon glyphicon-picture" for="add-picture"></label>
+          <input type="file" id="add-picture" name="add-picture" accept="images/*" multiple>
   	  	</div> <!-- add-contents-area -->
   	  </div> <!-- content-block -->
-  	  <form id="add-post">
-  	  	  <div id="contents-to-submit"></div>
+  	  <form id="add-post" action="/add-post" method="post">
   	  	  <input type="submit" value="Submit" class="btn btn-warning">
   	  	  <button type="button" class="close-addpost btn btn-default">Back</button>
   	  </form> <!-- add-post form -->

@@ -18,7 +18,7 @@ function slashGet(req, res) {
 //app.post('/email-login')
 function emailLoginPost(req, res) {
 	// firstly, retrieve data from database using email and match password using bcrypt later.
-	var query = "SELECT * FROM Users_test WHERE email = ?";
+	var query = "SELECT * FROM Users WHERE email = ?";
 	var queryVals = [req.body[0].email];
 	database.query(req, res, query, queryVals, emailLoginPostHandler, function(){});
 }
@@ -31,10 +31,10 @@ function emailLoginPost(req, res) {
 //             wanting values.
 // @param callback: callback function used for another action. It won't be used
 //                  in this request.
-function emailLoginPostHandler(err, rows, req, res, callback) {
-	var resultJson = [];
+function emailLoginPostHandler(rows, req, res, callback) {
 	var jsonObj = {};
 
+/*
     //if query causes error, send error msg.
 	if (err) {
 		jsonObj.msg = err;
@@ -49,10 +49,10 @@ function emailLoginPostHandler(err, rows, req, res, callback) {
 	    // rows has 1 row -> email matched
 		} else {
 			//compare hashed password and given password using bcrypt
-			bcrypt.compare(req.body[0].password, rows[0].password, function(err, response) {
+			bcrypt.compare(req.body[0].password, rows[0].password, function(bErr, response) {
 				//if bcrypt causes error, send error msg.
-				if (err) {
-					jsonObj.msg = err;
+				if (bErr) {
+					jsonObj.msg = bErr;
                 //password matched -> login success
 				} else if (response) {
 					sess = req.session;
@@ -66,6 +66,57 @@ function emailLoginPostHandler(err, rows, req, res, callback) {
 				res.end(JSON.stringify(resultJson));
 			});
 		}
+	} */
+	// rows has no row when given login infos are wrong
+	if (rows.length !== 1) {
+		jsonObj.loginCode = 0; //login fails
+		res.end(JSON.stringify(jsonObj));
+    // rows has 1 row -> email matched
+	} else {
+		//@@@@@@@@@@@@@@TEMPORARY CODE @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+		if (req.body[0].password === rows[0].password) {
+			sess = req.session;
+			sess.email = req.body[0].email;
+			jsonObj.loginCode = 1;
+			res.end(JSON.stringify(jsonObj));
+		} else {
+			bcrypt.compare(req.body[0].password, rows[0].password, function(bErr, response) {
+				//if bcrypt causes error, send error msg.
+				if (bErr) {
+					jsonObj.msg = bErr;
+	            //password matched -> login success
+				} else if (response) {
+					sess = req.session;
+					sess.email = req.body[0].email;
+					jsonObj.loginCode = 1; //login succeeds
+				//password mismatched -> login fails
+				} else {
+					jsonObj.loginCode = 0; //login fails
+				}
+				res.end(JSON.stringify(jsonObj));
+			});
+		}
+		//@@@@@@@@@@@@@@TEMPORARY CODE @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+		//~~~~~~~~~~~~~~~~~ORIGNAL CODE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
+		//compare hashed password and given password using bcrypt
+		// bcrypt.compare(req.body[0].password, rows[0].password, function(bErr, response) {
+		// 	//if bcrypt causes error, send error msg.
+		// 	if (bErr) {
+		// 		jsonObj.msg = bErr;
+  //           //password matched -> login success
+		// 	} else if (response) {
+		// 		sess = req.session;
+		// 		sess.email = req.body[0].email;
+		// 		jsonObj.loginCode = 1; //login succeeds
+		// 	//password mismatched -> login fails
+		// 	} else {
+		// 		jsonObj.loginCode = 0; //login fails
+		// 	}
+		// 	res.end(JSON.stringify(jsonObj));
+		// });
+		//~~~~~~~~~~~~~~~~~ORIGNAL CODE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
 	}
 }
 

@@ -8,6 +8,9 @@
 
     <!-- blog_mypage css and js -->
     <link rel="stylesheet" type="text/css" href="assets/css/blog_mypage.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/loader.css">
+    <script type="text/javascript" src="assets/scripts/helper_functions.js"></script>
+    <script type="text/javascript" src="assets/scripts/blog_mypage_ajax.js"></script>
     <script type="text/javascript" src="assets/scripts/blog_mypage.js"></script>
 	</head>
 	<body>
@@ -16,7 +19,8 @@
     <div class="jumbotron">
       <div class="container-fluid">
 			  <h1 class="blog-title"> My Little Blog </h1>
-        <a class="title-picture" href="#"><span class="glyphicon glyphicon-picture"></span></a>
+        <label class="glyphicon glyphicon-picture" for="header-bg"></label>
+        <input type="file" id="header-bg" accept="images/*">
 			</div> <!-- container-fluid -->
 		</div> <!-- jumbotron -->
 
@@ -24,25 +28,69 @@
 	    <div class="info-container container">
 	      <div class="blogger-info row">
 	      	<div class="blogger-picture">
-	      	  <img src="assets/images/blog-default-picture.png" alt="Default Picture">
+	      	  <img id="profile-img" class="img-thumbnail" src="assets/images/default-profile.gif" alt="Profile Picture">
 	    	  </div> <!-- blogger-picture -->
 	    	  <div class="blogger-description">
-	    	    <button type="button" class="profile btn btn-link">Profile</button>
-	    	    <button type="button" class="edit btn btn-link">Edit</button>
+	    	  	<p class="about"></p>
+	    	    <button type="button" class="profile btn btn-basic" data-toggle="modal" data-target="#profile-modal">Profile</button>
 	    	  </div> <!-- blogger-description -->
 	      </div> <!-- blogger-info -->
 	    </div> <!-- info-container -->
 
+	    <!-- Profile Modal -->
+	    <div id="profile-modal" class="modal fade container" role="dialog">
+	    	<div class="modal-dialog">
+	    		<!-- modal content -->
+	    		<div class="modal-content">
+	    			<div class="modal-header">
+	    				<button type="button" class="close" data-dismiss="modal">&times;</button>
+	    				<h4 class="modal-title">Profile</h4>
+	    			</div> <!-- modal header -->
+	    			<div class="modal-body">
+	    				<div class="table-responsive">
+		    				<table class="table table-striped">
+		    					<tbody>
+		    						<tr>
+		    							<td><b>Name:</b></td>
+		    							<td class="fullname"></td>
+		    							<td><b>Gender:</b></td>
+		    							<td class="gender"></td>
+		    						</tr>
+		    						<tr>
+		    							<td><b>Nickname:</b></td>
+		    							<td class="nickname"></td>
+		    							<td><b>Birthday:</b></td>
+		    							<td class="birthday"></td>
+		    						</tr>
+		    					</tbody>
+		    				</table> <!-- table striped -->
+		    				<table class="table">
+		    					<tbody>
+		    						<tr class="active">
+		    							<td><b>About:</b></td>
+		    							<td class="about"></td>
+		    						</tr>
+		    					</tbody>
+		    				</table>
+		    			</div> <!-- table responsive -->
+	    			</div> <!-- modal body -->
+	    			<div class="modal-footer">
+	    				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	    			</div> <!-- modal footer -->
+	    		</div> <!-- modal content -->
+	    	</div> <!-- modal-dialog -->
+	    </div> <!-- profile modal -->
+
 	    <div class="search-container container">
 	    	<div class="sort-and-search row">
 	    	  <div class="sort-block col-sm-3">
-	    	  	<button type="button" class="btn btn-link sort-icon"><span class="glyphicon glyphicon-th-list"></span></button>
-	    	  	<button type="button" class="btn btn-link sort-icon"><span class="glyphicon glyphicon-th"></span></button>
+	    	  	<button type="button" class="btn btn-link sort-icon display-list sort-selected"><span class="glyphicon glyphicon-th-list"></span></button>
+	    	  	<button type="button" class="btn btn-link display-block sort-icon"><span class="glyphicon glyphicon-th"></span></button>
 	    	  </div> 
 
 	        <div class="like-block col-sm-2 pull-right">
 	    	  	<button type="button" class="btn btn-link like-icon"><i class="glyphicon glyphicon-heart"></i></button>
-	    	  	<span class="like-number">0</span>
+	    	  	<span class="like-number"></span>
 	    	  </div>
 	    	  <div class="search-block col-sm-3 pull-right">
 	    	  	<input type="text" class="form-control" name="search" placeholder="search">
@@ -58,7 +106,8 @@
 	        <p>No lifelog was added in this section yet.</p>
 	        <p>Share your stories here!</p>
 	        <button type="button" class="open-addpost btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>Share my story</button>
-	      </div>
+	      </div> <!-- default-content -->
+	      <div id="postings"></div>
 	    </div>
 	  </div> <!-- blog-body -->
 
@@ -67,15 +116,12 @@
 	    	<span>Categories</span>
 	    	<span class="pull-right glyphicon glyphicon-triangle-bottom"></span>
 	    </div>
-	    <ul class="nav nav-pills nav-stacked">
-	    	<li class="active"><a href="#">All</a></li>
-	    	<li class="category-edit"><a href="#">Edit</a></li>
-	    </ul>
+	    <ul class="category-body nav nav-pills nav-stacked"></ul>
 	  </div>
 
-	  <div class="impressive-container container">
-	    	<input type="text" placeholder="Impressive sentence" id="impressive-sent" value="A gentle answer turns away wrath, but a harsh word stirs up anger (Proverbs 15:4)">
-	  </div> <!-- impressive-sent -->
-		
+	  <footer class="container-fluid">
+		  <p id="impressive-sent">A gentle answer turns away wrath, but a harsh word stirs up anger (Proverbs 15:4)</p>
+		</footer>
+		<div class="loader"></div>
 	</body>
 </html>
