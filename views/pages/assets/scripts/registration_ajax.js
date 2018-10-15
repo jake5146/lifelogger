@@ -36,7 +36,7 @@ function submitRegisterForm(e) {
     		$errorMsg.hide();
 
     		var registerRes = res;
-            console.log(msg);
+            console.log(res);
             // four cases:
             // 1. Query Error/nodemailer error    2. email already exists, 
             // 3. nickname already exists         4. Verification code sent
