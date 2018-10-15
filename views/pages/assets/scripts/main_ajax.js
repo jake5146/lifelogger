@@ -40,7 +40,7 @@ function submitLoginForm(e) {
             
     		//assign to object of res.
     		var loginRes = res;
-
+    		console.log(loginRes);
             var errTxt = "";
             //Database query fails. Asks user to try again.
     		if (loginRes.msg) {
