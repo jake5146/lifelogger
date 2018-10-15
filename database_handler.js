@@ -3,13 +3,12 @@ var mysql 		= 	require("mysql");
 ///var $			=	require("jquery");
 
 // create pool to prevent server crash in case of many concurrent access
-var HOST = process.env.JAWSDB_URL || "localhost";
 var pool	=	mysql.createPool({
 	connectionLimit	: 100, //important
-	host			: HOST,
-	user			: 'root',
-	password		: 'root',
-	database		: 'Lifelogger',
+	host			: "jsftj8ez0cevjz8v.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+	user			: "acs0q1n7gadertnk",
+	password		: "m5bri8fb8zjzf89l",
+	database		: "g4vvcd13emr28kwv",
 	acquireTimeout  : 20000,
 	connectTimeout  : 20000
 });

@@ -13,6 +13,6 @@ module.exports = {
 	saveUninitialized: false,
 	cookie: {
 		//secure: true,
-		maxAge : testAge
+		maxAge : week
 	}
 }
