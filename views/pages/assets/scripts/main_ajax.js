@@ -54,7 +54,6 @@ function submitLoginForm(e) {
     		// (loginRes.loginCode === 1)
     		} else {
                 // pageRendering();
-                console.log
                 var fname = loginRes.first_name.toLowerCase().replace(/\s+/, "");
                 var uniqueUrl = "/blog/" + fname + "-" + loginRes.uid;
     			window.location.replace(uniqueUrl);
