@@ -75,7 +75,7 @@ function submitVerifCode(e, infos, verified) {
     				$errorMsg.text("Sorry, error occurs during the process. Please try again.");
 	    		} else {
 	    			//@@TODO: add "thank you for registration pop-up"
-	    			window.location.href = "/mypage";
+	    			window.location.href = "/";
 	    		}
 	    	},
 	    	error(jqXHR, status, errorThrown) {

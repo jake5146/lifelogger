@@ -34,8 +34,14 @@ h1 {
 }
 
 /* Styling of 'x' of login-block  */
+.close-login {
+	position: relative;
+}
+
 img[alt="clear"] { 
-    float: right;
+    position: absolute;
+    top: -35px;
+    right: 0;
 }
 
 img[alt="clear"]:hover {
@@ -70,11 +76,11 @@ label[for="email"], label[for="password"] {
 }
 
 .or:after {
-	margin-right: 30%;
+	margin-right: 5%;
 }
 
 .or:before {
-	margin-left: 30%;
+	margin-left: 5%;
 }
 /* - or - line styling END */
 
@@ -87,16 +93,19 @@ label[for="email"], label[for="password"] {
 .login-block {
     display: none; /*initially none before user clicks 'click here' */
     background-color: rgba(236, 242, 249, 0.4);
-
 	border: 2px solid rgba(43, 86, 136, 0.5);
 	border-radius: 15px;
 	position: absolute;
-	left: 7%;
-	right: 7%;
-    top: 10%;
-	padding: 5px 5px 25px 5px; 
+	left: 0;
+    top: 12%;
+	padding: 40px 5px 40px 5px; 
 	margin-bottom: 10%;
+	width: 100%;
 	z-index: 1;
+}
+
+.login-block-header {
+	margin-bottom: 30px;
 }
 
 /* Give clear color to all btn-links. */
@@ -142,11 +151,10 @@ label[for="email"], label[for="password"] {
 
 /* Responsive Designs: Re-position all parts that are awkwardly positioned 
  *                      depending on width of screen. */
+
 @media only screen and (min-width: 320px) {
     .login-block {
-		left: 10%;
-		right: 10%;
-		top: 5%;
+		top: 13%;
 	}
 
 	h1 {
@@ -158,16 +166,18 @@ label[for="email"], label[for="password"] {
 	}
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 480px) {
 	.login-block {
-		left: 10%;
-		right: 10%;
-		top: 25%;
+		left: 5%;
+		/*top: 15%;*/
+		width: 90%;
 	}
 }
 
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 768px) {
 	.login-block {
-		top: 20%;
+		left: 30%;
+		top: 15%;
+		width: 40%;
 	}
 }

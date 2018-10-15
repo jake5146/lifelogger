@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Blog Trip | A Lifelogger </title>
+		
+		<% include ../partials/header.ejs %>
+    <% include ../partials/header_nav.ejs %>
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/blog_trip.css">
+    <script type="text/javascript" src="/assets/scripts/blog_trip_ajax.js"></script>
+	</head>
+	<body>
+    <% include ../partials/nav.ejs %>
+
+    <div class="container-fluid">
+    	<div class="trip-header">Trips To Life Stories</div>
+    	<div class="best-title">&lt;&nbsp;&nbsp;&nbsp;Best 5 Blogs&nbsp;&nbsp;&nbsp;&gt;</div>
+    	<div id="best-blog-carousel" class="carousel slide" data-ride="carousel">
+	    	<!-- Indicators -->
+	    	<ol class="carousel-indicators">
+	    		<li data-target="#best-blog-carousel" data-slide-to="0" class="active"></li>
+	    		<li data-target="#best-blog-carousel" data-slide-to="1"></li>
+	    		<li data-target="#best-blog-carousel" data-slide-to="2"></li>
+	    		<li data-target="#best-blog-carousel" data-slide-to="3"></li>
+	    		<li data-target="#best-blog-carousel" data-slide-to="4"></li>
+	    	</ol> <!-- carousel-indicators -->
+
+	    	<!-- Wrapper for slides -->
+	    	<div class="carousel-inner">
+	    		<div class="item item-0 active"></div>
+	    		<div class="item item-1"></div>
+	    		<div class="item item-2"></div>
+	    		<div class="item item-3"></div>
+	    		<div class="item item-4"></div>
+	    	</div> <!-- carousel-inner -->
+
+	    	<!-- Left and right controls -->
+	    	<a class="left carousel-control" href="#best-blog-carousel" data-slide="prev">
+	    		<span class="glyphicon glyphicon-chevron-left"></span>
+	    		<span class="sr-only">Previous</span>
+	    	</a> <!-- left carousel-control -->
+	    	<a class="right carousel-control" href="#best-blog-carousel" data-slide="next">
+	    		<span class="glyphicon glyphicon-chevron-right"></span>
+	    		<span class="sr-only">Next</span>
+	    	</a> <!-- right carousel-control -->
+	    </div> <!-- best-blog-carousel -->
+	    <div class="blog-lists-container">
+	    	<div class="blog-search">
+		    		<input type="text" class="form-control" name="blog-search" placeholder="search">
+		    </div> <!-- blog-search -->
+		    <div class="blog-lists"></div>
+	    </div> <!-- blog-lists -->
+	    <div class="expand-list-btn">
+	    	<button type="button" class="btn btn-default">Show More <span class="glyphicon glyphicon-menu-down"></span></button>
+	    </div> <!-- expand-list -->
+    </div> <!-- container-fluid -->
+	</body>
+</html>

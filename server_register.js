@@ -8,6 +8,7 @@ var EmailTemplate	=	require("email-templates");
 var juice 			= 	require("juice");
 var ejs				=	require("ejs");
 var path 			= 	require("path");
+var server_main		=	require("./server_main");
 
 // verifierJson will indicate uniqueness of requested email and nickname
 //var verifierJson = {};
@@ -45,7 +46,13 @@ function processCodeVerification(req, res, verifierJson) {
 	// Check if nickExist is true, and if true, then send it to client.
 	// Otherwise, finish registration by INSERT INTO.
 	if (!verifierJson.nickExist) {
-		sendVerifyCode(req, res);
+		var subj = "Hi, " + req.body[0].nick_name + ". Here is your " +
+    			   "verification code. | A Lifelogger";
+    	var comments = {
+    		comment_1: "You requested to register in A Lifelogger Official Website.",
+    		comment_2: "Thank you for joining A Lifelogger. We hope you enjoy to share your life with others!"
+    	}
+		sendVerifyCode(req, res, req.body[0], subj, comments);
 
 	} else {
 		res.end(JSON.stringify(verifierJson));
@@ -91,7 +98,7 @@ function verifyUnique(rows, req, res, callback) {
 	callback(req, res, jsonObj);
 }
 
-function sendVerifyCode(req, res) {
+function sendVerifyCode(req, res, infos, subj, comments) {
 	console.log("--sendVerifyCode--");
 	var jsonObj = {};
 
@@ -103,9 +110,9 @@ function sendVerifyCode(req, res) {
 		auth: nodemailInfo.auth
 	});
 
-	var emailPath = path.join(__dirname, "templates", "email_verification_code.ejs");
+	var emailPath = path.join(__dirname, "templates", "verification_code.ejs");
     
-    var infos = req.body[0];
+    //var infos = req.body[0];
 	var rand_code = Math.floor(Math.random() * 1000000) + "" //random code of 6 digits
 
     while (rand_code.length < 6) {
@@ -114,7 +121,9 @@ function sendVerifyCode(req, res) {
 
     var data = {
 		name: 		infos.nick_name,
-		code: 		rand_code
+		code: 		rand_code,
+		comment_1: 	comments.comment_1,
+		comment_2: 	comments.comment_2
     };
 
     ejs.renderFile(emailPath, data, {}, function(ejsErr, html) {
@@ -134,8 +143,8 @@ function sendVerifyCode(req, res) {
     				jsonObj.msg = juiceErr;
 		            res.end(JSON.stringify(jsonObj));
     			} else {
-    				var subj = "Hi, " + infos.nick_name + ". Here is your " +
-    				           "verification code. | A Lifelogger";
+    				// var subj = "Hi, " + infos.nick_name + ". Here is your " +
+    				//            "verification code. | A Lifelogger";
     				var mailOptions = {
     					from: nodemailInfo.auth.user,
     					to: infos.email,
@@ -151,18 +160,23 @@ function sendVerifyCode(req, res) {
     					} else {
     						console.log(info);
     						console.log("--------------");
+    						console.log("infos:");
+    						console.log(infos);
 							bcrypt.hash(infos.password, null, null, function(hashErr, hash) {
 								console.log("inside of bcrypt.hash~~~");
 								if (hashErr) {
 									console.log(hashErr);
 									jsonObj.msg = hashErr;
 								} else {
-									var registerInfo = helper.clone(infos);
-									registerInfo.password = hash;
+									var givenInfo = helper.clone(infos);
+									givenInfo.password = hash;
 
-									jsonObj.verifSent = 1;
 									req.session.code = rand_code;
-									req.session.infos = registerInfo;
+									req.session.infos = givenInfo;
+									jsonObj.verifSent = 1;
+									jsonObj.sess = req.session;
+									console.log("jsonObj:");
+									console.log(jsonObj);
 								}
 								console.log("before res.end");
 		                	    res.end(JSON.stringify(jsonObj));
@@ -179,6 +193,8 @@ function sendVerifyCode(req, res) {
 
 function finishRegistration(req, res) {
 	var infos = req.body[0];
+	delete req.session.code;
+	delete req.session.infos;
 
 	var query = "INSERT INTO Users (email, password, first_name, middle_name," + 
             " last_name, birthday, gender, nick_name, phone_number) " +
@@ -201,25 +217,18 @@ function finishRegistration(req, res) {
 			infos.birthday, infos.gender, infos.nick_name, infos.phone_number]
 		];
 	database.query(req, res, query, [vals], registerPostHandler, function(){});
-
-
 }
 
 // Registration POST ajax request handler.
 // Send error msg in case of query error. 
 // Otherwise, send registerCode since uniqueness of email/nickname was verified.
 function registerPostHandler(rows, req, res, callback) {
-	var jsonObj = {};
-
-	// sess = req.session;
-	req.session.email = req.body[0].email;
-	jsonObj.registerCode = 1; //registration succeeds
-	res.setHeader("Content-Type", "application/json");
-	res.end(JSON.stringify(jsonObj));
+	server_main.emailLogin(req, res);
 }
 
 
 module.exports = {
-	verify 	: verifyEmail,
-	register: finishRegistration
+	verify 	: 	verifyEmail,
+	register: 	finishRegistration,
+	verifyCode: sendVerifyCode
 }

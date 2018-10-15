@@ -5,10 +5,13 @@
 	  <% include ../partials/header_nav.ejs %>
 
     <link rel="stylesheet" type="text/css" href="assets/css/account_info.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/loader.css">
+
+    <!-- add spectrum style and script -->
+    <link rel="stylesheet" type="text/css" href="assets/css/spectrum.css">
+    <script type="text/javascript" src="assets/scripts/spectrum.js"></script>
+
+    <script type="text/javascript" src="assets/scripts/account_info.js"></script> 
     <script type="text/javascript" src="assets/scripts/account_info_ajax.js"></script>
-    <script type="text/javascript" src="assets/scripts/account_info.js"></script>	
-    <script type="text/javascript" src="assets/scripts/helper_functions.js"></script>
   </head>
   <body>
   	<% include ../partials/nav.ejs %>
@@ -66,8 +69,11 @@
           </div> <!-- profile -->
 
           <div class="friends">
-            <input type="text" class="form-control" name="search" placeholder="search friends">
+            <input type="text" class="search-friends form-control" name="search" placeholder="search friends">
             <div class="display-friends"></div> <!-- display-friends -->
+            <div class="friend-expand-btn">
+                <button type="button" class="btn btn-default">Show More <span class="glyphicon glyphicon-menu-down"></span></button>
+            </div> <!-- expand-list -->
           </div> <!-- friends -->
 
           <div class="categories">
@@ -92,24 +98,38 @@
   
           <div class="management">
             <form id="manage-form">
-              <h4>Design Customization</h4>
-              <label><b>Header Color</b></label>
-              <div class="header-color"></div> <!-- header-color -->
-              <label><b>Header Background</b></label>
-              <input type="file" name="header-bg" accept="images/*">
-              <button class="btn" id="upload-bg-btn">Upload</button>
-              <h4>Notification</h4>
-              <p> Notify when someone comments on your post. </p>
-              <!-- notify1 : notification on comments -->
-              <label class="radio-inline"><input type="radio" name="notify1" value="notify1-able" selected disabled>Able</label>
-              <label class="radio-inline"><input type="radio" name="notify1" value="notify1-disable" disabled>Disable</label>
-              <p> Notify when someone likes your blog. </p>
-              <!-- notify2 : notification on likes -->
-              <label class="radio-inline"><input type="radio" name="notify2" value="notify2-able" selected disabled>Able</label>
-              <label class="radio-inline"><input type="radio" name="notify2" value="notify2-disable" disabled>Disable</label>
-              <h4>Footer Sentence</h4>
-              <input type="text" class="form-control" placeholder="Impressive sentence" disabled>
+              <div class="design-custom">
+                <h4>Design Customization</h4>
+                <div class="header-custom">
+                  <label><b>Header Color:</b></label>
+                  <input type="text" id="header-color-picker">
+                </div> <!-- header-custom -->
+                <div class="header-custom">
+                  <label><b>Header Background:</b></label>
+                  <img id="header-bg-preview" src="assets/images/bg-header-default.jpg" alt="Header BG Image" />
+                  <div class="modify-header-bg">
+                    <div class="upload-section">
+                      <input type="file" id="upload-header-bg" name="upload-header-bg" accept="images/*">
+                      <label for="upload-header-bg">Upload</label>
+                      <!-- <label id="upload-file-label">Choose File</label> -->
+                    </div> <!--upload-section -->
+                    <div class="reset-section">
+                      <button id="reset-header-bg" disabled>Reset</button>
+                    </div> <!-- delete-section -->
+                  </div> <!-- modify-header-bg -->
+                </div> <!-- header-custom -->
+              </div> <!-- design custom -->
+
+              <div class="footer-sent">
+                <h4>Footer Sentence</h4>
+                <input type="text" class="form-control" placeholder="Impressive sentence" disabled>
+              </div> <!-- footer-sent -->
+              <div class="blog-title">
+                <h4>Blog Title</h4>
+                <input type="text" class="form-control" placeholder="Blog Title" disabled>
+              </div> <!-- blog-title -->
               <div class="manage-edit">
+                <input type="submit" class="btn btn-info form-control" name="manage-submit" value="Submit">
                 <button class="btn btn-warning" id="manage-edit-btn">Edit</button>
                 <button class="btn btn-default" id="manage-cancel-btn" disabled>Cancel</button>
               </div>
@@ -127,14 +147,19 @@
               <input type="password" name="new-pass" class="form-control" placeholder="Type new password" pattern=".{6,}" title="Minimum 6 characters required" required>
               <label> Confirm New Password </label>
               <input type="password" name="re-new-pass" class="form-control" placeholder="Re-type new password" pattern=".{6,}" title="Minimum 6 characters required" required>
-              <input type="submit" class="form-control" name="mod-pass-req" value="Request">
+              <input type="submit" class="btn btn-primary form-control" name="mod-pass-req" value="Request">
             </form> <!-- modify-pass-form -->
+            <div class="msg-pass-req"></div>
+            <div id="modify-pass-timer">
+              <span class="time"></span>
+              <span> remained...</span> 
+            </div>
             <form id="verify-mp-code">
               <!-- mp stands for modify password -->
               <input type="text" class="form-control" name="mp-code" required>
-              <input type="submit" class="form-control" name="mp-code-submit" value="Verify">
+              <input type="submit" class="btn btn-info form-control" name="mp-code-submit" value="Verify">
             </form> <!-- verify-mp-code -->
-            <div class="msg-pass">
+            <div class="msg-verify-pass">
             </div> <!-- msg-pass (for error / notification message) -->
           </div> <!-- modify-pass -->
 
@@ -145,19 +170,44 @@
               <input type="email" name="confirm-email" class="form-control" placeholder="Confirm your email" required>
               <label> Password </label>
               <input type="password" name="confirm-pass" class="form-control" placeholder="Confirm your password" required>
-              <input type="submit" class="form-control" name="delete-req" value="Request">
+              <input type="submit" class="btn btn-primary form-control" name="delete-req" value="Request">
             </form> <!-- delete-account-form -->
+            <div class="msg-del-acc"></div>
+            <div id="del-acc-timer">
+              <span class="time"></span>
+              <span> remained...</span>
+            </div>
             <form id="verify-da-code">
               <!-- da stands for delete account -->
               <input type="text" class="form-control" name="da-code" required>
-              <input type="submit" class="form-control" name="da-code-submit" value="Delete">
+              <input type="submit" class="btn btn-info form-control" name="da-code-submit" value="Delete">
             </form> <!-- verify-da-code -->
-            <div class="msg-delete">
+            <div class="msg-verify-del">
             </div> <!-- msg-delete (for error) -->
           </div> <!-- delete-account placeholder -->
         </div> <!-- info -->
   		</div> <!-- row -->
   	</div> <!-- container -->
+
+    <!-- Notifying Modal -->
+    <button id="show-notifying-modal" data-toggle="modal" data-target="#notifying-modal"></button>
+    <div id="notifying-modal" class="modal container" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title"></h4>
+          </div> <!-- modal-header -->
+          <div class="modal-body">
+            <p></p>
+          </div> <!-- modal-body -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning delete-cat" data-dismiss="modal">Delete</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div> <!-- modal-content -->
+      </div> <!-- modal-dialog -->
+    </div> <!-- notifying-modal -->
     <div class="error-msg"></div>
     <div class="loader"></div>
   </body>

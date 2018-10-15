@@ -8,9 +8,7 @@
 
     <!-- registration css and js -->
     <link rel="stylesheet" type="text/css" href="assets/css/registration.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/loader.css">
     <script type="text/javascript" src="assets/scripts/registration_ajax.js"></script>
-    <script type="text/javascript" src="assets/scripts/helper_functions.js"></script>
 	</head>
 	<body>
 	  <% include ../partials/nav.ejs %>
@@ -25,86 +23,86 @@
 				</div> <!-- row 1 end -->
 				<!-- registration title END -->
 				<div class="row">
-				  <div class="col-sm-2 col-sm-push-3">
+				  <div class="col-sm-6 col-sm-push-3">
 				    <p> '*': required </p>
 				  </div> <!-- row 2 col 1 -->
 				</div> <!-- row 2 end -->
 				<!-- Email label and Email input START -->
 				<div class="row">
-					<div class="col-sm-3 col-sm-push-3">
+					<div class="col-sm-5 col-sm-push-1">
 						<label> *Email: </label>
 					</div> <!-- row 3 col 1 -->
-					<div class="col-sm-3 col-sm-push-3">
+					<div class="col-sm-5 col-sm-push-1">
 					  <label> *Confirm Email: </label>
 					</div> <!-- row 3 col 2 -->
 				</div> <!-- row 3 end -->
 				<div class="row">
-				  <div class="form-group col-sm-3 col-sm-push-3">
-				    <input type="email" name="email" class="form-control" placeholder="Type your email" required>
+				  <div class="form-group col-sm-5 col-sm-push-1">
+				    <input type="email" name="email" class="form-control" placeholder="*Type your email" required>
 				  </div> <!-- row 4 col 1 -->
-				  <div class="form-group col-sm-3 col-sm-push-3">
-				    <input type="email" name="re-email" class="form-control" placeholder="Re-type your email" required>
+				  <div class="form-group col-sm-5 col-sm-push-1">
+				    <input type="email" name="re-email" class="form-control" placeholder="*Re-type your email" required>
 				  </div> <!-- row 4 col 2 -->
 				</div> <!-- row 4 end -->
 				<!-- Email label and Email input END -->
 				<!-- Name label and Name input START -->
 				<div class="row"> 
-				  <div class="col-sm-3 col-sm-push-2">
+				  <div class="col-sm-3 col-sm-3">
 				  	<label> *First name: </label>
 				  </div> <!-- row 5 col 1 -->
-				  <div class="col-sm-2 col-sm-push-2">
+				  <div class="col-sm-3 col-sm-3 col-sm-push-1">
 				    <label> Middle name: </label>
 				  </div> <!-- row 5 col 2 -->
-				  <div class="col-sm-3 col-sm-push-2">
+				  <div class="col-sm-3 col-sm-3 col-sm-push-2">
 				  	<label> *Last name: </label>
 				  </div> <!-- row 5 col 3 -->
 				</div> <!-- row 5 end -->
 				<div class="row">
-				  <div class="form-group col-sm-3 col-sm-push-2">
-				    <input type="text" name="firstname" class="form-control" placeholder="First name" pattern="\w+" required>
+				  <div class="form-group col-sm-4">
+				    <input type="text" name="firstname" class="form-control" placeholder="*First name" pattern="\w+" required>
 				  </div> <!-- row 6 col 1 -->
-				  <div class="form-group col-sm-2 col-sm-push-2">
+				  <div class="form-group col-sm-4">
 				    <input type="text" name="middlename" class="form-control" placeholder="Middle name" pattern="\w+">
 				  </div> <!-- row 6 col 2 -->
-				  <div class="form-group col-sm-3 col-sm-push-2">
-				    <input type="text" name="lastname" class="form-control" placeholder="Last name" pattern="\w+" required>
+				  <div class="form-group col-sm-4">
+				    <input type="text" name="lastname" class="form-control" placeholder="*Last name" pattern="\w+" required>
 				  </div> <!-- row 6 col 3 -->
 				</div> <!-- row 6 end -->
 				<!-- Name label and Name input END -->
 				<!-- Name password label and password input START -->
 				<div class="row">
-					<div class="col-sm-3 col-sm-push-3">
+					<div class="col-sm-5 col-sm-push-1">
 						<label> *Password: </label>
 					</div> <!-- row 7 col 1 -->
-					<div class="col-sm-3 col-sm-push-3">
+					<div class="col-sm-5 col-sm-push-1">
 						<label> *Confirm Password: </label>
 					</div> <!-- row 7 col 2 -->
 				</div> <!-- row 7 end -->
 				<div class="row">
-					<div class="form-group col-sm-3 col-sm-push-3">
-						<input type="password" name="password" class="form-control" placeholder="Type password" pattern=".{6,}" title="Minimum 6 characters required" required>
+					<div class="form-group col-sm-5 col-sm-push-1">
+						<input type="password" name="password" class="form-control" placeholder="*Type password" pattern=".{6,}" title="Minimum 6 characters required" required>
 					</div> <!-- row 8 col 1 -->
-					<div class="form-group col-sm-3 col-sm-push-3">
-						<input type="password" name="re-password" class="form-control" placeholder="Re-type password" pattern=".{6,}" title="Minimum 6 characters required" required>
+					<div class="form-group col-sm-5 col-sm-push-1">
+						<input type="password" name="re-password" class="form-control" placeholder="*Re-type password" pattern=".{6,}" title="Minimum 6 characters required" required>
 					</div> <!-- row 8 col 2 -->
 				</div> <!-- row 8 end -->
 				<!-- Name password label and password input END -->
 				<!-- birthday and gender label and their input/select START -->
 				<div class="row">
-					<div class="col-sm-3 col-sm-push-3">
+					<div class="col-sm-5 col-sm-push-1">
 						<label> *Birthday: </label>
 					</div> <!-- row 9 col 1 -->
-					<div class="col-sm-3 col-sm-push-3">
+					<div class="col-sm-5 col-sm-push-1">
 						<label> *Gender: </label>
 					</div> <!-- row 9 col 2 -->
 				</div> <!-- row 9 end -->
 				<div class="row">
-				  <div class="form-group col-sm-3 col-sm-push-3">
-				  	<input type="date" name="birthday" class="form-control" placeholder="yyyy-mm-dd" pattern="^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])" required>
+				  <div class="form-group col-sm-5 col-sm-push-1">
+				  	<input type="date" name="birthday" class="form-control" placeholder="*Birthday(yyyy-mm-dd)" pattern="^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])" required>
 				  </div> <!-- row 10 col 1 -->
-				  <div class="form-group col-sm-3 col-sm-push-3">
+				  <div class="form-group col-sm-5 col-sm-push-1">
 				  	<select name="gender" class="form-control" id="sel1" required>
-				  	  <option value="">Gender</option>
+				  	  <option value="">*Gender</option>
 				  		<option value="male">Male</option>
 				  		<option value="female">Female</option>
 				  	</select>
@@ -113,24 +111,24 @@
 				<!-- birthday and gender label and their input/select End -->
 				<!-- phone label and input START -->
 				<div class="row">
-					<div class="col-sm-3 col-sm-push-3">
+					<div class="col-sm-5 col-sm-push-1">
 						<label> *Nickname: </label>
 					</div> <!--row 11 col 1 -->
-					<div class="col-sm-3 col-sm-push-3">
+					<div class="col-sm-5 col-sm-push-1">
 						<label> Phone number: </label>
 					</div> <!--row 11 col 2 -->
 				</div> <!-- row 11 end -->
 				<div class="row">
-					<div class="form-group col-sm-3 col-sm-push-3">
-						<input type="text" name="nickname" class="form-control" placeholder="Nickname" required>
+					<div class="form-group col-sm-5 col-sm-push-1">
+						<input type="text" name="nickname" class="form-control" placeholder="*Nickname" required>
 					</div> <!--row 12 col 1 -->
-					<div class="form-group col-sm-3 col-sm-push-3">
+					<div class="form-group col-sm-5 col-sm-push-1">
 						<input type="text" name="phone" class="form-control" placeholder="Phone number">
 					</div> <!--row 12 col 2 -->
 				</div> <!-- row 12 end -->
 				<!-- phone label and input END -->
 				<div class="row">
-	      	<div class="form-group col-sm-2 col-sm-push-5">
+	      	<div class="form-group col-sm-6 col-sm-push-3">
 	    			<input type="submit" class="form-control" value="Register">
 	    		</div>
 		    </div> <!-- row 13 end -->

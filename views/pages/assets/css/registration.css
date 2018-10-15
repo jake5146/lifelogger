@@ -2,16 +2,26 @@
 
 /* Registration form */
 .registration {
-	margin: 0% 5% 5% 5%;
-	padding: 0 10%;
+	/*margin: 0% 5% 5% 5%;*/
+	/*padding: 0 10%;*/
+	margin: 0;
+	padding: 0;
+	margin-top: 70px;
+	margin-bottom: 30px;
+	width: 100%;
+}
+
+.registration label {
+	display: none;
 }
 
 form {
     color: rgb(96, 32, 32);
-	background-color: rgba(214, 214, 194, 0.1);
+	background-color: #8a8a5c;
 
-	margin: 10% 10% 5% 10%;
-	border: 2px solid rgba(217, 140, 140, 0.1);
+	/*margin: 10% 10% 5% 10%;*/
+	padding: 5px 10px 20px 10px;
+	border: 2px solid rgba(217, 140, 140, 1);
 	border-radius: 15px;
 }
 
@@ -35,4 +45,50 @@ h1 {
 	padding: 10px 0px;
 	color: white;
 	text-align: center;
+}
+
+/* Responsive Designs: Re-position all parts that are awkwardly positioned 
+ *                      depending on width of screen. */
+
+@media only screen and (min-width: 320px) {
+	.registration {
+		
+	}
+}
+
+@media only screen and (min-width: 480px) {
+	.registration {
+		margin-left: 15%;
+		width: 70%;
+	}
+}
+
+@media only screen and (min-width: 768px) {
+	.registration {
+		margin-top: 100px;
+	}
+	
+	.registration label {
+		display: initial;
+	}
+
+	form {
+		/*padding-left: 10px;*/
+	}	
+}
+
+
+
+/* for copy */
+
+@media only screen and (min-width: 320px) {
+
+}
+
+@media only screen and (min-width: 480px) {
+
+}
+
+@media only screen and (min-width: 768px) {
+
 }

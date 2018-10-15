@@ -3,8 +3,15 @@ $(document).ready(function() {
 	showClickedMenu();
 
 	profileEditAndCancelHandler();
-	profileImgDisplayer();
-	resetProfileImgHandler();
+	imgDisplayer($("#profile-pic"), $("#profile-preview"));
+	resetImgHandler($("#profile-pic"), $("#reset-profile-pic"), 
+					$("#profile-preview"), "default-profile.gif");
+
+	managementInit();
+	managementEditAndCancelHandler();
+	imgDisplayer($("#upload-header-bg"), $("#header-bg-preview"));
+	resetImgHandler($("#upload-header-bg"), $("#reset-header-bg"), 
+					$("#header-bg-preview"), "bg-header-default.jpg");
 
 });
 
@@ -122,42 +129,101 @@ function resetProfileData(data) {
     $phone.val(data[$phone.attr("name")]);
 
     $("#profile-preview").attr("src", data.profile);
-    resetProfileImgData();
+    resetImgData($("#profile-pic"));
 
     $("#about").val(data.about);
 }
 
-// Reset image to default image (for view)
-function resetProfileImgHandler() {
-	$("#reset-profile-pic").click(function() {
-		$("#profile-preview").attr("src", "assets/images/default-profile.gif");
-		resetProfileImgData();
-	});
-}
-
-// reset input file (for profile image)
-function resetProfileImgData() {
-	var $profile = $("#profile-pic");
-	$profile.wrap("<form>").closest("form").get(0).reset();
-	$profile.unwrap();
-}
-
-// Display image on change.
-function profileImgDisplayer() {
-	var $profilePic = $("input[name='profile-pic']");
-	var $profilePre = $("#profile-preview");
-
-    previewImg($profilePic, $profilePre);
-
-	$profilePic.change(function() {
-		previewImg(this, $profilePre);
-	});
-}
-
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Display Profile ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ (ABOVE) //
+
+/* ********** Management Settings ********** (BELOW) */
+function managementInit() {
+	$("#header-color-picker").spectrum({
+		color: "black",
+		cancelText: "reset"
+	});
+
+	disableManagementOptions();
+}
+
+function managementEditAndCancelHandler() {
+
+	var prevManageData = {};
+
+	$("#manage-edit-btn").click(function(e) {
+		e.preventDefault();
+		$("input[name='manage-submit']").show();
+		$(this).hide();
+		$("#header-color-picker").spectrum("enable");
+		$("#manage-form input").attr("disabled", false);
+		// $("#upload-header-bg").attr("disabled", false);
+		// $(".notify-label input").attr("disabled", false);
+		// $(".footer-sent input").attr("disabled", false);
+		$("#manage-cancel-btn").attr("disabled", false);
+		$("#reset-header-bg").attr("disabled", false);
+
+		prevManageData = saveManageData(); 
+	});
+
+	$("#manage-cancel-btn").click(function(e) {
+		disableManagementOptions(e);
+		resetManageData(prevManageData);
+	});
+}
+
+function disableManagementOptions(e) {
+	if (e) e.preventDefault();
+	$("#manage-edit-btn").show();
+	$("input[name='manage-submit']").hide();
+	$("#header-color-picker").spectrum("disable");
+	// $("#upload-header-bg").attr("disabled", true);
+	// $(".notify-label input").attr("disabled", true);
+	// $(".footer-sent input").attr("disabled", true);
+	$("#manage-cancel-btn").attr("disabled", true);
+	$("#reset-header-bg").attr("disabled", true);
+	$("#manage-form input").attr("disabled", true);
+}
+
+
+//save management's data and return those
+// list: color-picker, header image, label input (radios), footer sentence
+function saveManageData() {
+	var data = {};
+	data.header_color = $("#header-color-picker").spectrum("get");
+	data.header_image = $("#header-bg-preview").attr("src");
+	data.notify1 = $("input[name='notify1']:checked").val();
+	data.notify2 = $("input[name='notify2']:checked").val();
+	data.footer = $(".footer-sent input").val();
+	data.blog_title = $(".blog-title input").val();
+	console.log(data);
+
+	return data;
+}
+
+function resetManageData(data) {
+	$("#header-color-picker").spectrum("set", data.header_color);
+	$("#header-bg-preview").attr("src", data.header_image);
+	$("input[name='notify1'][value='" + data.notify1 + "']").prop("checked", true);
+	$("input[name='notify2'][value='" + data.notify2 + "']").prop("checked", true);
+	$(".footer-sent input").val(data.footer);
+	$(".blog-title input").val(data.blog_title);
+	resetImgData($("#upload-header-bg"));
+}
+
+/* ********** Management Settings ********** (ABOVE) */
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Helper Functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~ (BELOW) //
+
+// Display image on change.
+function imgDisplayer($input, $preview) {
+    previewImg($input, $preview);
+
+	$input.change(function() {
+		previewImg(this, $preview);
+	});
+}
+
 
 // preview image on change in the specified block
 // @param1 img: input file info
@@ -173,6 +239,21 @@ function previewImg(img, block) {
 
 		reader.readAsDataURL(img.files[0]);
 	}
+}
+
+// Reset image to default image (for view)
+function resetImgHandler($img, $reset, $preview, defaultImg) {
+	$reset.click(function(e) {
+		e.preventDefault();
+		$preview.attr("src", "assets/images/" + defaultImg);
+		resetImgData($img);
+	});
+}
+
+// reset input file (for input file image)
+function resetImgData($img) {
+	$img.wrap("<form>").closest("form").get(0).reset();
+	$img.unwrap();
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Helper Functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~ (ABOVE) //

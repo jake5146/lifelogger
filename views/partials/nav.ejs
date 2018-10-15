@@ -12,36 +12,142 @@
     		<span class="icon-bar"></span>
     	  </button> <!-- button navbar END -->
     		<a class="navbar-brand" href="/">
-    		  <img src="assets/images/feather-icon.png" width="30" height="15" alt="Logo">
+    		  <img src="/assets/images/feather-icon.png" width="30" height="15" alt="Logo">
     		  <span class="header">A Lifelogger</span>
     		</a> <!-- navbar-brand END -->
     	</div> <!-- navbar header END -->
     	<div class="collapse navbar-collapse" id="lifelog-navbar">
     	  <ul class="nav navbar-nav">
-    	  	<li><a id="blog-trip" href="#"><span class="glyphicon glyphicon-apple"></span><span>BlogTrip</span></a></li>
+    	  	<li><a id="blog-trip" href="/blog-trip"><span class="glyphicon glyphicon-apple"></span><span>BlogTrip</span></a></li>
     	  </ul>
           <ul class="nav navbar-nav navbar-right">
         	<li class="if-no-user dropdown">
-              <a id="user-caret" class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span><span class="caret"></span></a>
-        	  <ul class="dropdown-menu">
+              <a id="user-caret" class="nav-window-btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span><span class="caret"></span></a>
+        	  <ul class="dropdown-menu nav-window">
     	    	<li><a href="/account-info">Account</a></li>
-    	    	<li><a href="#">My Friends</a></li>
     	    	<li class="divider"></li>
     	    	<li><a href="/logout">Logout</a></li>
         	  </ul>
         	</li>
-        	<li class="if-no-user"><a href="#"><span class="glyphicon glyphicon-comment"></span></a></li>
-        	<li class="if-no-user"><a href="#"><span class="glyphicon glyphicon-bell"></span></a></li>
+        	<li class="if-no-user"><a href="#"><span id="messanger-button" class="nav-window-btn glyphicon glyphicon-comment"><span class="badge msg-total-badge"></span></span></a></li>
+            <div id="messanger-window" class="nav-window">
+                <div class="window-top-block">
+                    <span data-toggle="tooltip" data-placement="top" title="New Message">
+                        <a href="#" class="new-msg" data-toggle="modal" data-target="#msger-ffinder-modal"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                    </span>
+                </div>
+                <div class="messanger-lists">
+                    <!-- <div class="list-friend-msger">
+                        <div class="inline-box msger-img-box">
+                            <img class="msger-profile-img" src="/assets/images/default-profile.gif" alt="Profile Image">
+                        </div>
+                        <div class="inline-box msger-content-box">
+                            <span class="msger-nickname">Paul</span>
+                            <p class="msger-last-msg">Hi, my name is this and this and those</p>
+                        </div>
+                        <div class="inline-box msger-date-box">
+                            <span class="msger-latest">2017-01-03</span>
+                        </div>
+                        <span class="badge"></span>
+                    </div>  -->
+                </div>
+                <div class="window-bot-block"></div>
+                <div class="sm-loader"></div>
+            </div> <!-- messanger-window -->
+        	<li class="if-no-user"><a href="#"><span id="notification-button" class="nav-window-btn glyphicon glyphicon-bell"><span class="badge notif-total-badge"></span></span></a></li>
+            <div id="notification-window" class="nav-window">
+                <div class="window-top-block"></div>
+                <div class="notification-lists">
+                    <div class="list-notification">
+                        <div class="inline-box msger-img-box">
+                            <img class="msger-profile-img" src="/assets/images/default-profile.gif" alt="Profile Image">
+                        </div>
+                        <div class="inline-box notif-content-box">
+                            <span class="notif-nickname">Paul</span><span class="notif-msg"> liked your blog.</span>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="window-bot-block"></div>
+                <div class="sm-loader"></div>
+            </div> <!-- notification-window -->
             <li class="menu-toggle hide-when-collapse"><a href="#"><span class="glyphicon glyphicon-menu-up"></span></a></li>
 	      </ul>
 	    </div> <!-- collapse navbar END -->
     </div> <!-- container-fluid END -->
-  </nav> 
+  </nav>
     <!-- menu-down button for showing previously-hidden-navbar -->
   <nav class="menu-popper menu-controller">
-    <ul>
-      <li class="menu-toggle"><a href="#"><span class="glyphicon glyphicon-menu-down"></span></a></li>
-    </ul>
+    <span class="menu-toggle glyphicon glyphicon-menu-down"></span>
   </nav>
 </div>
 <!-- navigation bar END -->
+<!-- messanger START -->
+<div id="live-chat-container">
+    <div id="live-chat-top" class="chat-full">
+        <a href="#">
+            <a href="#" class="friend-blog-link"><span class="chatbox-title">sdgsdsd</span></a>
+            <a href="#" class="chatbox-align-right"><span class="glyphicon glyphicon-remove"></span></a>
+        </a> <!-- chatbox-top -->
+    </div> <!-- live-chat-top -->
+    <div id="live-chat-contents">
+<!--         <div class="chat-talk chat-friend">
+            <div class="talk-friend">
+                <span>sdfdlksfd fsdfd fdsfdsfsd dsfsfds fdsfddsfsfsdfs dsfsfdsfdsf sfdfdsf dsfd</span>
+            </div>
+            <div class="talk-friend">
+                <span>sdsdfdsf dsfsdf dsdfdsf dsfre</span>
+            </div>
+        </div>
+        <div class="chat-talk chat-mine chat-recent">
+            <div class="talk-mine">
+                <span>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> This is my job, this is my anthroplogical nothing about this about that.</span>
+            </div>
+            <div class="talk-mine">
+                <span>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> This is my job, this is my anthroplogical nothing about this about that.</span>
+            </div>
+        </div> -->
+    </div> <!-- live-chat-contents -->
+    <div id="live-chat-bottom">
+        <div class="chatbox-msg">
+            <form id="chatbox-msg-form">
+                <textarea rows="1" class="chat" placeholder="Type a message..." name="chat"></textarea>
+                <input type="submit" id="submit-chat" name="submit-chat">
+            </form> <!-- chatbox-msg-form -->
+            <label for="submit-chat" class="send-chat glyphicon glyphicon-send"></label>
+        </div> <!-- chatbox-msg -->
+    </div> <!-- live-chat-bottom -->
+    <div class="sm-loader"></div>
+</div> <!-- live-chat -->
+<!-- messanger END -->
+<!-- find friend for Messanger START -->
+<div class="modal fade" id="msger-ffinder-modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Find Friend</h4>
+            </div> <!-- modal-header -->
+            <div class="modal-body">
+                <div class="msger-ffinder">
+                    <input type="text" class="form-control" name="ffinder" placeholder="Search friend">
+                </div> <!-- msger-ffinder -->
+                <div class="ffinder-lists">
+                    <!-- <div class="ffinder list-friend-msger">
+                        <div class="inline-box msger-img-box">
+                            <img class="msger-profile-img" src="/assets/images/default-profile.gif" alt="Profile Image">
+                        </div>
+                        <div class="inline-box msger-content-box">
+                            <span class="msger-nickname">Paul</span>
+                        </div>
+                    </div> -->
+                </div> <!-- ffinder-lists -->
+                <div class="expand-list-btn">
+                    <button type="button" class="btn btn-default">Show More <span class="glyphicon glyphicon-menu-down"></span></button>
+                </div> <!-- expand-list -->
+                <div class="sm-loader"></div>
+            </div> <!-- modal-body -->
+        </div> <!-- modal-content -->
+    </div> <!-- modal-dialog -->
+</div> <!-- msger-find-friend -->
+<!-- find friend for Messanger END -->

@@ -32,10 +32,54 @@ function postAddPost(req, res) {
 }
 
 function postAddPostHandler(rows, req, res) {
-	var jsonL = {success: 1};
-	res.end(JSON.stringify(jsonL));
+	var sess = req.session;
+	var uniqueUrl = "/blog/" + 
+        				sess.first_name.toLowerCase().replace(/\s+/, "") + 
+        				"-" + sess.uid;
+    res.end(JSON.stringify({url: uniqueUrl}));
 }
 
+function loadPostOnEdit(req, res) {
+	if (req.session.uid) {
+		var query = "SELECT * FROM Posts WHERE uid=? AND postid=?";
+		var val = [req.session.uid, req.body.postid];
+		database.query(req, res, query, val, ajaxSimpleGetCbFcn);
+	} else {
+		var jsonL = {sessErr: "Session Expired. Please Try again."};
+		res.end(JSON.stringify(jsonL));
+	}
+}
+
+function editPost(req, res) {
+	if (req.session.uid) {
+		var info = req.body;
+
+		var query = "UPDATE Posts SET title=?, contents=? WHERE uid=? AND postid=?";
+		var vals = [info.title, info.contents, req.session.uid, info.postid];
+
+		if (info.pcid) {
+			query = "UPDATE Posts SET title=?, pcid=?, ccid=?, contents=? WHERE uid=? AND postid=?";
+			var ccid = (info.ccid) ? info.ccid: null;
+			vals = [info.title, info.pcid, ccid, info.contents, req.session.uid, info.postid];
+		}
+
+	    database.query(req, res, query, vals, postAddPostHandler);
+	} else {
+		var jsonL = {sessErr: "Session Expired. Please Try again."};
+		res.end(JSON.stringify(jsonL));
+	}
+}
+
+/* ***** Common Functions (BELOW) ***** */
+
+function ajaxSimpleGetCbFcn(rows, req, res, callback) {
+	res.end(JSON.stringify(rows));
+}
+
+/* ***** Common Functions (ABOVE) ***** */
+
 module.exports = {
-	addpost: postAddPost
+	addpost: 	postAddPost,
+	loadPost: 	loadPostOnEdit,
+	editPost: 	editPost
 }

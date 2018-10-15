@@ -7,20 +7,16 @@
     <% include ../partials/header_nav.ejs %>
 
     <!-- blog_mypage css and js -->
-    <link rel="stylesheet" type="text/css" href="assets/css/blog_mypage.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/loader.css">
-    <script type="text/javascript" src="assets/scripts/helper_functions.js"></script>
-    <script type="text/javascript" src="assets/scripts/blog_mypage_ajax.js"></script>
-    <script type="text/javascript" src="assets/scripts/blog_mypage.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/css/blog_mypage.css">
+    <script type="text/javascript" src="/assets/scripts/blog_mypage_ajax.js"></script>
+    <script type="text/javascript" src="/assets/scripts/blog_mypage.js"></script>
 	</head>
 	<body>
     <% include ../partials/nav.ejs %>
 
     <div class="jumbotron">
       <div class="container-fluid">
-			  <h1 class="blog-title"> My Little Blog </h1>
-        <label class="glyphicon glyphicon-picture" for="header-bg"></label>
-        <input type="file" id="header-bg" accept="images/*">
+			  <span class="blog-title"></span>
 			</div> <!-- container-fluid -->
 		</div> <!-- jumbotron -->
 
@@ -28,14 +24,38 @@
 	    <div class="info-container container">
 	      <div class="blogger-info row">
 	      	<div class="blogger-picture">
-	      	  <img id="profile-img" class="img-thumbnail" src="assets/images/default-profile.gif" alt="Profile Picture">
+	      	  <img id="profile-img" class="img-thumbnail" src="/assets/images/default-profile.gif" alt="Profile Picture">
 	    	  </div> <!-- blogger-picture -->
 	    	  <div class="blogger-description">
 	    	  	<p class="about"></p>
+	    	  	<button type="button" class="friend-request-btn btn btn-warning"></button>
 	    	    <button type="button" class="profile btn btn-basic" data-toggle="modal" data-target="#profile-modal">Profile</button>
+	    	    <!-- <div class="popup">
+	    	    	<ul class="request-options">
+	    	    	</ul>
+	    	    </div> --> <!-- popup --> 
 	    	  </div> <!-- blogger-description -->
 	      </div> <!-- blogger-info -->
 	    </div> <!-- info-container -->
+
+	    <!-- Unfriend Modal -->
+	    <div id="friend-rel-modal" class="modal container" role="dialog">
+	    	<div class="modal-dialog">
+	    		<div class="modal-content">
+	    			<div class="modal-header">
+	    				<button type="button" class="close" data-dismiss="modal">&times;</button>
+	    				<h4 class="modal-title"></h4>
+	    			</div> <!-- modal-header -->
+	    			<div class="modal-body">
+	    				<p></p>
+	    			</div> <!-- modal-body -->
+	    			<div class="modal-footer">
+	    				<button type="button" class="btn btn-default" data-dismiss="modal">Yes</button>
+	    				<button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+	    			</div>
+	    		</div> <!-- modal-content -->
+	    	</div> <!-- modal-dialog -->
+	    </div> <!-- unfriend-modal -->
 
 	    <!-- Profile Modal -->
 	    <div id="profile-modal" class="modal fade container" role="dialog">

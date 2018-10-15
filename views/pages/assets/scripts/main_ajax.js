@@ -53,7 +53,11 @@ function submitLoginForm(e) {
     		//Login succeeds. Redirect to the my blog page.
     		// (loginRes.loginCode === 1)
     		} else {
-    			window.location.replace("/mypage");
+                // pageRendering();
+                console.log
+                var fname = loginRes.first_name.toLowerCase().replace(/\s+/, "");
+                var uniqueUrl = "/blog/" + fname + "-" + loginRes.uid;
+    			window.location.replace(uniqueUrl);
     		}
     		// add error message according to responded code.
     		$errorMsg.text(errTxt);
@@ -63,6 +67,28 @@ function submitLoginForm(e) {
     	}
     });
 
+}
+
+function pageRendering() {
+    $.ajax({
+        type: "GET",
+        url: "/page-render",
+        contentType: "application/json",
+        dataType: "JSON",
+        success: function(res) {
+            if (res.sessErr) {
+                alert(res.sessErr);
+            } else {
+                var info = res[0];
+                var url = "/blog/" + info.first_name.toLowerCase() + "-" + info.uid;
+                window.location.replace(url);
+
+            }
+        },
+        error(jqXHR, status, errorThrown) {
+            console.log(jqXHR);
+        }
+    });
 }
 
 function arrayToJson(arr) {

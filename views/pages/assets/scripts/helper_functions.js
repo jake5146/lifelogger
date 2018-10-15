@@ -39,6 +39,18 @@ function getDate(time) {
 	return date.getFullYear() + "-" + month + "-" + day;
 }
 
+// Extract hour:min:sec (ex. 19:18:03) from given Date
+function getTime(time) {
+	var date = new Date(time);
+	var hour = date.getHours();
+	var min = date.getMinutes();
+	var sec = date.getSeconds();
+	hour = (hour < 10) ? "0" + hour: hour;
+	min = (min < 10) ? "0" + min: min;
+	sec = (sec < 10) ? "0" + sec: sec;
+	return hour + ":" + min + ":" + sec;
+}
+
 // merge first-middle-last name into Full name
 function getFullName(first, middle, last) {
 	var fullname = first;
@@ -58,3 +70,23 @@ function hideLoader(className) {
     $(className).css("opacity", 1);
     $(".loader").hide();
 }
+
+
+
+/* search engine function 
+ * @params: search input's value, filterable boxes's class/element...
+ * 
+ */
+
+function searchAndFilter($input, boxClass) {
+	var $boxes = $(boxClass);
+	var matchTxt = $input.val().toLowerCase();
+	$boxes.each(function(i) {
+		var lower = $(this).text().toLowerCase();
+		if (lower.match(matchTxt)) $(this).show();
+		else $(this).hide();
+	});
+}
+
+
+

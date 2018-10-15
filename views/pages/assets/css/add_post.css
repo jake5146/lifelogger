@@ -155,9 +155,10 @@ input[name="post-title"] {
 	margin-right: 20px;
 	font-size: 13px;
 	font-family: Arial, sans-serif;
+	outline: none;
 }
 
-.display-area blockquote{
+.display-area blockquote {
 	margin: 0 0 0 40px;
 	border: none;
 	padding: 0px;
@@ -196,7 +197,7 @@ form#add-post {
 	text-align: center;
 }
 
-form#add-post input[value="Submit"] {
+form#add-post input[type="submit"] {
 	display: inline-block;
 	width: 20%;
 	float: left;

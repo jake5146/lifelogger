@@ -9,7 +9,11 @@ var sess;
 function slashGet(req, res) {
 	sess = req.session;
 	if (sess.email) {
-		res.redirect("/mypage")
+		// res.redirect("/mypage")
+        var uniqueUrl = "/blog/" + 
+        				sess.first_name.toLowerCase().replace(/\s+/, "") + 
+        				"-" + sess.uid;
+        res.redirect(uniqueUrl);
 	} else {
 		res.render("pages/main.html");
 	}
@@ -34,39 +38,6 @@ function emailLoginPost(req, res) {
 function emailLoginPostHandler(rows, req, res, callback) {
 	var jsonObj = {};
 
-/*
-    //if query causes error, send error msg.
-	if (err) {
-		jsonObj.msg = err;
-		resultJson.push(jsonObj);
-		res.end(JSON.stringify(resultJson));
-	} else {
-		// rows has no row when given login infos are wrong
-		if (rows.length !== 1) {
-			jsonObj.loginCode = 0; //login fails
-			resultJson.push(jsonObj);
-			res.end(JSON.stringify(resultJson));
-	    // rows has 1 row -> email matched
-		} else {
-			//compare hashed password and given password using bcrypt
-			bcrypt.compare(req.body[0].password, rows[0].password, function(bErr, response) {
-				//if bcrypt causes error, send error msg.
-				if (bErr) {
-					jsonObj.msg = bErr;
-                //password matched -> login success
-				} else if (response) {
-					sess = req.session;
-					sess.email = req.body[0].email;
-					jsonObj.loginCode = 1; //login succeeds
-				//password mismatched -> login fails
-				} else {
-					jsonObj.loginCode = 0; //login fails
-				}
-				resultJson.push(jsonObj);
-				res.end(JSON.stringify(resultJson));
-			});
-		}
-	} */
 	// rows has no row when given login infos are wrong
 	if (rows.length !== 1) {
 		jsonObj.loginCode = 0; //login fails
@@ -74,48 +45,60 @@ function emailLoginPostHandler(rows, req, res, callback) {
     // rows has 1 row -> email matched
 	} else {
 		//@@@@@@@@@@@@@@TEMPORARY CODE @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-		if (req.body[0].password === rows[0].password) {
-			sess = req.session;
-			sess.email = req.body[0].email;
-			jsonObj.loginCode = 1;
-			res.end(JSON.stringify(jsonObj));
-		} else {
-			bcrypt.compare(req.body[0].password, rows[0].password, function(bErr, response) {
-				//if bcrypt causes error, send error msg.
-				if (bErr) {
-					jsonObj.msg = bErr;
-	            //password matched -> login success
-				} else if (response) {
-					sess = req.session;
-					sess.email = req.body[0].email;
-					jsonObj.loginCode = 1; //login succeeds
-				//password mismatched -> login fails
-				} else {
-					jsonObj.loginCode = 0; //login fails
-				}
-				res.end(JSON.stringify(jsonObj));
-			});
-		}
+		// if (req.body[0].password === rows[0].password) {
+		// 	sess = req.session;
+		// 	sess.email = req.body[0].email;
+		// 	sess.uid = rows[0].uid;
+		// 	sess.first_name = rows[0].first_name;
+		// 	jsonObj.loginCode = 1;
+		// 	jsonObj.first_name = rows[0].first_name.toLowerCase().replace(/\s+/, "");;
+		// 	jsonObj.uid = rows[0].uid;
+		// 	res.end(JSON.stringify(jsonObj));
+		// } else {
+		// 	bcrypt.compare(req.body[0].password, rows[0].password, function(bErr, response) {
+		// 		//if bcrypt causes error, send error msg.
+		// 		if (bErr) {
+		// 			jsonObj.msg = bErr;
+	 //            //password matched -> login success
+		// 		} else if (response) {
+		// 			sess = req.session;
+		// 			sess.email = req.body[0].email;
+		// 			sess.uid = rows[0].uid;
+		// 			sess.first_name = rows[0].first_name;
+		// 			jsonObj.loginCode = 1; //login succeeds
+		// 			jsonObj.first_name = req.body[0].first_name;
+		// 			jsonObj.uid = req.body[0].uid;
+		// 		//password mismatched -> login fails
+		// 		} else {
+		// 			jsonObj.loginCode = 0; //login fails
+		// 		}
+		// 		res.end(JSON.stringify(jsonObj));
+		// 	});
+		// }
 		//@@@@@@@@@@@@@@TEMPORARY CODE @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
 		//~~~~~~~~~~~~~~~~~ORIGNAL CODE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
 		//compare hashed password and given password using bcrypt
-		// bcrypt.compare(req.body[0].password, rows[0].password, function(bErr, response) {
-		// 	//if bcrypt causes error, send error msg.
-		// 	if (bErr) {
-		// 		jsonObj.msg = bErr;
-  //           //password matched -> login success
-		// 	} else if (response) {
-		// 		sess = req.session;
-		// 		sess.email = req.body[0].email;
-		// 		jsonObj.loginCode = 1; //login succeeds
-		// 	//password mismatched -> login fails
-		// 	} else {
-		// 		jsonObj.loginCode = 0; //login fails
-		// 	}
-		// 	res.end(JSON.stringify(jsonObj));
-		// });
+		bcrypt.compare(req.body[0].password, rows[0].password, function(bErr, response) {
+			//if bcrypt causes error, send error msg.
+			if (bErr) {
+				jsonObj.msg = bErr;
+            //password matched -> login success
+			} else if (response) {
+				sess = req.session;
+				sess.email = req.body[0].email;
+				sess.uid = rows[0].uid;
+				sess.first_name = rows[0].first_name.toLowerCase().replace(/\s+/, "");;
+				jsonObj.loginCode = 1; //login succeeds
+				jsonObj.first_name = sess.first_name;
+				jsonObj.uid = sess.uid;
+			//password mismatched -> login fails
+			} else {
+				jsonObj.loginCode = 0; //login fails
+			}
+			res.end(JSON.stringify(jsonObj));
+		});
 		//~~~~~~~~~~~~~~~~~ORIGNAL CODE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
 	}
 }

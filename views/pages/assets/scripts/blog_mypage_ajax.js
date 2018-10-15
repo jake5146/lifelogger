@@ -2,13 +2,16 @@
 $(document).ready(function() {
 	getProfileInfo();
 	//getPostsInfo();
-	getCategoryInfos();
-	getBlogLikes();
+
+	var isMyBlog, pageFname, pageUid;
 
 	function getProfileInfo() {
+		var parseUrl = window.location.href.match(/\/blog\/(\w+)-(\d+)/);
+		pageFname = parseUrl[1];
+		pageUid = parseUrl[2];
 		$.ajax({
 			type: "GET",
-			url: "/acc-profile",
+			url: "/profile/" + pageFname + "-" + pageUid,
 	    	contentType: "application/json",
 	    	dataType: "JSON",
 	    	success: function(res) {
@@ -16,15 +19,28 @@ $(document).ready(function() {
 
 	            console.log(info);
 
-	            if (info.msg || info.invalid) {
+	            if (info.msg) {
 	            	alert("Sorry. Error occurred during loading information." +
 	            		" Please try again.");
+	            } else if (info.invalid) { 
+	            	alert("Blog Not Found :(. Redirecting to your blog.");
+	            	window.location.href = "/";
 	            } else {
+	            	isMyBlog = info.isMyBlog;
+
+	            	blogViewSettings();
+	            	getCategoryInfos();
+					getBlogLikes();
+					blogLikesHandler();
+
 	            	var fullname = info.first_name;
 	            	if (info.middle_name) {
 	            		fullname += " " + info.middle_name;
 	            	}
 	            	fullname += " " + info.last_name;
+
+	            	if (info.blog_title) $(".blog-title").text(info.blog_title);
+	            	else $(".blog-title").text(info.first_name + "'s Blog");
 
 	            	$(".fullname").text(getFullName(info.first_name, 
 	            									info.middle_name, 
@@ -33,25 +49,296 @@ $(document).ready(function() {
 	            	$(".nickname").text(info.nick_name);
 	            	$(".birthday").text(getDate(info.birthday));
 	            	$(".about").text(info.about);
-
-	            	// blog headers:
-	            	if (info.blog_title) {
-	            		$("h1.blog-title").text(info.blog_title);
-	            	}
+	            	
 	            	if (info.header_color) {
-	            		$("h1.blog-title").css({"color": info.header_color});
+	            		$(".blog-title").css({"color": info.header_color});
 	            	}
 	            	if (info.header_bg) {
-	            		$(".jumbotron").css({"background-image": "url('" + info.header_bg + "')"});
+	            		$(".jumbotron").css({"background-image": "url('../../uploads/" + info.header_bg + "')"});
 	            	}
 	            	if (info.footer_sent) {
 	            		$("#impressive-sent").text(info.footer_sent);
 	            	}
 
-	                
 	                if (info.profile) {
 	                	$("#profile-img").attr("src", "./uploads/" + info.profile);
 	                }
+	            }
+	    	},
+	    	error(jqXHR, status, errorThrown) {
+	    		console.log(jqXHR);
+	    	}
+		});
+	}
+
+	/* Change view based on isMyBlog value.
+	 * If current blog page is user's own blog, then
+	 *  user is unable to do/see the following:
+	 *   - like the blog 
+	 *   - friend request 
+	 * If current blog page is NOT user's own blog, then
+	 *  user is able/unable to do/see the following: 
+	 *   - unable to edit header image
+	 *   - able to do friend request / unfriend
+	 *   - unable to add post 
+	 *   - able to like/unlike the blog */ 
+	function blogViewSettings() {
+		if (isMyBlog) {
+			$(".friend-request-btn").hide();
+
+		} else {
+			checkFriendRelationship();
+			$(".header-bg-icon").hide();
+			$(".open-addpost").hide();
+		}
+	}
+
+	function checkFriendRelationship() {
+		$.ajax({
+			type: "POST",
+			url: "/are-we-friends",
+	    	contentType: "application/json",
+	    	data: JSON.stringify({"uid": parseInt(pageUid)}),
+	    	dataType: "JSON",
+	    	success: function(res) {
+	            var info = res;
+	            console.log(info);
+
+	            /* Four cases:
+	             *   1) No row: no friend friend relationship
+	             *   2) 1 row:
+	             *      a) user has requested to page owner
+	             *      b) page owner has requested to user
+	             *   3) 2 rows: friend relationship
+	             */
+	             $(".friend-request-btn").attr({
+	             	"data-toggle": "modal",
+					"data-target": "#friend-rel-modal"
+				 });
+	             var iconClass = "glyphicon glyphicon-ok",
+	             	 txtClass,
+	             	 btnText;
+	             if (info.length === 0) {
+	             	iconClass = "glyphicon glyphicon-user";
+	             	btnText = " Add Friend"; 
+	             	txtClass = "friend-request-txt friend-no";
+	                $(".friend-request-btn").attr({
+						"data-toggle": "",
+						"data-target": ""
+					});
+	             } else if (info.length === 2) {
+	             	btnText =  " Friend";
+	             	txtClass = "friend-request-txt friend-friend";
+	             } else {
+	             	console.log("pageUid:" + pageUid);
+	             	console.log(typeof pageUid);
+	             	console.log("info:" + info[0].friendOne);
+	             	console.log(typeof info[0].friendOne);
+	             	if (info[0].friendOne == pageUid) {
+	             		btnText = " Accept Request";
+	             		txtClass = "friend-request-txt friend-accept";
+	             	} else {
+	             		btnText = " Requested";
+	             		txtClass = "friend-request-txt friend-requested";
+	             	}
+	             }
+	             var $span = $("<span>", {
+	             	class: iconClass
+	             });
+
+	             var $text = $("<span>", {
+	             	text: btnText,
+	             	class: txtClass
+	             });
+
+	             $(".friend-request-btn").show();
+	             $(".friend-request-btn").append($span, $text);
+
+	             addEventHandlerForFriendsAdd();
+
+	    	},
+	    	error(jqXHR, status, errorThrown) {
+	    		console.log(jqXHR);
+	    	}
+		});
+	}
+
+	//@@TODO:: create popover block & style
+	function addEventHandlerForFriendsAdd() {
+		console.log("in function");
+		// when user and blog owner are not friends
+		$(".friend-no").click(function() {});
+		// when user and blog owner are friends
+		$(".friend-request-btn").click(function(e) {
+			e.preventDefault();
+			var whichBtn = $(this).find(".friend-request-txt");
+			if (whichBtn.hasClass("friend-no")) {
+				friendRelationshipRequest("request-friend");
+			} else if (whichBtn.hasClass("friend-friend")) {
+				var contents = {
+					"title": "Unfriend Alert",
+					"body": "Do you really want to unfriend?",
+					"remove_default": "cancel-friend-request accept-friend-request",
+					"add_default": "request-unfriend",
+					"remove_success": "decline-friend-request",
+					"add_success": "",
+					"default_text": "Yes",
+					"success_text": "No"
+				};
+				setFriendRelModalContents(contents);
+				$(".request-unfriend").click(function(e) {
+					e.preventDefault();
+					friendRelationshipRequest("unfriend");
+				});
+			} else if (whichBtn.hasClass("friend-accept")) {
+				var contents = {
+					"title": "Friend Request Accept Alert",
+					"body": "Do you want to accept the friend request?",
+					"remove_default": "request-unfriend cancel-friend-request",
+					"add_default": "accept-friend-request",
+					"remove_success": "",
+					"add_success": "decline-friend-request",
+					"default_text": "Accept",
+					"success_text": "Decline"
+				};
+				setFriendRelModalContents(contents);
+				$(".accept-friend-request").click(function(e) {
+					e.preventDefault();
+					friendRelationshipRequest("accept-request");
+				});
+				$(".decline-friend-request").click(function(e) {
+					e.preventDefault();
+					friendRelationshipRequest("decline-request");
+				});
+			} else if (whichBtn.hasClass("friend-requested")) {
+				var contents = {
+					"title": "Friend Request Cancellation Alert",
+					"body": "Do you want to cancel the friend request?",
+					"remove_default": "request-unfriend accept-friend-request",
+					"add_default": "cancel-friend-request",
+					"remove_success": "decline-friend-request",
+					"add_success": "",
+					"default_text": "Yes",
+					"success_text": "No"
+				};
+				setFriendRelModalContents(contents);
+				$(".cancel-friend-request").click(function(e) {
+					e.preventDefault();
+					friendRelationshipRequest("cancel-request");
+				});
+			}
+		});
+		// when blog owner has requested to be a friend
+		$(".friend-accept").click(function() {});
+		// when user has requested to be a friend
+		$(".friend-requested").click(function() {});
+	}
+
+	function setFriendRelModalContents(contents) {
+		$("#friend-rel-modal .modal-title").text(contents.title);
+		$("#friend-rel-modal .modal-body p").text(contents.body);
+		$("#friend-rel-modal .modal-footer .btn-default").removeClass(contents.remove_default);
+		$("#friend-rel-modal .modal-footer .btn-default").addClass(contents.add_default);
+		$("#friend-rel-modal .modal-footer .btn-default").text(contents.default_text);
+		$("#friend-rel-modal .modal-footer .btn-success").removeClass(contents.remove_success);
+		$("#friend-rel-modal .modal-footer .btn-success").addClass(contents.add_success);
+		$("#friend-rel-modal .modal-footer .btn-success").text(contents.success_text);
+	}
+
+	function createLink(className, txt) {
+		var $li = $("<li>", {
+			class: className
+		});
+
+		var $a = $("<a>", {
+			text: txt,
+			href: "#"
+		});
+
+		$li.append($a);
+		return $li;
+	}
+
+	function friendRelationshipRequest(reqCode) {
+		$.ajax({
+		    type: "POST",
+			url: "/friend-request",
+	    	contentType: "application/json",
+	    	data: JSON.stringify({"reqCode": reqCode, "uid": parseInt(pageUid)}),
+	    	dataType: "JSON",
+	    	success: function(res) {
+	    		if (res.msg) {
+	    			alert(res.msg);
+	    		} else {
+	    			$(".friend-request-btn").attr({
+		             	"data-toggle": "modal",
+						"data-target": "#friend-rel-modal"
+					});
+	    			var code = res.reqCode;
+	    			var iconClass = "glyphicon glyphicon-ok";
+	    			var btnText;
+	    			var txtClass;
+	    			if (code === "unfriend" || code === "cancel-request" 
+	    				|| code === "decline-request") {
+	    				$(".friend-request-btn").attr({
+							"data-toggle": "",
+							"data-target": ""
+						});
+
+						iconClass = "glyphicon glyphicon-user";
+						btnText = " Add Friend";
+						txtClass = "friend-request-txt friend-no";
+	       
+	    			} else if (code === "request-friend") {
+	    				btnText = " Requested";
+	             		txtClass = "friend-request-txt friend-requested";
+
+	             		//@@TODO: send request msg to page owner.
+	             		sendNotificationMsg("requested");
+
+	    			} else if (code === "accept-request") {
+	    				btnText =  " Friend";
+	             		txtClass = "friend-request-txt friend-friend";
+	             		sendNotificationMsg("accepted");
+	    			}
+
+	    			var $span = $("<span>", {
+		             	class: iconClass
+		            });
+
+		            var $text = $("<span>", {
+		            	text: btnText,
+		             	class: txtClass
+		            });
+
+		            $(".friend-request-btn").empty();
+		            $(".friend-request-btn").append($span, $text);
+
+	    		}
+	    	},
+	    	error(jqXHR, status, errorThrown) {
+	    		console.log(jqXHR);
+	    	}
+		});
+	}
+
+	function sendNotificationMsg(requestType) {
+		$.ajax({
+			type: "GET",
+			url: "/get-my-info",
+	    	contentType: "application/json",
+	    	dataType: "JSON",
+	    	success: function(res) {
+	            if (res.msg) {
+	            	alert(res.msg);
+	            } else if (res.invalid) { 
+	            	alert("Blog Not Found :(. Redirecting to your blog.");
+	            	window.location.href = "/";
+	            } else {
+	            	var notif = {nick_name: res[0].nick_name, first_name: res[0].first_name, 
+	            				profile: res[0].profile, uid: res[0].uid, 
+	            				category: requestType};
+	            	notification.emit("notif-user", pageUid, JSON.stringify(notif));
 	            }
 	    	},
 	    	error(jqXHR, status, errorThrown) {
@@ -75,7 +362,7 @@ $(document).ready(function() {
 	 * and get corresponding data from the server */
 	function getPostsInfo(startOffset, pcid, ccid, displayType) {
 		showLoader("body");
-		var data = {"startOffset": startOffset, "pcid": pcid, "ccid": ccid};
+		var data = {"startOffset": startOffset, "pcid": pcid, "ccid": ccid, uid: parseInt(pageUid)};
 		$.ajax({
 			type: "POST",
 			url: "/post-info",
@@ -152,13 +439,14 @@ $(document).ready(function() {
 		
 		$.each(posts, function(i, post) {
 			num++;
-			$tbody.prepend(createPostLink(post, num));
+			$tbody.append(createPostLink(post, num));
 		});
 
 		$table.append($tbody);
 		$divResp.append($table);
 
 		$("#postings").append($divResp);
+		console.log(num);
 		return num;
 	}
 
@@ -184,6 +472,13 @@ $(document).ready(function() {
 		});
 
 		$tr.append($td_num, $td_title, $td_date);
+
+		$tr.click(function(e) {
+			e.preventDefault();
+			var postHref = "/blog/" + pageFname + "-" + pageUid + 
+					   "/post-" + post.postid;
+			window.open(postHref);
+		});
 
 		return $tr;
 	}
@@ -212,7 +507,7 @@ $(document).ready(function() {
 				i = i + 2;
 				num = num + 2;
 			}
-			$divPosts.prepend($row);
+			$divPosts.append($row);
 		}
 		console.log("posts:");
 		console.log(posts);
@@ -233,9 +528,12 @@ $(document).ready(function() {
 
 		var $div = $("<div>", {class: "thumbnail"});
 
-		var $a = $("<a>", {
-			href: "#"
-		});
+		// var postHref = "/blog/" + pageFname + "-" + pageUid + 
+		// 			   "/post-" + post.postid;
+
+		// var $a = $("<a>", {
+		// 	href: postHref
+		// });
 
 		var $temp = $("<div>");
 		$temp.html(post.contents);
@@ -245,7 +543,7 @@ $(document).ready(function() {
 		if ($firstImg.length) {
 			imgSrc = $firstImg.attr("src");
 		} else {
-			imgSrc = "assets/images/no-image-icon.png";
+			imgSrc = "/assets/images/no-image-icon.png";
 		}
 
 		var $img = $("<img>", {
@@ -260,9 +558,16 @@ $(document).ready(function() {
 			text: post.title
 		});
 
-		$a.append($img, $title);
-		$div.append($a);
+		$div.append($img, $title);
 		$post.append($div);
+
+		$post.click(function(e) {
+			e.preventDefault();
+			var postHref = "/blog/" + pageFname + "-" + pageUid + 
+					   "/post-" + post.postid;
+			window.open(postHref);
+		});
+
 		return $post;
 	}
 
@@ -282,7 +587,7 @@ $(document).ready(function() {
 
 		var pagesNum = Math.ceil(num / 10);
 
-		var countPg = (pagesNum > 5) ? pagesNum - 5: 0;
+		var countPg = (pagesNum % 5) ? Math.floor(pagesNum / 5) * 5: pagesNum - 5;
 
 		var n = startOffset;
 		while (countPg < pagesNum) {
@@ -291,6 +596,7 @@ $(document).ready(function() {
 			var $li = createPageLink(liClasses, countPg);
 			$ulList.append($li);
 		}
+		console.log("countPg:after: " + countPg);
 
 		var liSingR = createPageLink("right-arrow right-single-arrow",
 									 "<span class='glyphicon" + 
@@ -402,10 +708,11 @@ $(document).ready(function() {
 	function getCategoryInfos() {
 		showLoader("body");
 		$.ajax({
-			type: "GET",
+			type: "POST",
 			url: "/acc-categories",
 	    	contentType: "application/json",
 	    	dataType: "JSON",
+	    	data: JSON.stringify({uid: parseInt(pageUid)}),
 	    	success: function(res) {
 	    		//@@
 	    		console.log(res);
@@ -433,7 +740,7 @@ $(document).ready(function() {
 			url: "/post-count",
 	    	contentType: "application/json",
 	    	dataType: "JSON",
-	    	data: JSON.stringify({"pcid": pcidList[ipcid], 
+	    	data: JSON.stringify({"pcid": pcidList[ipcid], uid: parseInt(pageUid),
 	    						  "ccid": (ccidList) ? ccidList[iccid]: undefined}),
 	    	success: function(res) {
 	    		if (res.msg) {
@@ -542,23 +849,54 @@ $(document).ready(function() {
 
 	function getBlogLikes() {
 		$.ajax({
-			type: "GET",
+			type: "POST",
 			url: "/get-likes",
 	    	contentType: "application/json",
 	    	dataType: "JSON",
+	    	data: JSON.stringify({pageUid: parseInt(pageUid)}),
 	    	success: function(res) {
 	    		if (res.msg) {
 	    			alert(res.msg);
 	    		} else if (res.sessErr) {
 	    			alert(res.sessErr);
 	    		} else {
-	    			var likes = res[0].likes;
-	    			$(".like-number").text(likes);
+	    			console.log(res[0].likes);
+	    			$(".like-number").text(res[0].likes);
 	    		}
 	    	},
 	    	error(jqXHR, status, errorThrown) {
 	    		console.log(jqXHR);
 	    	}
+		});
+	}
+
+	function blogLikesHandler() {
+		$(".like-icon").click(function(e) {
+			e.preventDefault();
+			if (isMyBlog) {
+				alert("You are not able to like your own blog.");
+			} else {
+				$.ajax({
+					type: "POST",
+					url: "/like-blog",
+			    	contentType: "application/json",
+			    	dataType: "JSON",
+			    	data: JSON.stringify({pageUid: parseInt(pageUid)}),
+			    	success: function(res) {
+			    		if (res.msg) {
+			    			alert(res.msg);
+			    		} else if (res.sessErr) {
+			    			alert(res.sessErr);
+			    		} else {
+			    			getBlogLikes();
+			    			sendNotificationMsg("liked");
+			    		}
+			    	},
+			    	error(jqXHR, status, errorThrown) {
+			    		console.log(jqXHR);
+			    	}
+				});
+			}
 		});
 	}
 

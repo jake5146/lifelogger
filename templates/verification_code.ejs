@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Verification Code | A Lifelogger </title>
+		<meta http-equiv="content-type" content="text/html" charset="UTF-8">
+		<meta name="description" content="Modern style blog">
+		<meta name="keywords" content="blog,lifelog">
+		<meta name="author" content="Paul Jhe">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<!-- Google fonts -->
+		<link href="https://fonts.googleapis.com/css?family=Indie+Flower|Open+Sans" rel="stylesheet">
+
+		<link rel="stylesheet" type="text/css" href="assets/css/email_verification_code.css">
+	</head>
+	<body>
+		<div class="verif-top"></div> <!-- verif-top -->
+		<div id="verif-body">
+			<div class="logo-block">
+  			<!-- <img src="cid:lifelogger_logo@kreata.ee" width="50" height="25" alt="Logo"> -->
+  			<img src="assets/images/feather-icon.png" width="50" height="25" alt="Logo"> 
+  			Lifelogger
+	    </div> <!-- logo-block -->
+	    <h3> Hello <%= name %> </h3>
+	    <p><%= comment_1 %></p>
+	    <div class="verif-code">
+	    	<h4> Your code is </h4>
+	    	<span><%= code %></span>
+	    </div> <!-- verif-code -->
+	    <p><%= comment_2 %></p>
+		</div> <!-- id=verif-body -->
+		<div class="verif-footer">
+	    from A Lifelogger Team <img src="cid:lifelogger_logo@kreata.ee" width="50" height="25" alt="Logo">
+	  </div> <!-- verif-footer -->
+	</body>
+</html>
