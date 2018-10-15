@@ -468,7 +468,7 @@ $(document).ready(function() {
 		});
 		var $td_date = $("<td>", {
 			class: "post-date",
-			text: getDate(post.time_post)
+			text: getDate(post.last_edit)
 		});
 
 		$tr.append($td_num, $td_title, $td_date);

@@ -1,13 +1,13 @@
 SET FOREIGN_KEY_CHECKS = 0;
 SELECT concat('DROP TABLE IF EXISTS ', table_name, ';')
 FROM information_schema.tables
-WHERE table_schema = 'Lifelogger';
+WHERE table_schema = 'heroku_24c76bdb1c0ec46';
 SET FOREIGN_KEY_CHECKS = 1;
 -- delete later
-DROP DATABASE if exists Lifelogger;
-CREATE DATABASE Lifelogger;
+DROP DATABASE if exists heroku_24c76bdb1c0ec46;
+CREATE DATABASE heroku_24c76bdb1c0ec46;
 SET default_storage_engine=MYISAM;
-USE Lifelogger;
+USE heroku_24c76bdb1c0ec46;
 
 CREATE TABLE Users 
 (
@@ -72,8 +72,7 @@ CREATE TABLE Posts
 	contents 	LONGTEXT 		NOT NULL,
 	likes		BIGINT UNSIGNED NOT NULL	DEFAULT 0,
 	temporary	TINYINT			NOT NULL,
-	time_post	TIMESTAMP		DEFAULT	CURRENT_TIMESTAMP,
-	last_edit   TIMESTAMP   	DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	last_edit   TIMESTAMP   	DEFAULT	CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	PRIMARY KEY (uid, postid)
 );
 
