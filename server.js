@@ -474,4 +474,5 @@ function sendSession(req, res) {
 
 
 // open localhost server at port 3100.
-server.listen(3100);
+var PORT = process.env.PORT;
+server.listen(PORT);
