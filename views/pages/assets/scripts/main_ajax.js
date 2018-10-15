@@ -42,21 +42,20 @@ function submitLoginForm(e) {
     		var loginRes = res;
     		console.log(loginRes);
             var errTxt = "";
-            //Database query fails. Asks user to try again.
-    		if (loginRes.msg) {
-    			errTxt = "Sorry. Error occurs on the database. Please try again.";
-    			$errorMsg.show();
     		//Login info is invalid (login fails). Asks user to try again.
-    		} else if (loginRes.loginCode === 0) {
+    		if (loginRes.loginCode === 0) {
     			errTxt = "Invalid email or password. Please try again.";
     			$errorMsg.show();
     		//Login succeeds. Redirect to the my blog page.
     		// (loginRes.loginCode === 1)
-    		} else {
+    		} else if (loginRes.loginCode === 1) {
                 // pageRendering();
                 var fname = loginRes.first_name.toLowerCase().replace(/\s+/, "");
                 var uniqueUrl = "/blog/" + fname + "-" + loginRes.uid;
     			window.location.replace(uniqueUrl);
+    		} else { //Database query fails. Asks user to try again.
+    			errTxt = "Sorry. Error occurs on the database. Please try again.";
+    			$errorMsg.show();
     		}
     		// add error message according to responded code.
     		$errorMsg.text(errTxt);
