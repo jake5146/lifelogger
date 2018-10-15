@@ -4,11 +4,11 @@ var mysql 		= 	require("mysql");
 
 // create pool to prevent server crash in case of many concurrent access
 var pool	=	mysql.createPool({
-	connectionLimit	: 100, //important
-	host			: "jsftj8ez0cevjz8v.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-	user			: "acs0q1n7gadertnk",
-	password		: "m5bri8fb8zjzf89l",
-	database		: "g4vvcd13emr28kwv",
+	connectionLimit	: 10, //important
+	host			: "us-cdbr-iron-east-01.cleardb.net",
+	user			: "bc1ead2287888c",
+	password		: "11d39bd9",
+	database		: "heroku_24c76bdb1c0ec46",
 	acquireTimeout  : 20000,
 	connectTimeout  : 20000
 });
