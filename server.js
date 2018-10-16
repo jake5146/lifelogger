@@ -17,7 +17,7 @@ var PORT = process.env.PORT || 3100;
 server.listen(PORT);
 var io 			= 	require("socket.io")(server);
 
-io.set("transports", ["websocket"]); 
+// io.set("transports", ["websocket"]); 
 // io.set("polling duration", 10); 
 // io.set("match origin protocol", true);
 
