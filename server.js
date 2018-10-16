@@ -20,8 +20,8 @@ var io 			= 	require("socket.io")(server);
 // io.configure(function() {
 // 	io.set("match origin protocol", true);
 // });
-var emitter = new EventEmitter();
-emitter.setMaxListeners(0);
+// var emitter = new EventEmitter();
+// emitter.setMaxListeners(0);
 
 var storage 	= 	multer.diskStorage({
 	destination: "./views/pages/uploads/",
@@ -59,6 +59,12 @@ app.use(session({
 	saveUninitialized	: sess_info.saveUninitialized,
 	cookie				: sess_info.cookie
 }));
+
+app.use(function(req, res, next) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader("Content-Type", "application/json");
+	next();
+});
 
 // ~~~~ REQUEST HANDLER FOR MAIN ~~~~ (BELOW) //
 
