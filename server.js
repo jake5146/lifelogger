@@ -15,7 +15,7 @@ var server 		= 	require("http").Server(app);
 var PORT = process.env.PORT || 3100;
 server.listen(PORT);
 var io 			= 	require("socket.io")(server);
-io.set("match origin protocol", true);
+// io.set("match origin protocol", true);
 
 // io.configure(function() {
 // 	io.set("match origin protocol", true);
