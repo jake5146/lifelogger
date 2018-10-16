@@ -87,8 +87,8 @@ function emailLoginPostHandler(rows, req, res, callback) {
 				sess.uid = rows[0].uid;
 				sess.first_name = rows[0].first_name;
 				jsonObj.loginCode = 1; //login succeeds
-				jsonObj.first_name = req.body[0].first_name;
-				jsonObj.uid = req.body[0].uid;
+				jsonObj.first_name = rows[0].first_name;
+				jsonObj.uid = rows[0].uid;
 			//password mismatched -> login fails
 			} else {
 				jsonObj.loginCode = 0; //login fails
