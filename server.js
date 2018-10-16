@@ -20,6 +20,8 @@ var io 			= 	require("socket.io")(server);
 // io.configure(function() {
 // 	io.set("match origin protocol", true);
 // });
+var emitter = new EventEmitter();
+emitter.setMaxListeners(0);
 
 var storage 	= 	multer.diskStorage({
 	destination: "./views/pages/uploads/",
