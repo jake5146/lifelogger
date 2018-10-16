@@ -12,6 +12,8 @@ var sess_info 	=	require("./sess_info");
 var app 		= 	express();
 
 var server 		= 	require("http").Server(app);
+var PORT = process.env.PORT || 3100;
+server.listen(PORT);
 var io 			= 	require("socket.io")(server);
 
 var storage 	= 	multer.diskStorage({
@@ -472,7 +474,3 @@ function sendSession(req, res) {
 
 // ~~~~ COMMON FUNCTION ~~~~ (ABOVE) //
 
-
-// open localhost server at port 3100.
-var PORT = process.env.PORT;
-server.listen(PORT);
