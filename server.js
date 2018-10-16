@@ -68,7 +68,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(session({
 	secret				: sess_info.secret,
-	store 				: sessionStore,
+	// store 				: sessionStore,
 	resave				: sess_info.resave,
 	saveUninitialized	: sess_info.saveUninitialized,
 	cookie				: sess_info.cookie
