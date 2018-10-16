@@ -79,6 +79,8 @@ app.use(session({
 var server_main		=	require("./server_main");
 
 app.get("/", function(req, res) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader("Content-Type", "application/json");
 	server_main.slash(req, res);
 });
 
@@ -94,6 +96,8 @@ app.post("/email-login", function(req, res) {
 // ~~~~ REQUEST HANDLER FOR NAVBAR ~~~~ (BELOW) //
 
 app.get("/logout", function(req, res) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader("Content-Type", "application/json");
 	req.session.destroy(function(err) {
 		if (err) {
 			console.log(err);
@@ -105,6 +109,8 @@ app.get("/logout", function(req, res) {
 
   //show user's menus (msg, alarm, profile..etc) iff user is logged in
 app.get("/check-user-login", function(req, res) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader("Content-Type", "application/json");
     sendSession(req, res);
 });
 

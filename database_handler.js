@@ -21,7 +21,6 @@ var pool	=	mysql.createPool({
 // @param5 queryFcn: handler for returned info from query. It establishes data and send it to the user.
 // @param6 fcnCallback: callback function for queryFcn 
 function databaseHandler(req, res, sqlQuery, queryVals, queryFcn, fcnCallback) {
-	res.setHeader('Access-Control-Allow-Origin', '*');
 	// res.setHeader("Content-Type", "application/json");
 	pool.getConnection(function(poolErr, connection) {
 		console.log("connectionHandler poolErr: " + typeof poolErr);
@@ -53,7 +52,6 @@ function databaseHandler(req, res, sqlQuery, queryVals, queryFcn, fcnCallback) {
 }
 
 function multipleQueryHandler(req, res, queries, queryVals, resultFcn) {
-	res.setHeader('Access-Control-Allow-Origin', '*');
 	pool.getConnection(function(poolErr, connection) {
 		console.log("connectionHandler poolErr: " + typeof poolErr);
 		console.log("connectionHandler connection: " + typeof connection);
