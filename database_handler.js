@@ -54,7 +54,6 @@ function databaseHandler(req, res, sqlQuery, queryVals, queryFcn, fcnCallback) {
 
 function multipleQueryHandler(req, res, queries, queryVals, resultFcn) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
-	res.setHeader("Content-Type", "application/json");
 	pool.getConnection(function(poolErr, connection) {
 		console.log("connectionHandler poolErr: " + typeof poolErr);
 		console.log("connectionHandler connection: " + typeof connection);
