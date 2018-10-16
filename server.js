@@ -18,7 +18,7 @@ server.listen(PORT);
 var io 			= 	require("socket.io")(server);
 
 io.set("transports", ["xhr-polling"]); 
-io.set("polling duration", 10); 
+// io.set("polling duration", 10); 
 // io.set("match origin protocol", true);
 
 // io.configure(function() {
@@ -57,8 +57,18 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 //app.use('trust proxy', 1); // trust first proxy
 //initialize session
+var options = {
+	host: "us-cdbr-iron-east-01.cleardb.net",
+	user			: "bc1ead2287888c",
+	password		: "11d39bd9",
+	database		: "heroku_24c76bdb1c0ec46"
+};
+
+var sessionStore = new session(options);
+
 app.use(session({
 	secret				: sess_info.secret,
+	store 				: sessionStore,
 	resave				: sess_info.resave,
 	saveUninitialized	: sess_info.saveUninitialized,
 	cookie				: sess_info.cookie
