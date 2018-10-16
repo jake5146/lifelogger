@@ -17,7 +17,7 @@ var PORT = process.env.PORT || 3100;
 server.listen(PORT);
 var io 			= 	require("socket.io")(server);
 
-// io.set("transports", ["websocket"]); 
+io.set("transports", ["websocket"]); 
 // io.set("polling duration", 10); 
 // io.set("match origin protocol", true);
 
@@ -73,12 +73,6 @@ app.use(session({
 	saveUninitialized	: sess_info.saveUninitialized,
 	cookie				: sess_info.cookie
 }));
-
-app.use(function(req, res, next) {
-	res.setHeader('Access-Control-Allow-Origin', '*');
-	res.setHeader("Content-Type", "application/json");
-	next();
-});
 
 // ~~~~ REQUEST HANDLER FOR MAIN ~~~~ (BELOW) //
 
