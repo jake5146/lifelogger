@@ -1,6 +1,6 @@
 var express		= 	require("express");
 var sess		=	require("express-session");
-var session 	= 	require("express-mysql-session");
+var session 	= 	require("express-mysql-session")(sess);
 var multer		=	require("multer");
 var bodyParser 	= 	require("body-parser");
 var mysql 		= 	require("mysql");
