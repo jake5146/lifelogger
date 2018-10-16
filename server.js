@@ -1,6 +1,6 @@
 var express		= 	require("express");
-var sess		=	require("express-session");
-var session 	= 	require("express-mysql-session")(sess);
+var session		=	require("express-session");
+// var session 	= 	require("express-mysql-session")(sess);
 var multer		=	require("multer");
 var bodyParser 	= 	require("body-parser");
 var mysql 		= 	require("mysql");
@@ -17,7 +17,7 @@ var PORT = process.env.PORT || 3100;
 server.listen(PORT);
 var io 			= 	require("socket.io")(server);
 
-io.set("transports", ["xhr-polling"]); 
+io.set("transports", ["websocket"]); 
 // io.set("polling duration", 10); 
 // io.set("match origin protocol", true);
 
@@ -57,14 +57,14 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 //app.use('trust proxy', 1); // trust first proxy
 //initialize session
-var options = {
-	host: "us-cdbr-iron-east-01.cleardb.net",
-	user			: "bc1ead2287888c",
-	password		: "11d39bd9",
-	database		: "heroku_24c76bdb1c0ec46"
-};
+// var options = {
+// 	host: "us-cdbr-iron-east-01.cleardb.net",
+// 	user			: "bc1ead2287888c",
+// 	password		: "11d39bd9",
+// 	database		: "heroku_24c76bdb1c0ec46"
+// };
 
-var sessionStore = new session(options);
+// var sessionStore = new session(options);
 
 app.use(session({
 	secret				: sess_info.secret,
