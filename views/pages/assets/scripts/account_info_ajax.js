@@ -141,9 +141,8 @@ function submitProfileInfo() {
             	$msg.show();
 
 	    		if (res.msg) {
-	    			$msg.css({"background-color": "rgba(204, 0, 0, 0.6)"});
-            		$msg.text("Sorry. Error occurred during submission." +
-            					" Please try again.");
+	    			alert("Sorry. Error occured during submission. Please try again.");
+	            	window.location.href = "/";
 	    		} else {
 	    			$msg.css({"background-color": "rgba(0, 230, 0, 0.6)"});
 	    			$msg.text("Successful!");
@@ -418,9 +417,8 @@ function submitEdittedCategory() {
 	    		$msg.hide();
 
 	    		if (res.msg) { //in case of query error.
-	    			$msg.show();
-	    			$msg.text("Sorry. Error occurred during loading information." +
-	            		" Please try again.");
+	    			alert(res.msg + " Redirecting to the main page.");
+	            	window.location.href = "/";
 	    		} 
 	    	},
 	    	error(jqXHR, status, errorThrown) {
@@ -564,7 +562,8 @@ function getFriendsInfo(keyword, offset) {
 		data: JSON.stringify({keyword: keyword, offset: offset}),
     	success: function(res) {
     		if (res.msg) { //in case of query error.
-    			alert(res.msg);
+    			alert(res.msg + " Redirecting to the main page.");
+	            window.location.href = "/";
     		} else {
     			var friends = res;
     			var $fDisplay = $(".display-friends");
@@ -644,7 +643,8 @@ function submitManagementInfo() {
 	    		console.log(res);
 
 	    		if (res.msg) {
-	    			alert(res.msg);
+	    			alert(res.msg + " Redirecting to the main page.");
+	            	window.location.href = "/";
 	    		} else {
 	    			disableManagementOptions();
 	    		}
@@ -696,7 +696,8 @@ function submitModifyPassword() {
 		    	success: function(res) {
 		    		hideLoader("body");
 		    		if (res.msg) {
-		    			alert(res.msg);
+		    			alert(res.msg + " Redirecting to the main page.");
+	            		window.location.href = "/";
 		    		} else if (res.wrong) {
 		    			$passReqMsg.addClass("unmatch");
 						$passReqMsg.text("Current password is not correct. Please try again.");
@@ -760,7 +761,8 @@ function requestDeleteSessionCode($verifyMsg) {
 		dataType: "JSON",
 		success: function(res) {
     		if (res.msg) {
-    			alert(res.msg);
+    			alert(res.msg + " Redirecting to the main page.");
+	            window.location.href = "/";
     		} else {
     			$verifyMsg.addClass("unmatch");
         		$verifyMsg.show();
@@ -786,7 +788,8 @@ function submitVerifyModifyPassword(password, isVerified) {
 			data: JSON.stringify(data),
 	    	success: function(res) {
 	    		if (res.msg) {
-	    			alert(res.msg);
+	    			alert(res.msg + " Redirecting to the main page.");
+	            	window.location.href = "/";
 	    		} else {
 	    			clearInterval(countdown);
 	    			$("#modify-pass-timer").hide();
@@ -843,7 +846,8 @@ function submitDeleteAccount() {
 	    	success: function(res) {
 	    		hideLoader("body");
 	    		if (res.msg) {
-	    			alert(res.msg);
+	    			alert(res.msg + " Redirecting to the main page.");
+	            	window.location.href = "/";
 	    		} else if (res.wrong) {
 	    			$delReqMsg.addClass("unmatch");
 					$delReqMsg.text("Email or password is not correct. Please try again.");
@@ -908,7 +912,8 @@ function submitVerifyDeleteAccount(isVerified) {
 			dataType: "JSON",
 	    	success: function(res) {
 	    		if (res.msg) {
-	    			alert(res.msg);
+	    			alert(res.msg + " Redirecting to the main page.");
+	            	window.location.href = "/";
 	    		} else {
 	    			$verifyMsg.hide();
 	    			clearInterval(delAccCountDown);

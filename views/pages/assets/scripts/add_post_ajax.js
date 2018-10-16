@@ -1,3 +1,7 @@
+window.onbeforeunload = function (e) {
+    return "You will lose the saved data if you leave. Do you really want to leave this page?";
+};
+
 // javascript ajax handler for add_post.html
 $(document).ready(function() {
 	//close add post when remove-icon or cancel is clicked
@@ -12,7 +16,8 @@ $(document).ready(function() {
 		dataType: "JSON",
     	success: function(res) {
     		if (res.msg) {
-    			alert(res.msg);
+    			alert(res.msg + " Redirecting to the main page.");
+	            window.location.href = "/";
     		} else {
     			pageFname = res[0].first_name.toLowerCase().replace(/\s+/, "");
     			pageUid = res[0].uid;
@@ -209,7 +214,8 @@ $(document).ready(function() {
 	            if (res.msg) {
 	            	alert("Sorry, error occurs during the process. Please try again.");
 	            } else if (res.sessErr) {
-	            	alert(res.sessErr);
+	            	alert(res.sessErr + " Redirecting to the main page.");
+	            	window.location.href = "/";
 	            } else { //success
 	            	var moveToUrl = res.url;
 	            	if (isEdit) {

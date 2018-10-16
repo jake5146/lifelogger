@@ -375,7 +375,10 @@ $(document).ready(function() {
 	            console.log(posts);
 
 	            if (res.sessErr) {
-	            	alert(res.sessErr);
+	            	alert(res.sessErr + " Redirecting to the main page.");
+	            	window.location.href = "/";
+	            } else if (res.msg) {
+	            	alert(res.msg);
 	            } else {
 	            	curStartOffset = startOffset;
 		            curPcid = pcid;
@@ -746,7 +749,8 @@ $(document).ready(function() {
 	    		if (res.msg) {
 	    			alert(res.msg);
 	    		} else if (res.sessErr) { 
-	    			alert(res.sessErr);
+	    			alert(res.sessErr + " Redirecting to the main page.");
+	            	window.location.href = "/";
 	    		} else {
 	    			var count = res[0].count;
 	    			if (iccid !== -1) {
@@ -858,7 +862,8 @@ $(document).ready(function() {
 	    		if (res.msg) {
 	    			alert(res.msg);
 	    		} else if (res.sessErr) {
-	    			alert(res.sessErr);
+	    			alert(res.sessErr + " Redirecting to the main page.");
+	            	window.location.href = "/";
 	    		} else {
 	    			console.log(res[0].likes);
 	    			$(".like-number").text(res[0].likes);
@@ -886,7 +891,8 @@ $(document).ready(function() {
 			    		if (res.msg) {
 			    			alert(res.msg);
 			    		} else if (res.sessErr) {
-			    			alert(res.sessErr);
+			    			alert(res.sessErr + " Redirecting to the main page.");
+	            			window.location.href = "/";
 			    		} else {
 			    			getBlogLikes();
 			    			sendNotificationMsg("liked");

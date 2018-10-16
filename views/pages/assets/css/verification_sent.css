@@ -1,12 +1,39 @@
 /* Stylesheet for verification_sent.html */
 .verify-msg {
-	margin: 10% auto;
+	margin-top: 30%;
+	padding: 0 5px 20px 5px;
 	text-align: center;
+	background-color: white;
+	border-radius: 5px;
+}
+
+h1 {
+	font-size: 25px;
+	font-weight: bold;
+}
+
+@media only screen and (min-width: 480px) {
+	.verify-msg {
+		margin-top: 20%;
+	}
+}
+
+@media only screen and (min-width: 768px) {
+	.verify-msg {
+		margin-top: 15%;
+	}
+}
+
+@media only screen and (min-width: 1080px) {
+	.verify-msg {
+		margin-top: 10%;
+	}
 }
 
 .form-input {
-	padding: 2px;
-	padding-top: 5px;
+	margin-top: 5px;
+	/*padding: 2px;*/
+	/*padding-top: 5px;*/
 }
 
 input[name="verify-code"]:focus {

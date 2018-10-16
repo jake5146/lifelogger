@@ -75,12 +75,12 @@ function pageRendering() {
         dataType: "JSON",
         success: function(res) {
             if (res.sessErr) {
-                alert(res.sessErr);
+                alert(res.sessErr + " Redirecting to the main page.");
+                window.location.href = "/";
             } else {
                 var info = res[0];
                 var url = "/blog/" + info.first_name.toLowerCase() + "-" + info.uid;
                 window.location.replace(url);
-
             }
         },
         error(jqXHR, status, errorThrown) {

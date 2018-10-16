@@ -42,7 +42,7 @@ function getPostInfo(req, res) {
 		var ccidQuery = (info.ccid) ? "ccid=" + info.ccid + " AND ": "";
 		var pcidQuery = (info.pcid) ? "pcid=" + info.pcid + " AND ": "";
 		var query = "SELECT postid, title, pcid, ccid, contents, " + 
-					"likes, time_post, last_edit " + 
+					"likes, last_edit " + 
 					"FROM Posts " + 
 					"WHERE temporary=0 AND " + pcidQuery + ccidQuery +
 						  "uid=? " +

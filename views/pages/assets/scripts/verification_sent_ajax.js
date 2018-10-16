@@ -1,6 +1,12 @@
 $(document).ready(function() {
 	sentVerification();
+
 });
+
+window.onbeforeunload = function (e) {
+    return "You will lose the saved data if you leave. Do you really want to leave this page?";
+};
+
 
 var countdown;
 
@@ -15,6 +21,10 @@ function sentVerification() {
 
             
     		var sess = res;
+            if (!sess.infos) {
+                alert("Please fill up a registration form first.");
+                window.location.href = "/";
+            }
 
     		console.log(sess);
 
@@ -75,6 +85,7 @@ function submitVerifCode(e, infos, verified) {
     				$errorMsg.text("Sorry, error occurs during the process. Please try again.");
 	    		} else {
 	    			//@@TODO: add "thank you for registration pop-up"
+                    alert("Welcome! You have registered successfully!");
 	    			window.location.href = "/";
 	    		}
 	    	},
