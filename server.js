@@ -10,6 +10,10 @@ var database 	=	require("./database_handler");
 var sess_info 	=	require("./sess_info");
 var app 		= 	express();
 
+var server 		= 	require("http").Server(app);
+var io 			= 	require("socket.io")();
+// var PORT = process.env.PORT || 3100;
+// server.listen(PORT);
 
 
 // io.set("transports", ["websocket"]); 
@@ -74,11 +78,6 @@ app.use(function(req, res, next) {
 	res.setHeader("Content-Type", "application/json");
 	next();
 });
-
-var server 		= 	require("http").Server(app);
-var io 			= 	require("socket.io")();
-var PORT = process.env.PORT || 3100;
-server.listen(PORT);
 
 // var io 			= 	require("socket.io")(server);
 
@@ -502,3 +501,5 @@ function sendSession(req, res) {
 // }
 
 // ~~~~ COMMON FUNCTION ~~~~ (ABOVE) //
+var PORT = process.env.PORT || 3100;
+server.listen(PORT);
