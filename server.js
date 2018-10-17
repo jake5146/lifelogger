@@ -77,7 +77,7 @@ app.use(function(req, res, next) {
 
 var server 		= 	require("http").Server(app);
 var io 			= 	require("socket.io")(server);
-var PORT = process.env.PORT;
+var PORT = process.env.PORT || 3100;
 server.listen(PORT);
 
 // var io 			= 	require("socket.io")(server);
