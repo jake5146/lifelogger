@@ -11,7 +11,7 @@ var sess_info 	=	require("./sess_info");
 var app 		= 	express();
 
 var server 		= 	require("http").Server(app);
-var io 			= 	require("socket.io")();
+var io 			= 	require("socket.io")(server);
 // var PORT = process.env.PORT || 3100;
 // server.listen(PORT);
 

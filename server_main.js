@@ -15,7 +15,7 @@ function slashGet(req, res) {
         				"-" + sess.uid;
         res.redirect(uniqueUrl);
 	} else {
-		res.render("pages/main.html");
+		res.sendFile("pages/main.html");
 	}
 }
 
