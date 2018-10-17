@@ -13,9 +13,9 @@ var sess_info 	=	require("./sess_info");
 var app 		= 	express();
 
 var server 		= 	require("http").Server(app);
+var io 			= 	require("socket.io")(server);
 var PORT = process.env.PORT || 3100;
 server.listen(PORT);
-var io 			= 	require("socket.io")(server);
 
 // io.set("transports", ["websocket"]); 
 // io.set("polling duration", 10); 
@@ -74,11 +74,11 @@ app.use(session({
 	cookie				: sess_info.cookie
 }));
 
-// app.use(function(req, res, next) {
-// 	// res.setHeader('Access-Control-Allow-Origin', '*');
-// 	// res.setHeader("Content-Type", "application/json");
-// 	next();
-// });
+app.use(function(req, res, next) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader("Content-Type", "application/json");
+	next();
+});
 
 // ~~~~ REQUEST HANDLER FOR MAIN ~~~~ (BELOW) //
 
