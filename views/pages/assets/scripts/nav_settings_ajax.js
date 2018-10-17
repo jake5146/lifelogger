@@ -6,8 +6,8 @@ var chatScrollOffset = 0;
 var ffinderOffset = 0;
 var isChatAllUploaded = false;
 
-var liveChat        = io("/live-chat", {secure: true});
-var notification    = io("/notification", {secure: true});
+var liveChat        = io.connect("https://aqueous-brook-45465.herokuapp.com/live-chat", {secure: true});
+var notification    = io.connect("https://aqueous-brook-45465.herokuapp.com/notification", {secure: true});
 
 $(document).ready(function() { 
 	checkUserLogin();

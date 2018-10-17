@@ -8,13 +8,8 @@ var path 		= 	require("path");
 var crypto		=	require("crypto");
 var database 	=	require("./database_handler");
 var sess_info 	=	require("./sess_info");
-
-
 var app 		= 	express();
 
-var server 		= 	require("http").Server(app);
-var PORT = process.env.PORT || 3100;
-server.listen(PORT);
 
 
 // io.set("transports", ["websocket"]); 
@@ -80,7 +75,12 @@ app.use(function(req, res, next) {
 	next();
 });
 
+var server 		= 	require("http").Server(app);
 var io 			= 	require("socket.io")(server);
+var PORT = process.env.PORT;
+server.listen(PORT);
+
+// var io 			= 	require("socket.io")(server);
 
 // ~~~~ REQUEST HANDLER FOR MAIN ~~~~ (BELOW) //
 
