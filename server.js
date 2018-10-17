@@ -74,11 +74,11 @@ app.use(session({
 	cookie				: sess_info.cookie
 }));
 
-app.use(function(req, res, next) {
-	res.setHeader('Access-Control-Allow-Origin', '*');
-	res.setHeader("Content-Type", "application/json");
-	next();
-});
+// app.use(function(req, res, next) {
+// 	res.setHeader('Access-Control-Allow-Origin', '*');
+// 	res.setHeader("Content-Type", "application/json");
+// 	next();
+// });
 
 // ~~~~ REQUEST HANDLER FOR MAIN ~~~~ (BELOW) //
 
