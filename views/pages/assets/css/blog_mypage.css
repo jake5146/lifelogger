@@ -69,7 +69,7 @@
 }
 
 .blogger-description > p {
-	word-break: break-all;
+	text-overflow: ellipsis;
 }
 
 .blogger-description button {
@@ -155,7 +155,7 @@
 */
 
 .table .about {
-	word-break: break-all;
+	text-overflow: ellipsis;
 }
 
 

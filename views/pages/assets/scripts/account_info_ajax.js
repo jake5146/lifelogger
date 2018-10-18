@@ -117,6 +117,8 @@ function submitProfileInfo() {
 
 		//Get data using FormData class.
 		var formData = new FormData($("#profile-form")[0]);
+		var about = $("#profile-form textarea#about").val();
+		formData.append("about", about ? about: "");
 
 		$.ajax({
 			type: "POST",

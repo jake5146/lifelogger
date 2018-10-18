@@ -97,10 +97,11 @@ span.nickname {
 }
 
 p.about {
-	height: 100%;
+	display: block;
 	margin-top: 15px;
-	word-break: break-all;
-	overflow-y: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 img.blog-header {
