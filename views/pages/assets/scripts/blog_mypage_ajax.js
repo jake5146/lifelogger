@@ -61,7 +61,7 @@ $(document).ready(function() {
 	            	}
 
 	                if (info.profile) {
-	                	$("#profile-img").attr("src", "./uploads/" + info.profile);
+	                	$("#profile-img").attr("src", "/uploads/" + info.profile);
 	                }
 	            }
 	    	},
@@ -732,7 +732,7 @@ $(document).ready(function() {
 		var parents = category[0];
 	    var pToC = category[1];
 	    
-	    var pcids = Object.keys(parents).map(x => parseInt(x));
+	    var pcids = Object.keys(parents).map(function(x) {return parseInt(x);});
 	    pcids = pcids.sort(sortFcn); 
 	    getPostsCount(parents, pToC, pcids, -1, undefined, -1);
 	}
@@ -776,7 +776,7 @@ $(document).ready(function() {
 	    		    	$("ul.category-body").append($pLi);
 	    		    	var children = pToC[pcid];
 	    		    	if (children) {
-	    		    		var ccids = Object.keys(children).map(x => parseInt(x));
+	    		    		var ccids = Object.keys(children).map(function(x) {return parseInt(x);});
 	    		    		ccids = ccids.sort(sortFcn);
 	    		    		getPostsCount(parents, pToC, pcidList, ipcid, ccids, iccid + 1);
 	    		    	} else if (ipcid < pcidList.length - 1) {
@@ -913,7 +913,7 @@ $(document).ready(function() {
 
 	function findNumber(classes, filter) {
 		var classesList = classes.split(/\s+/);
-		var theClass = classesList.find(each => each.indexOf(filter) !== -1);
+		var theClass = classesList.find(function(each) {return each.indexOf(filter) !== -1;});
 		return (!theClass) ? theClass: parseInt(theClass.replace(filter, ""));
 	}
 

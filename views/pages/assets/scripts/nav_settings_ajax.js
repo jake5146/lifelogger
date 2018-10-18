@@ -224,7 +224,7 @@ function createChatList(info) {
     var $imgBox = $("<div>", {class: "inline-box msger-img-box"});
 
     var imgSrc = (info.user1 === userid) ? info.profile2: info.profile1;
-    imgSrc = (imgSrc) ? "./uploads/" + imgSrc: "/assets/images/default-profile.gif";
+    imgSrc = (imgSrc) ? "/uploads/" + imgSrc: "/assets/images/default-profile.gif";
     var $img = $("<img>", {
         class: "msger-profile-img",
         src: imgSrc,
@@ -480,7 +480,7 @@ function addFriendListForNewChat(info) {
 
     var $imgBox = $("<div>", {class: "inline-box msger-img-box"});
 
-    var imgSrc = (info.profile) ? "./uploads/" + info.profile: "/assets/images/default-profile.gif";
+    var imgSrc = (info.profile) ? "/uploads/" + info.profile: "/assets/images/default-profile.gif";
     var $img = $("<img>", {
         class: "msger-profile-img",
         src: imgSrc,
@@ -615,7 +615,7 @@ function prependNotificationList(info) {
         class: "inline-box msger-img-box"
     });
 
-    var imgSrc = (info.profile) ? "./uploads/" + info.profile: "/assets/images/default-profile.gif";
+    var imgSrc = (info.profile) ? "/uploads/" + info.profile: "/assets/images/default-profile.gif";
     var $img = $("<img>", {
         class: "msger-profile-img",
         src: imgSrc,

@@ -1,6 +1,7 @@
 var friendOffset = 0;
 
 $(document).ready(function() {
+	$.ajaxSetup({ cache: false });
 	hideMessages();
 	getPersonalInfo();
 	submitProfileInfo();
@@ -117,17 +118,6 @@ function submitProfileInfo() {
 		//Get data using FormData class.
 		var formData = new FormData($("#profile-form")[0]);
 
-		var phone = $("#profile-form input[name='phone']").val();
-		var about = $("#profile-form textarea#about").val();
-
-		formData.set("phone", phone ? phone: "");
-		formData.set("about", about ? about: "");
-
-
-		//set contentType to false in order to prevent the boundary string from being
-		// missed from it.
-		//set processData to false in order to prevent Jquery from automatically
-		// transforming the data into a query string.
 		$.ajax({
 			type: "POST",
 			url: "/submit-profile-edit",
@@ -224,7 +214,7 @@ function displayExistingCategories(category) {
     var $allLi = createCategoryElement("all-category tree-root tree-selected", "All");
     $list.append($allLi);
 
-    var pcids = Object.keys(parents).map(x => parseInt(x));
+    var pcids = Object.keys(parents).map(function(x) {return parseInt(x);});
     pcids = pcids.sort(sortFcn); 
     $.each(pcids, function(i, val) {
     	var pClassName = "parent-tree tree-node tree-id-" + val;
@@ -233,7 +223,7 @@ function displayExistingCategories(category) {
     	var children = pToC[val];
     	if (children) {
     		var $childList = $("<ul>");
-    		var ccids = Object.keys(children).map(x => parseInt(x));
+    		var ccids = Object.keys(children).map(function(x) {return parseInt(x);});
     		ccids = ccids.sort(sortFcn);
     		$.each(ccids, function(j, cval) {
     			var cClassName = "child-tree tree-node tree-id-" + cval;

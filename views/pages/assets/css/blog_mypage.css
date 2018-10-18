@@ -1,7 +1,7 @@
 /* stylesheet for blog_mypage.html */
 
 .blog-body {
-	background-color: rgba(255, 255, 255);
+	background-color: rgb(255, 255, 255);
 	position: relative;
 	top: 80px;
 	width: 100%;
