@@ -103,7 +103,7 @@ function getPersonalInfo() {
                 $("input[name='notify2'][value='" + notifyLikes + "']").prop("checked", true);
             }
     	},
-    	error(jqXHR, status, errorThrown) {
+    	error: function(jqXHR, status, errorThrown) {
     		console.log(jqXHR);
     	}
 	});
@@ -163,7 +163,7 @@ function submitProfileInfo() {
 					$("button#profile-edit-btn").show();
 	    		}
 	    	},
-	    	error(jqXHR, status, errorThrown) {
+	    	error: function(jqXHR, status, errorThrown) {
 	    		console.log(jqXHR);
 	    	}
 		});
@@ -205,7 +205,7 @@ function getCategoryInfo() {
             $("#add-category-btn").click(addCategory);
             $("#delete-category-btn").click(notifyBeforeRemovingCategory);
     	},
-    	error(jqXHR, status, errorThrown) {
+    	error: function(jqXHR, status, errorThrown) {
     		console.log(jqXHR);
     	}
 	});
@@ -421,7 +421,7 @@ function submitEdittedCategory() {
 	            	window.location.href = "/";
 	    		} 
 	    	},
-	    	error(jqXHR, status, errorThrown) {
+	    	error: function(jqXHR, status, errorThrown) {
 	    		console.log(jqXHR);
 	    	}
 		});
@@ -579,7 +579,7 @@ function getFriendsInfo(keyword, offset) {
 
     		}
     	},
-    	error(jqXHR, status, errorThrown) {
+    	error: function(jqXHR, status, errorThrown) {
     		console.log(jqXHR);
     	}
 	});
@@ -651,7 +651,7 @@ function submitManagementInfo() {
 
 
 	    	},
-	    	error(jqXHR, status, errorThrown) {
+	    	error: function(jqXHR, status, errorThrown) {
 	    		console.log(jqXHR);
 	    	}
 		});
@@ -742,7 +742,7 @@ function submitModifyPassword() {
 			    		});
 		    		}
 		    	},
-		    	error(jqXHR, status, errorThrown) {
+		    	error: function(jqXHR, status, errorThrown) {
 		    		console.log(jqXHR);
 		    	}
 			});
@@ -769,7 +769,7 @@ function requestDeleteSessionCode($verifyMsg) {
         		$verifyMsg.text("Timeout. Please request again.");
     		}
     	},
-    	error(jqXHR, status, errorThrown) {
+    	error: function(jqXHR, status, errorThrown) {
     		console.log(jqXHR);
     	}
 	});
@@ -802,7 +802,7 @@ function submitVerifyModifyPassword(password, isVerified) {
 	    			}, 5000);
 	    		}
 	    	},
-	    	error(jqXHR, status, errorThrown) {
+	    	error: function(jqXHR, status, errorThrown) {
 	    		console.log(jqXHR);
 	    	}
 		});
@@ -892,7 +892,7 @@ function submitDeleteAccount() {
 		    		});
 	    		}
 	    	},
-	    	error(jqXHR, status, errorThrown) {
+	    	error: function(jqXHR, status, errorThrown) {
 	    		console.log(jqXHR);
 	    	}
 		});
@@ -922,7 +922,7 @@ function submitVerifyDeleteAccount(isVerified) {
 	    			window.location.href = "/";
 	    		}
 	    	},
-	    	error(jqXHR, status, errorThrown) {
+	    	error: function(jqXHR, status, errorThrown) {
 	    		console.log(jqXHR);
 	    	}
 		});

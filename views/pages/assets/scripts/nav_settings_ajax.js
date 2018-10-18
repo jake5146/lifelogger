@@ -116,7 +116,7 @@ function submitChatMsg(e) {
                     liveChat.emit("chat-message", room, JSON.stringify(msgInfo));
                 }
             },
-            error(jqXHR, status, errorThrown) {
+            error: function(jqXHR, status, errorThrown) {
                 console.log(jqXHR);
             }
         });
@@ -152,7 +152,7 @@ function checkUserLogin() {
                 notification.emit("notif-connect", userid);
             }
     	},
-    	error(jqXHR, status, errorThrown) {
+    	error: function(jqXHR, status, errorThrown) {
     		console.log(jqXHR);
     	}
 	});
@@ -175,7 +175,7 @@ function displayChatLists() {
                 displayUnreadBadge(res);
             }
         },
-        error(jqXHR, status, errorThrown) {
+        error: function(jqXHR, status, errorThrown) {
             console.log(jqXHR);
         }
     });
@@ -210,7 +210,7 @@ function displayUnreadBadge(chatlists) {
                 $(".msg-total-badge").text((totalUnread > 0) ? totalUnread: "");
             }
         },
-        error(jqXHR, status, errorThrown) {
+        error: function(jqXHR, status, errorThrown) {
             console.log(jqXHR);
         }
     });
@@ -330,7 +330,7 @@ function updateChatUnreadBadge(chatid) {
                 }
             }
         },
-        error(jqXHR, status, errorThrown) {
+        error: function(jqXHR, status, errorThrown) {
             console.log(jqXHR);
         }
     });
@@ -383,7 +383,7 @@ function getChatContents(info) {
                 $content.scroll(function() {getContentsOnScroll(info)});
             }
         },
-        error(jqXHR, status, errorThrown) {
+        error: function(jqXHR, status, errorThrown) {
             console.log(jqXHR);
         }
     });
@@ -466,7 +466,7 @@ function getFriendsForNewChat(isSearch, offset) {
                 ffinderOffset += i;
             }
         },
-        error(jqXHR, status, errorThrown) {
+        error: function(jqXHR, status, errorThrown) {
             console.log(jqXHR);
         }
     });
@@ -534,7 +534,7 @@ function openNewChatRoom(friendInfo) {
                 openChatOnClick(friendInfo);
             }
         },
-        error(jqXHR, status, errorThrown) {
+        error: function(jqXHR, status, errorThrown) {
             console.log(jqXHR);
         }
     });
@@ -564,7 +564,7 @@ function getUnseenNotification() {
                 $(".notif-total-badge").text((count > 0) ? count: "");
             }
         },
-        error(jqXHR, status, errorThrown) {
+        error: function(jqXHR, status, errorThrown) {
             console.log(jqXHR);
         }
     });
@@ -599,7 +599,7 @@ function displayNotificationLists() {
                 }
             }
         },
-        error(jqXHR, status, errorThrown) {
+        error: function(jqXHR, status, errorThrown) {
             console.log(jqXHR);
         }
     });
@@ -669,7 +669,7 @@ function updateOnNotificationRead(info) {
                 window.location.href =  "/blog/" + first_name + "-" + info.user_sent;
             }
         },
-        error(jqXHR, status, errorThrown) {
+        error: function(jqXHR, status, errorThrown) {
             console.log(jqXHR);
         }
     });
@@ -696,7 +696,7 @@ function addNotification(info) {
                 getUnseenNotification();
             }
         },
-        error(jqXHR, status, errorThrown) {
+        error: function(jqXHR, status, errorThrown) {
             console.log(jqXHR);
         }
     });

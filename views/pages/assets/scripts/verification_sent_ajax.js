@@ -57,7 +57,7 @@ function sentVerification() {
     			submitVerifCode(e, sess.infos, verified);
     		});
     	},
-    	error(jqXHR, status, errorThrown) {
+    	error: function(jqXHR, status, errorThrown) {
     		console.log(jqXHR);
     	}
 	});
@@ -89,7 +89,7 @@ function submitVerifCode(e, infos, verified) {
 	    			window.location.href = "/";
 	    		}
 	    	},
-	    	error(jqXHR, status, errorThrown) {
+	    	error: function(jqXHR, status, errorThrown) {
 	    		console.log(jqXHR);
 	    	}
 		});
@@ -118,7 +118,7 @@ function requestSessionDestroy() {
 				$("form#verif-code-form > input").prop("disabled", true);
     		}
     	},
-    	error(jqXHR, status, errorThrown) {
+    	error: function(jqXHR, status, errorThrown) {
     		console.log(jqXHR);
     	}
 	});

@@ -24,7 +24,7 @@ $(document).ready(function() {
 
     		}
     	},
-    	error(jqXHR, status, errorThrown) {
+    	error: function(jqXHR, status, errorThrown) {
     		console.log(jqXHR);
     	}
 	});
@@ -53,7 +53,7 @@ $(document).ready(function() {
 					});
 	    		}
 	    	},
-	    	error(jqXHR, status, errorThrown) {
+	    	error: function(jqXHR, status, errorThrown) {
 	    		console.log(jqXHR);
 	    	}
 		});

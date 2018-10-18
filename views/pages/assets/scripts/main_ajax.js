@@ -13,7 +13,7 @@ $(document).ready(function() {
 			success: function(res) {
 				window.location.href = "/register";
 			},
-			error(jqXHR, status, errorThrown) {
+			error: function(jqXHR, status, errorThrown) {
 	    		console.log(jqXHR);
 	    	}
 		});
@@ -60,7 +60,7 @@ function submitLoginForm(e) {
     		// add error message according to responded code.
     		$errorMsg.text(errTxt);
     	},
-    	error(jqXHR, status, errorThrown) {
+    	error: function(jqXHR, status, errorThrown) {
     		console.log(jqXHR);
     	}
     });
@@ -83,7 +83,7 @@ function pageRendering() {
                 window.location.replace(url);
             }
         },
-        error(jqXHR, status, errorThrown) {
+        error: function(jqXHR, status, errorThrown) {
             console.log(jqXHR);
         }
     });

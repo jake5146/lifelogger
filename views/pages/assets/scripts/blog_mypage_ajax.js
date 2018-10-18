@@ -65,7 +65,7 @@ $(document).ready(function() {
 	                }
 	            }
 	    	},
-	    	error(jqXHR, status, errorThrown) {
+	    	error: function(jqXHR, status, errorThrown) {
 	    		console.log(jqXHR);
 	    	}
 		});
@@ -157,7 +157,7 @@ $(document).ready(function() {
 	             addEventHandlerForFriendsAdd();
 
 	    	},
-	    	error(jqXHR, status, errorThrown) {
+	    	error: function(jqXHR, status, errorThrown) {
 	    		console.log(jqXHR);
 	    	}
 		});
@@ -316,7 +316,7 @@ $(document).ready(function() {
 
 	    		}
 	    	},
-	    	error(jqXHR, status, errorThrown) {
+	    	error: function(jqXHR, status, errorThrown) {
 	    		console.log(jqXHR);
 	    	}
 		});
@@ -341,7 +341,7 @@ $(document).ready(function() {
 	            	notification.emit("notif-user", pageUid, JSON.stringify(notif));
 	            }
 	    	},
-	    	error(jqXHR, status, errorThrown) {
+	    	error: function(jqXHR, status, errorThrown) {
 	    		console.log(jqXHR);
 	    	}
 		});
@@ -388,7 +388,7 @@ $(document).ready(function() {
 		            hideLoader("body");
 	            }
 	    	},
-	    	error(jqXHR, status, errorThrown) {
+	    	error: function(jqXHR, status, errorThrown) {
 	    		console.log(jqXHR);
 	    	}
 		});
@@ -722,7 +722,7 @@ $(document).ready(function() {
 	            var category = organizeCategories(res);
 	            addCategoryLinks(category);
 	    	},
-	    	error(jqXHR, status, errorThrown) {
+	    	error: function(jqXHR, status, errorThrown) {
 	    		console.log(jqXHR);
 	    	}
 		});
@@ -792,7 +792,7 @@ $(document).ready(function() {
 	    			}
 	    		}
 	    	},
-	    	error(jqXHR, status, errorThrown) {
+	    	error: function(jqXHR, status, errorThrown) {
 	    		console.log(jqXHR);
 	    	}
 		});
@@ -869,7 +869,7 @@ $(document).ready(function() {
 	    			$(".like-number").text(res[0].likes);
 	    		}
 	    	},
-	    	error(jqXHR, status, errorThrown) {
+	    	error: function(jqXHR, status, errorThrown) {
 	    		console.log(jqXHR);
 	    	}
 		});
@@ -898,7 +898,7 @@ $(document).ready(function() {
 			    			sendNotificationMsg("liked");
 			    		}
 			    	},
-			    	error(jqXHR, status, errorThrown) {
+			    	error: function(jqXHR, status, errorThrown) {
 			    		console.log(jqXHR);
 			    	}
 				});

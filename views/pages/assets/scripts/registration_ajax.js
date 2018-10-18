@@ -63,7 +63,7 @@ function submitRegisterForm(e) {
             }
             $errorMsg.text(errTxt);
     	},
-    	error(jqXHR, status, errorThrown) {
+    	error: function(jqXHR, status, errorThrown) {
     		console.log(jqXHR);
     	}
 	});

@@ -24,7 +24,7 @@ $(document).ready(function() {
     			getCategoryOptions();
     		}
     	},
-    	error(jqXHR, status, errorThrown) {
+    	error: function(jqXHR, status, errorThrown) {
     		console.log(jqXHR);
     	}
 	});
@@ -45,7 +45,7 @@ $(document).ready(function() {
 	            loadExistingPostOnEdit();
 
 	    	},
-	    	error(jqXHR, status, errorThrown) {
+	    	error: function(jqXHR, status, errorThrown) {
 	    		console.log(jqXHR);
 	    	}
 		});
@@ -129,7 +129,7 @@ $(document).ready(function() {
 						window.location.replace(mypageUrl + "/post-" + curPostid);
 					});
 		    	},
-		    	error(jqXHR, status, errorThrown) {
+		    	error: function(jqXHR, status, errorThrown) {
 		    		console.log(jqXHR);
 		    	}
 			});
@@ -225,7 +225,7 @@ $(document).ready(function() {
 	            }
 	            
 	    	},
-	    	error(jqXHR, status, errorThrown) {
+	    	error: function(jqXHR, status, errorThrown) {
 	    		console.log(jqXHR);
 	    	}
 		});
