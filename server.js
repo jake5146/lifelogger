@@ -31,7 +31,7 @@ var storage 	= 	multer.diskStorage({
 });
 var upload		=	multer({ storage: storage });
 
-app.use(express.static(__dirname + "/views/pages", {extensions: ['html']}));
+app.use(express.static(__dirname + "/views/pages", {extensions: ['html', 'json']}));
 
 // views is directory for all template files
 //app.set('views', webDir);
@@ -52,6 +52,12 @@ app.use(session({
 	saveUninitialized	: sess_info.saveUninitialized,
 	cookie				: sess_info.cookie
 }));
+
+app.use(function(req, res, next) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	// res.setHeader("Content-Type", "application/json");
+	next();
+});
 
 // ~~~~ REQUEST HANDLER FOR MAIN ~~~~ (BELOW) //
 

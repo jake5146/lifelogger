@@ -6,8 +6,9 @@ var chatScrollOffset = 0;
 var ffinderOffset = 0;
 var isChatAllUploaded = false;
 
-var liveChat        = io("/live-chat");
-var notification    = io("/notification");
+// var liveChat        = io("/live-chat");
+// var notification    = io("/notification");
+var liveChat, notification;
 
 $(document).ready(function() { 
 	checkUserLogin();
@@ -140,6 +141,8 @@ function checkUserLogin() {
     			$li.prepend($a);
     			$(".navbar-right").prepend($li);
     		} else {
+                liveChat        = io("/live-chat");
+                notification    = io("/notification");
                 userid = sess.uid;
                 defaultSetOnDocReady();
                 getUnseenNotification();

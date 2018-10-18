@@ -25,8 +25,10 @@ function databaseHandler(req, res, sqlQuery, queryVals, queryFcn, fcnCallback) {
 		console.log("connectionHandler poolErr: " + typeof poolErr);
 		console.log("connectionHandler connection: " + typeof connection);
 		if (poolErr) {
+			console.log("poolErr::");
+			console.log(poolErr);
 			res.json({"code": 100, "status": "Error in connection database", 
-				"message": poolErr});
+				msg: poolErr});
 			return;
 		}
 
@@ -44,7 +46,9 @@ function databaseHandler(req, res, sqlQuery, queryVals, queryFcn, fcnCallback) {
 		});
 
 		connection.on("error", function(err) {
-			res.json({"code": 100, "status": "Error in connection database"});
+			console.log("connection on error::");
+			console.log(err);
+			//res.json({"code": 100, "status": "Error in connection database", msg: err});
 			return;
 		});
 	});
@@ -53,6 +57,7 @@ function databaseHandler(req, res, sqlQuery, queryVals, queryFcn, fcnCallback) {
 function multipleQueryHandler(req, res, queries, queryVals, resultFcn) {
 	pool.getConnection(function(poolErr, connection) {
 		console.log("connectionHandler poolErr: " + typeof poolErr);
+		console.log(poolErr);
 		console.log("connectionHandler connection: " + typeof connection);
 		if (poolErr) {
 			res.json({"code": 100, "status": "Error in connection database", 
@@ -70,7 +75,7 @@ function multipleQueryHandler(req, res, queries, queryVals, resultFcn) {
 		queryProcessor(req, res, connection, i, queries, queryVals, resultFcn);
 
 		connection.on("error", function(err) {
-			res.json({"code": 100, "status": "Error in connection database"});
+			//res.json({"code": 100, "status": "Error in connection database", msg: err});
 			return;
 		});
 	});
